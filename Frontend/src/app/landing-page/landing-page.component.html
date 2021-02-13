@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#myPage">TnS</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#services">FEATURES</a></li>
+            <li><a href="#FAQs">FAQs</a></li>
+            <li><a href="#pricing">PRICING</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+            <li><a class="login" data-toggle="modal" data-target="#loginModal">Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="jumbotron text-center">
+      <h1>Tasks-n-Schedule</h1>
+      <p>Easy to maintain task & work in Agile environment</p>
+      <!-- <form>
+        <div class="input-group">
+          <input type="email" class="form-control" size="50" placeholder="Email Address" required>
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-danger">Subscribe</button>
+          </div>
+        </div>
+      </form> -->
+    </div>
+
+    <!-- Container (About Section) -->
+    <div id="about" class="container-fluid">
+      <div class="row">
+        <div class="col-sm-8">
+          <h2>About Company Page</h2><br>
+          <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+        <div class="col-sm-4">
+          <div class="progress skill-bar">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                <span class="skill">JavaScript<i class="val">100%</i></span>
+            </div>
+        </div>
+
+        <div class="progress skill-bar">
+            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+                <span class="skill">HTML<i class="val">80%</i></span>
+            </div>
+        </div>
+
+        <div class="progress skill-bar">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                <span class="skill">CSS<i class="val">70%</i></span>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid bg-grey">
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="glyphicon glyphicon-globe logo slideanim"></span>
+        </div>
+        <div class="col-sm-8">
+          <h2>Our Values</h2><br>
+          <h4><strong>MISSION:</strong> Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
+          <p><strong>VISION:</strong> Our vision Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container (Services Section) -->
+    <div id="services" class="container-fluid text-center">
+      <h2>FEATURES</h2>
+      <h4>What we offer</h4>
+      <br>
+      <div class="row slideanim">
+        <div class="col-sm-4">
+          <span class="glyphicon glyphicon-off logo-small"></span>
+          <h4>POWER</h4>
+          <p>Lorem ipsum dolor sit amet..</p>
+        </div>
+        <div class="col-sm-4">
+          <span class="glyphicon glyphicon-heart logo-small"></span>
+          <h4>LOVE</h4>
+          <p>Lorem ipsum dolor sit amet..</p>
+        </div>
+        <div class="col-sm-4">
+          <span class="glyphicon glyphicon-lock logo-small"></span>
+          <h4>JOB DONE</h4>
+          <p>Lorem ipsum dolor sit amet..</p>
+        </div>
+      </div>
+      <br><br>
+      <div class="row slideanim">
+        <div class="col-sm-4">
+          <span class="glyphicon glyphicon-leaf logo-small"></span>
+          <h4>GREEN</h4>
+          <p>Lorem ipsum dolor sit amet..</p>
+        </div>
+        <div class="col-sm-4">
+          <span class="glyphicon glyphicon-certificate logo-small"></span>
+          <h4>CERTIFIED</h4>
+          <p>Lorem ipsum dolor sit amet..</p>
+        </div>
+        <div class="col-sm-4">
+          <span class="glyphicon glyphicon-wrench logo-small"></span>
+          <h4 style="color:#303030;">HARD WORK</h4>
+          <p>Lorem ipsum dolor sit amet..</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container (Portfolio Section) -->
+    <div id="FAQs" class="container-fluid text-center bg-grey">
+      <h2>FAQs</h2><br>
+      <h4>What we have created</h4>
+      <div class="container ">
+        <div class="panel-group" id="faqAccordion">
+            <div class="panel panel-default ">
+                <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question0">
+                     <h4 class="panel-title">
+                        <!-- <a href="#" class="ing">Q: What is Lorem Ipsum?</a> -->
+                        <span class="fake-link ing">Q: What is Lorem Ipsum?</span>
+                  </h4>
+
+                </div>
+                <div id="question0" class="panel-collapse collapse" style="height: 0px;">
+                    <div class="panel-body">
+                         <h5><span class="label label-primary">Answer</span></h5>
+
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five <a href="http://jquery2dotnet.com/" class="label label-success">http://jquery2dotnet.com/</a> centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            </p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question1">
+                     <h4 class="panel-title">
+                        <!-- <a href="#" class="ing">Q: Why do we use it?</a> -->
+                        <span class="fake-link ing">Q: Why do we use it?</span>
+                  </h4>
+
+                </div>
+                <div id="question1" class="panel-collapse collapse" style="height: 0px;">
+                    <div class="panel-body">
+                         <h5><span class="label label-primary">Answer</span></h5>
+
+                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question2">
+                     <h4 class="panel-title">
+                        <!-- <a href="#" class="ing">Q: Where does it come from?</a> -->
+                        <span class="fake-link ing">Q: Where does it come from?</span>
+                  </h4>
+
+                </div>
+                <div id="question2" class="panel-collapse collapse" style="height: 0px;">
+                    <div class="panel-body">
+                         <h5><span class="label label-primary">Answer</span></h5>
+
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question3">
+                     <h4 class="panel-title">
+                        <!-- <a href="#" class="ing">Q: Where can I get some?</a> -->
+                        <span class="fake-link ing">Q: Where can I get some?</span>
+                  </h4>
+
+                </div>
+                <div id="question3" class="panel-collapse collapse" style="height: 0px;">
+                    <div class="panel-body">
+                         <h5><span class="label label-primary">Answer</span></h5>
+
+                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--/panel-group-->
+    </div>
+    </div>
+
+    <!-- Container (Pricing Section) -->
+    <div id="pricing" class="container-fluid">
+      <div class="text-center">
+        <h2>Pricing</h2>
+        <h4>Choose a payment plan that works for you</h4>
+      </div>
+      <div class="row slideanim">
+        <div class="col-sm-4 col-xs-12"></div>
+        <div class="col-sm-4 col-xs-12">
+          <div class="panel panel-default text-center">
+            <div class="panel-heading">
+              <h1>Basic</h1>
+            </div>
+            <div class="panel-body">
+              <p><strong>20</strong> Lorem</p>
+              <p><strong>15</strong> Ipsum</p>
+              <p><strong>5</strong> Dolor</p>
+              <p><strong>2</strong> Sit</p>
+              <p><strong>Endless</strong> Amet</p>
+            </div>
+            <div class="panel-footer">
+              <h3>$19</h3>
+              <h4>per month</h4>
+              <button class="btn btn-lg">Purchase</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 col-xs-12"></div>
+      </div>
+    </div>
+
+    <!-- Container (Contact Section) -->
+    <div id="contact" class="container-fluid bg-grey">
+      <h2 class="text-center">CONTACT</h2>
+      <div class="row">
+        <div class="col-sm-5">
+          <p>Contact us and we'll get back to you within 24 hours.</p>
+          <p><span class="glyphicon glyphicon-map-marker"></span> Chicago, US</p>
+          <p><span class="glyphicon glyphicon-phone"></span> +00 1515151515</p>
+          <p><span class="glyphicon glyphicon-envelope"></span> myemail@something.com</p>
+        </div>
+        <div class="col-sm-7 slideanim">
+          <div class="row">
+            <div class="col-sm-6 form-group">
+              <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+            </div>
+            <div class="col-sm-6 form-group">
+              <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+            </div>
+          </div>
+          <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+          <div class="row">
+            <div class="col-sm-12 form-group">
+              <button class="btn btn-default pull-right" type="submit">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <footer class="container-fluid text-center">
+      <a href="#myPage" title="To Top">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+      </a>
+      <p>Bootstrap Theme Made By <a href="https://www.w3schools.com" title="Visit w3schools">www.w3schools.com</a></p>
+    </footer> -->
+
+    <footer class="footer text-center">
+      <div class="container">
+          <div class="row">
+
+              <!-- Footer Location-->
+              <div class="col-lg-4 mb-5 mb-lg-0">
+                  <h4 class="text-uppercase mb-4">Location</h4>
+                  <p class="lead mb-0">
+                      2215 John Daniel Drive
+                      <br />
+                      Clark, MO 65243
+                  </p>
+              </div>
+              <!-- Footer Social Icons-->
+              <div class="col-lg-4 mb-5 mb-lg-0">
+                  <h4 class="text-uppercase mb-4">Around the Web</h4>
+                  <a class="btn btn-outline-light btn-social mx-1" href="#!"><i style="font-size: 22px;" class="fa fa-facebook-official"></i></a>
+                  <a class="btn btn-outline-light btn-social mx-1" href="#!"><i style="font-size: 22px;" class="fa fa-google-plus"></i></a>
+                  <a class="btn btn-outline-light btn-social mx-1" href="#!"><i style="font-size: 22px;" class="fa fa-linkedin"></i></a>
+              </div>
+              <!-- Footer About Text-->
+              <div class="col-lg-4">
+                  <h4 class="text-uppercase mb-4">About Freelancer</h4>
+                  <p class="lead mb-0">
+                      Freelance is a free to use, MIT licensed Bootstrap theme created by
+                      <a href="http://startbootstrap.com">Start Bootstrap</a>
+                      .
+                  </p>
+              </div>
+          </div>
+      </div>
+      <a href="#myPage" title="To Top">
+        <span class="topUp glyphicon glyphicon-chevron-up"></span>
+      </a>
+    </footer>
+    <div class="copyright py-4 text-center text-white">
+      <div class="container"><small>Copyright © Your Website 2020</small></div>
+    </div>
+</body>
+</html>

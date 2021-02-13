@@ -1,0 +1,12 @@
+#loginModal .form-group {
+  margin-bottom: 30px;
+}
+
+#loginModal .btn-info {
+  margin-bottom: 20px;
+  margin-top: 35px;
+}
+
+#loginModal .modal-content {
+  min-height: 340px;
+}
