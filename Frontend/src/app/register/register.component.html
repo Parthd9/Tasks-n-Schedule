@@ -1,1 +1,77 @@
-<p>register works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<title>Bootstrap Simple Registration Form</title>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  -->
+
+</head>
+<body>
+<div class="signup-form">
+    <form [formGroup] = "registerForm" (ngSubmit)= "onSubmit()">
+		<h2>Register</h2>
+		<p class="hint-text">Create your account. It's free and only takes a minute.</p>
+        <!-- <div class="form-group">
+			<div class="row">
+				<div class="col-xs-6"><input type="text" class="form-control" formControlName='firstName' placeholder="First Name"></div>
+				<div class="col-xs-6"><input type="text" class="form-control" formControlName='lastName' placeholder="Last Name"></div>
+			</div>        	
+        </div> -->
+        <div class="form-group">
+            <input type="email" class="form-control" formControlName='email' placeholder="Email" >
+            <div *ngIf="f.email.touched && f.email.invalid" class="alert alert-danger">
+                <div *ngIf="f.email.errors.required">Email is required.</div>
+                <div *ngIf="f.email.errors.email">Please enter valid email.</div>
+            </div>
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control" formControlName='password' placeholder="Password" >
+            <div *ngIf="f.password.touched && f.password.invalid" class="alert alert-danger">
+                <div *ngIf="f.password.errors.required">Password is required.</div>
+                <div *ngIf="f.password.errors.minlength">Password must contain at least eight characters.</div>
+            </div>
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control" placeholder="Confirm Password" #confirmPwd>
+            <div *ngIf="!isPwdMatched" class="alert alert-danger">
+                <span>Password and confirm password must be same.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName='orgName' placeholder="Organization Name" >
+            <div *ngIf="f.orgName.touched && f.orgName.invalid" class="alert alert-danger">
+                <div *ngIf="f.orgName.errors.required">Organization Name is required.</div>
+                <div *ngIf="f.orgName.errors.minlength">Organization Name must contain at least three characters.</div>
+                <div *ngIf="f.orgName.errors.pattern">Please enter valid Organization Name.</div>
+            </div>
+        </div>  
+        <div class="form-group">
+            <select formControlName="orgDomain" class="form-control" (change)="changeDomain($event)">
+                <option disabled>Select Domain</option>
+                <option>Choose Domain</option>
+                <option *ngFor="let domain of Domain">{{domain}}</option>
+            </select>
+            <div *ngIf="f.orgDomain.touched && f.orgDomain.invalid" class="alert alert-danger">
+                <div *ngIf="f.orgDomain.errors.required">OrgDomain is required.</div>
+            </div>
+        </div>
+        <!-- <div class="form-group">
+			<label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+        </div> -->
+        <span *ngIf="!registerForm.valid && registerForm.touched" class="help-block">
+            Please enter a valid data!
+        </span>
+		<div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block" [disabled] = "registerForm.invalid">Register Now</button>
+        </div>
+    </form>
+	<div class="text-center">Already have an account? <a routerLink="/login">Sign in</a></div>
+</div>
+</body>
+</html>

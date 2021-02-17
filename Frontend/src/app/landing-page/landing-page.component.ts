@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-declare var $:any;
+import * as $ from 'jquery';
+// declare var $:any;
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',

@@ -30,7 +30,7 @@ h4 {
   background-color: #f6f6f6;
 }
 .logo-small {
-  color:#37517e;
+  color: #37517e;
   font-size: 50px;
 }
 .logo {
@@ -47,7 +47,8 @@ h4 {
   height: 100%;
   margin-bottom: 10px;
 }
-.carousel-control.right, .carousel-control.left {
+.carousel-control.right,
+.carousel-control.left {
   background-image: none;
   color: #37517e;
 }
@@ -69,11 +70,11 @@ h4 {
 }
 .panel {
   border: 1px solid #37517e;
-  border-radius:0 !important;
+  border-radius: 0 !important;
   transition: box-shadow 0.5s;
 }
 .panel:hover {
-  box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+  box-shadow: 5px 0px 40px rgba(0, 0, 0, 0.2);
 }
 .panel-footer .btn:hover {
   border: 1px solid #37517e;
@@ -116,10 +117,12 @@ h4 {
   border-radius: 0;
   font-family: Montserrat, sans-serif;
 }
-.navbar li a, .navbar .navbar-brand {
+.navbar li a,
+.navbar .navbar-brand {
   color: #fff !important;
 }
-.navbar-nav li a:hover, .navbar-nav li.active a {
+.navbar-nav li a:hover,
+.navbar-nav li.active a {
   color: #37517e !important;
   background-color: #fff !important;
 }
@@ -132,7 +135,9 @@ footer .glyphicon {
   margin-bottom: 20px;
   color: #37517e;
 }
-.slideanim {visibility:hidden;}
+.slideanim {
+  visibility: hidden;
+}
 .slide {
   animation-name: slide;
   -webkit-animation-name: slide;
@@ -180,24 +185,24 @@ footer {
   display: block;
 }
 .blockquote-footer {
-display: block;
-font-size: 80%;
-color: #6c757d;
+  display: block;
+  font-size: 80%;
+  color: #6c757d;
 }
 .blockquote-footer::before {
-content: "— ";
+  content: "— ";
 }
 .card > .card-header + .list-group,
 .card > .list-group + .card-footer {
-border-top: 0;
+  border-top: 0;
 }
 .card-footer {
-padding: 0.75rem 1.25rem;
-background-color: rgba(0, 0, 0, 0.03);
-border-top: 0.125rem solid rgba(0, 0, 0, 0.125);
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-top: 0.125rem solid rgba(0, 0, 0, 0.125);
 }
 .card-footer:last-child {
-border-radius: 0 0 0.375rem 0.375rem;
+  border-radius: 0 0 0.375rem 0.375rem;
 }
 .card-group > .card:not(:last-child) .card-img-bottom,
 .card-group > .card:not(:last-child) .card-footer {
@@ -209,137 +214,136 @@ border-radius: 0 0 0.375rem 0.375rem;
 }
 .modal-dialog-scrollable .modal-header,
 .modal-dialog-scrollable .modal-footer {
-flex-shrink: 0;
+  flex-shrink: 0;
 }
 .modal-footer {
-display: flex;
-flex-wrap: wrap;
-align-items: center;
-justify-content: flex-end;
-padding: 4rem 1rem-0.25rem;
-border-top: 0 solid #dee2e6;
-border-bottom-right-radius: 0.75rem;
-border-bottom-left-radius: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 4rem 1rem-0.25rem;
+  border-top: 0 solid #dee2e6;
+  border-bottom-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
 }
 .modal-footer > * {
-margin: 0.25rem;
+  margin: 0.25rem;
 }
 .footer {
-padding-top: 5rem;
-padding-bottom: 5rem;
-background-color: #181824;
-color: #fff;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: #181824;
+  color: #fff;
 }
 
 .copyright {
-background-color: black;
-font-weight: bold;
+  background-color: black;
+  font-weight: bold;
 }
 .topUp {
-position: fixed;
-bottom: 15px;
-float: right;
-top: unset;
-right: 15px;
-color: #3851dd !important;
+  position: fixed;
+  bottom: 15px;
+  float: right;
+  top: unset;
+  right: 15px;
+  color: #3851dd !important;
 }
-footer h4, footer p {
-font-weight: 700;
-color: #fff;
+footer h4,
+footer p {
+  font-weight: 700;
+  color: #fff;
 }
 .progress {
-height: 35px;
-
+  height: 35px;
 }
 .progress .skill {
-font: normal 12px "Open Sans Web";
-line-height: 35px;
-padding: 0;
-margin: 0 0 0 20px;
-text-transform: uppercase;
+  font: normal 12px "Open Sans Web";
+  line-height: 35px;
+  padding: 0;
+  margin: 0 0 0 20px;
+  text-transform: uppercase;
 }
 .progress .skill .val {
-float: right;
-font-style: normal;
-margin: 0 20px 0 0;
+  float: right;
+  font-style: normal;
+  margin: 0 20px 0 0;
 }
 
 .progress-bar {
-text-align: left;
-transition-duration: 3s;
+  text-align: left;
+  transition-duration: 3s;
 }
 
 .container {
-    padding: 2rem 0rem;
-  }
+  padding: 2rem 0rem;
+}
 
-  @media (min-width: 576px) {
-    .modal-dialog {
-      max-width: 400px;
-    }
-    .modal-dialog .modal-content {
-      padding: 1rem;
-    }
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 400px;
   }
-  .modal-header .close {
-    margin-top: -1.5rem;
-  }
-
-  .form-title {
-    margin: -2rem 0rem 2rem;
-  }
-
-  .btn-round {
-    border-radius: 3rem;
-  }
-
-  .delimiter {
+  .modal-dialog .modal-content {
     padding: 1rem;
   }
+}
+.modal-header .close {
+  margin-top: -1.5rem;
+}
 
-  .social-buttons .btn {
-    margin: 0 0.5rem 1rem;
-  }
+.form-title {
+  margin: -2rem 0rem 2rem;
+}
 
-  .signup-section {
-    padding: 0.3rem 0rem;
-  }
-  /* .nav li {
+.btn-round {
+  border-radius: 3rem;
+}
+
+.delimiter {
+  padding: 1rem;
+}
+
+.social-buttons .btn {
+  margin: 0 0.5rem 1rem;
+}
+
+.signup-section {
+  padding: 0.3rem 0rem;
+}
+/* .nav li {
     margin-left: 5%;
   }
   .nav li:nth-child(6) {
     margin-left: 5%;
   } */
-  .login {
-    border-radius: 50px;
-    border: 2px solid #47b2e4;
-    padding: 8px 20px !important;
-    margin-top: 5px;
-    margin-left: 50x;
-    cursor: pointer;
-    width: max-content;
+.login {
+  border-radius: 50px;
+  border: 2px solid #47b2e4;
+  padding: 8px 20px !important;
+  margin-top: 5px;
+  margin-left: 50x;
+  cursor: pointer;
+  width: max-content;
+}
 
-  }
+#loginModal .form-group {
+  margin-bottom: 30px;
+}
 
-  #loginModal .form-group {
-    margin-bottom: 30px;
-  }
+#loginModal .btn-info {
+  margin-bottom: 20px;
+  margin-top: 35px;
+}
 
-  #loginModal .btn-info {
-    margin-bottom: 20px;
-    margin-top: 35px;
-  }
+#loginModal .modal-content {
+  min-height: 340px;
+}
 
-  #loginModal .modal-content {
-    min-height: 340px;
-  }
-
-  .fake-link {
+.fake-link {
   /* color: blue; */
   /* text-decoration: underline; */
   cursor: pointer;
-  }
-  .fake-link:hover {
+}
+.fake-link:hover {
   /* color: blue; */
   text-decoration: underline;
-  }
+}
