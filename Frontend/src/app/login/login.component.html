@@ -1,1 +1,30 @@
-<marquee><h2>Welcome to Login Page...</h2></marquee>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+</head>
+<body>
+  <div class="signup-form">
+    <form #f="ngForm" (ngSubmit)="onLogin()">
+		<h2>Login</h2>
+		<!-- <p class="hint-text">Create your account. It's free and only takes a minute.</p> -->
+
+        <div class="form-group">
+          <input type="email" class="form-control" name="email" placeholder="Email" required email ngModel #email="ngModel">
+            <div class="alert alert-danger" *ngIf="email.touched && email.errors?.required">Email is required.</div>
+            <div class="alert alert-danger" *ngIf="email.touched && email.errors?.email">Please enter valid email.</div>
+        </div>
+	    	<div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password" required ngModel #passwrod="ngModel">
+            <div class="alert alert-danger" *ngIf="passwrod.touched && passwrod.errors?.required">Password is required.</div>
+        </div>
+		<div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="f.invalid">Login</button>
+        </div>
+    </form>
+	<div class="text-center">New to Task-n-Schedule? <a [routerLink]="['/register']">Register</a></div>
+</div>
+</body>
+</html>

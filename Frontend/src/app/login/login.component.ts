@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +10,16 @@ export class LoginComponent implements OnInit {
 
   constructor() { }
 
+  @ViewChild('f') loginForm: NgForm;
   ngOnInit(): void {
   }
-  
+
+  onLogin() {
+    if(this.loginForm.invalid) {
+      return;
+    }
+    console.log(this.loginForm.value);
+    this.loginForm.reset();
+  }
+
 }

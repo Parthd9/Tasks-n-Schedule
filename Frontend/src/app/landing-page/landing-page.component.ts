@@ -1,62 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-
 import * as $ from 'jquery';
+import { AfterViewInit, Component, OnInit} from '@angular/core';
+
+
+
 // declare var $:any;
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.css']
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent implements OnInit, AfterViewInit {
+
 
   constructor() { }
 
   ngOnInit(): void {
     $(document).ready(function(){
-      // Add smooth scrolling to all links in navbar + footer link
-      $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-        // Make sure this.hash has a value before overriding default behavior
-        if (this.hash !== "") {
-          // Prevent default anchor click behavior
-          event.preventDefault();
+      $('.header').height($(window).height());
 
-          // Store hash
-          var hash = this.hash;
+      $(".navbar a, .navbar-brand").click(function(){
+        $("body,html").animate({
+          scrollTop:$("#" + $(this).data('value')).offset().top
+        },1000)
 
-          // Using jQuery's animate() method to add smooth page scroll
-          // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-          $('html, body').animate({
-            scrollTop: $(hash).offset().top
-          }, 900, function(){
+      })
 
-            // Add hash (#) to URL when done scrolling (default click behavior)
-            window.location.hash = hash;
-          });
-        } // End if
-      });
+     })
 
-      $("#myNavbar").on('click', function(event) {
-        $('#myNavbar').collapse('hide');
-      });
+     const items = document.querySelectorAll(".accordion a");
 
-      $(window).scroll(function() {
-        $(".slideanim").each(function(){
-          var pos = $(this).offset().top;
+     function toggleAccordion(){
+       this.classList.toggle('active');
+       this.nextElementSibling.classList.toggle('active');
+     }
 
-          var winTop = $(window).scrollTop();
-            if (pos < winTop + 600) {
-              $(this).addClass("slide");
-            }
-        });
-      });
-      $(document).ready(function() {
-          $('.progress .progress-bar').css("width",
-                    function() {
-                        return $(this).attr("aria-valuenow") + "%";
-                    }
-            )
-        });
-    })
+     items.forEach(item => item.addEventListener('click', toggleAccordion));
   }
+
+  ngAfterViewInit() {
+
+
+  }
+
 
 }
