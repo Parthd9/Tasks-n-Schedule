@@ -1,0 +1,16 @@
+<div class = "overview" style="min-height: 100%;">
+<button class="btn btn-success" style="margin-top: 10px; margin-left: 5px;" (click)="openDialog()">Add Project</button>
+<div class="row">
+    <div *ngFor ="let project of projects; let ind=index" style="margin-top: 10px;" class = "col-sm-4 project">
+      <div class="card">
+        <div class="card-body">
+            <div class="info">
+                <h3 class="card-title">{{project.title}}</h3>
+                <p class="card-text">{{project.desc}}</p>
+            </div>
+          <a mat-raised-button color="primary" (click)="onViewVersion(ind)">View Version</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

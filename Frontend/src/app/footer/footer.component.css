@@ -1,4 +1,13 @@
 .copyright {
-  background-color: black;
+  background-color: #000000c2;
   font-weight: bold;
+  margin-top: 2%;
 }
+/* .copyright {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+} */
