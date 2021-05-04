@@ -15,6 +15,11 @@ import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectComponent } from './project/project.component';
 import { AddProjectDialogComponent } from './modals/add-project-dialog/add-project-dialog.component';
+import { KanbanComponent } from './kanban/kanban.component';
+import { AddBacklogComponent } from './modals/add-backlog/add-backlog.component';
+import { ConfirmComponent } from './modals/confirm/confirm.component';
+import { VersionComponent } from './version/version.component';
+
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button'
 import {MatIconModule} from '@angular/material/icon';
@@ -31,7 +36,8 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { VersionComponent } from './version/version.component';
+
+
 
 @NgModule({
   declarations: [
@@ -45,9 +51,12 @@ import { VersionComponent } from './version/version.component';
     FooterComponent,
     ProjectComponent,
     AddProjectDialogComponent,
-    VersionComponent
+    VersionComponent,
+    KanbanComponent,
+    AddBacklogComponent,
+    ConfirmComponent
   ],
-  
+
   imports: [
     BrowserModule,
     AppRoutingModule,

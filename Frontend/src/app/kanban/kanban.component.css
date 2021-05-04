@@ -1,0 +1,89 @@
+.example-container {
+  width: 400px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.example-box {
+  padding: 5px 15px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: white;
+  font-size: 14px;
+}
+  .example-card {
+  max-width: 500px;
+  margin: 4px
+  }
+  mat-card-title{
+  color:white;
+  font-size:40px
+  }
+  .backlogs {
+    text-align: center;
+  }
+  .incomplete .mat-card-header {
+    background-color: red;
+  }
+  .inprogress .mat-card-header {
+    background-color: rgb(223, 223, 25);
+  }
+  .completed .mat-card-header {
+    background-color: green;
+  }
+  .mat-card {
+    padding: 0px;
+  }
+  .incomplete, .completed, .inprogress {
+    display: inline-grid;
+  }
+  .mat-card ::ng-deep .mat-card-header-text{
+    width: 100%;
+  }
+  .example-box h3 {
+    word-break: break-all;
+  }
+  .fa-calendar span {
+    margin-right: 2%;
+  }
+  .example-box span {
+    font-size: 13px;
+  }
+  .example-box h3 {
+    margin-bottom: 3%;
+  }
+  .mat-card-header .mat-card-title {
+    margin-bottom: 1%;
+    margin-top: 1%;
+  }
+  .fa-plus {
+    float: right;
+    cursor: pointer;
+  }
+  .close:hover {
+    background: #bbb;
+  }
+  .example-box:hover {
+    background-color: #eee;
+  }
+  .example-box .close {
+    font-size: 25px;
+    cursor: pointer;
+  }
+  .incomplete .mat-card-content, .inprogress, .completed {
+    min-height: 80%;
+  }
+  .overview {
+    min-height: 100%;
+  }
+  .noRecords {
+    min-height: 300px;
+    text-align: center;
+  }

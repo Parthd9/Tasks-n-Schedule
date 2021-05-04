@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { KanbanComponent } from './kanban/kanban.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
 import { ProjectComponent } from './project/project.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'project', component: HomePageComponent, children: [
     { path: '', component: ProjectComponent},
+    { path: 'overview', component: KanbanComponent},
     { path: ':id', component: VersionComponent}
   ]},
   {path:'**', component: ErrorPageComponent}

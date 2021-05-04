@@ -1,0 +1,17 @@
+
+<h1 mat-dialog-title>Add Backlog</h1>
+<form #f="ngForm" (ngSubmit)="onAddBacklog()">
+<div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput name="description" required minlength="5" [maxlength]="maxChars" minlength="5" ngModel #desc="ngModel"></textarea>
+    </mat-form-field>
+    <mat-error *ngIf="desc.invalid && desc.touched">Description is invalid</mat-error>
+    <br>
+    <span>Characters remaining: {{maxChars - desc.value.length}}</span>
+</div>
+<div mat-dialog-actions>
+  <button type="submit" mat-raised-button color="primary" cdkFocusInitial [disabled]="f.invalid">Save</button>
+  <button type="button" mat-button (click)="onNoClick()">Cancel</button>
+</div>
+</form>

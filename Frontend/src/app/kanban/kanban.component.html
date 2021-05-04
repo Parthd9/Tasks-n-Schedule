@@ -1,0 +1,89 @@
+<div class="overview">
+<div class="incomplete col-md-4 col-lg-4 col-sm-12 col-xs-12">
+<mat-card class="example-card">
+	<mat-card-header  class="backlogs">
+		<mat-card-title>
+      Backlogs
+      <span (click)="openDialog()"><i matTooltip="Add Backlog" class="fa fa-plus" aria-hidden="true"></i></span>
+    </mat-card-title>
+	</mat-card-header>
+
+	<mat-card-content>
+    <div *ngIf="todo.length > 0; else noRecord_todo">
+      <div class="example-box" *ngFor="let item of todo;let i=index">
+        <div class="data">
+        <h3>
+          {{item.task}}
+        </h3>
+        <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
+        </div>
+        <span matTooltip="Remove Backlog" class="close" (click)="removeBacklog(i)">&times;</span>
+      </div>
+    </div>
+    <ng-template #noRecord_todo>
+      <div class="noRecords row h-100">
+        <div class="col-sm-12 my-auto">
+            No Backlogs found.
+        </div>
+    </div>
+    </ng-template>
+	</mat-card-content>
+</mat-card>
+</div>
+<div class="inprogress col-md-4 col-lg-4 col-sm-12 col-xs-12">
+  <mat-card class="example-card">
+    <mat-card-header  class="backlogs">
+      <mat-card-title>In progress</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div *ngIf="inprogress.length > 0; else noRecord_inprogress">
+      <div class="example-box" *ngFor="let item of inprogress;let i=index">
+        <div class="data">
+          <h3>
+            {{item.task}}
+          </h3>
+          <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
+          </div>
+          <!-- <span class="close" >&times;</span> -->
+      </div>
+    </div>
+    <ng-template #noRecord_inprogress>
+      <div class="noRecords row h-100">
+        <div class="col-sm-12 my-auto">
+            No In-progress tasks found.
+        </div>
+    </div>
+  </ng-template>
+    </mat-card-content>
+  </mat-card>
+  </div>
+  <div class="completed col-md-4 col-lg-4 col-sm-12 col-xs-12">
+    <mat-card class="example-card">
+      <mat-card-header  class="backlogs">
+        <mat-card-title>Completed</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div *ngIf="inprogress.length > 0; else noRecord_completed">
+        <div class="example-box" *ngFor="let item of completed">
+          <div class="data">
+            <h3>
+              {{item.task}}
+            </h3>
+            <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
+            </div>
+            <!-- <span class="close">&times;</span> -->
+        </div>
+      </div>
+      <ng-template #noRecord_completed>
+        <div class="noRecords row h-100">
+          <div class="col-sm-12 my-auto">
+              No completed tasks found.
+          </div>
+      </div>
+    </ng-template>
+      </mat-card-content>
+    </mat-card>
+    </div>
+  </div>
