@@ -7,6 +7,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
 import { ProjectComponent } from './project/project.component';
 import { RegisterComponent } from './register/register.component';
+import { SprintComponent } from './sprint/sprint.component';
 import { VersionComponent } from './version/version.component';
 
 const routes: Routes = [
@@ -15,8 +16,9 @@ const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'project', component: HomePageComponent, children: [
     { path: '', component: ProjectComponent},
-    { path: 'overview', component: KanbanComponent},
-    { path: ':id', component: VersionComponent}
+    { path: 'version', component: VersionComponent},
+    { path: 'version/sprint', component: SprintComponent},
+    { path: 'version/sprint/backlog', component: KanbanComponent}
   ]},
   {path:'**', component: ErrorPageComponent}
 ];

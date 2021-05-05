@@ -4,38 +4,38 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-project-dialog.component';
 
 @Component({
-  selector: 'app-version',
-  templateUrl: './version.component.html',
-  styleUrls: ['./version.component.css']
+  selector: 'app-sprint',
+  templateUrl: './sprint.component.html',
+  styleUrls: ['./sprint.component.css']
 })
-export class VersionComponent implements OnInit {
+export class SprintComponent implements OnInit {
 
-  versions = [
+  sprints = [
     {
-    title : "Version-1.0.0",
+    title : "Sprint-1",
     desc: "With supporting text below as a natural lead-in to additional content."
     },
     {
-      title : "Version-2.0.0",
+      title : "Sprint-2",
       desc: "With supporting text below as a natural lead-in to additional content."
     },
     {
-      title : "Version-3.0.0",
+      title : "Sprint-3",
       desc: "With supporting text below as a natural lead-in to additional content."
     },
     {
-      title : "Version-4.0.0",
+      title : "Sprint-4",
       desc: "With supporting text below as a natural lead-in to additional content."
     },
     {
-      title : "Version-5.0.0",
+      title : "Sprint-5",
       desc: "With supporting text below as a natural lead-in to additional content."
     }];
 
-  constructor(private dialog: MatDialog,private router: Router, private route: ActivatedRoute) { }
+  constructor(private dialog: MatDialog, private currentRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.queryParams['projectId']);
+    console.log("sprint:",this.currentRoute.snapshot.queryParams);
   }
 
   openDialog() {
@@ -44,9 +44,9 @@ export class VersionComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       id: 1,
-      header: 'Add New Version',
-      name: 'Version Name',
-      description: 'Version Description'
+      header: 'Add New Sprint',
+      name: 'Sprint Number',
+      description: 'Sprint Description'
     };
     dialogConfig.width = '30%';
     dialogConfig.minWidth = '300px';
@@ -55,13 +55,14 @@ export class VersionComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       console.log('Dialog result:', data);
       if(data.event === 'save') {
-        this.versions.push({title: data.value.title, desc:data.value.desc});
+        this.sprints.push({title: data.value.title, desc:data.value.desc});
       }
     });
   }
 
-  onViewSprint(index) {
-    this.router.navigate(['sprint'],{relativeTo:this.route, queryParams: {versionId: index}, queryParamsHandling: "merge"});
+  onViewBacklog(index) {
+    console.log("called");
+    this.router.navigate(['backlog'],{relativeTo:this.currentRoute, queryParams: {sprintId: index}, queryParamsHandling: "merge"});
   }
 
 }

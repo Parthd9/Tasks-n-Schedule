@@ -72,9 +72,9 @@ openDialog() {
   });
 }
 
-onViewVersion(index) {
-  console.log(index);
-  this.router.navigate([index], {relativeTo: this.route});
-}
+// onViewVersion(index) {
+//   console.log(index);
+//   this.router.navigate([index], {relativeTo: this.route});
+// }
 
 }
