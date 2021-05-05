@@ -4,14 +4,34 @@
 <div mat-dialog-content>
     <mat-form-field>
       <mat-label>Description</mat-label>
-      <textarea matInput name="description" required minlength="5" [maxlength]="maxChars" minlength="5" ngModel #desc="ngModel"></textarea>
+      <textarea matInput name="description" required [maxlength]="maxChars" minlength="5" ngModel #desc="ngModel"></textarea>
     </mat-form-field>
-    <mat-error *ngIf="desc.invalid && desc.touched">Description is invalid</mat-error>
-    <br>
+    <mat-error *ngIf="desc.hasError('required') && desc.touched">Please fill description field.</mat-error>
+    <mat-error *ngIf="desc.hasError('minlength') && desc.touched">Minimum 5 letters required for description.</mat-error>
+    <mat-error *ngIf="desc.hasError('maxlength') && desc.touched">Maximum 128 letters are allowed.</mat-error>
     <span>Characters remaining: {{maxChars - desc.value.length}}</span>
+    <br>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Developers</mat-label>
+      <mat-select required name="list" ngModel #list="ngModel" panelClass="example-long-panel" multiple>
+        <mat-select-filter [placeholder]="'Filter'" [array]="devlopersList"
+        displayMember="devloper" (filteredReturn)="filteredList=$event"
+        ></mat-select-filter>
+        <mat-select-trigger>
+          {{list.value ? list.value[0] : ''}}
+          <span *ngIf="list.value?.length > 1" class="example-additional-selection">
+            (+{{list.value.length - 1}} {{list.value?.length === 2 ? 'other' : 'others'}})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let dev of filteredList" [value]="dev.devloper" [matTooltip]="dev.devloper" matTooltipPosition=right>{{dev.devloper}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-error *ngIf="list.hasError('required') && list.touched">Please select devlopers.</mat-error>
+
 </div>
 <div mat-dialog-actions>
-  <button type="submit" mat-raised-button color="primary" cdkFocusInitial [disabled]="f.invalid">Save</button>
+  <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Save</button>
   <button type="button" mat-button (click)="onNoClick()">Cancel</button>
 </div>
 </form>

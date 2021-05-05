@@ -5,3 +5,9 @@
   resize: none;
   min-height: 70px;
 }
+.mat-select {
+  margin-left: 2%;
+}
+::ng-deep .mat-select-panel.example-long-panel {
+  max-height: 220px;
+}

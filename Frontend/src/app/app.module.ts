@@ -19,6 +19,7 @@ import { KanbanComponent } from './kanban/kanban.component';
 import { AddBacklogComponent } from './modals/add-backlog/add-backlog.component';
 import { ConfirmComponent } from './modals/confirm/confirm.component';
 import { VersionComponent } from './version/version.component';
+import { SprintComponent } from './sprint/sprint.component';
 
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button'
@@ -36,7 +37,9 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { SprintComponent } from './sprint/sprint.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectFilterModule } from 'mat-select-filter';
+
 
 
 
@@ -81,7 +84,9 @@ import { SprintComponent } from './sprint/sprint.component';
     MatSidenavModule,
     MatSortModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTooltipModule,
+    MatSelectFilterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

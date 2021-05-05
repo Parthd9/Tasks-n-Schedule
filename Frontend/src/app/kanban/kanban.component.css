@@ -77,10 +77,11 @@
     font-size: 25px;
     cursor: pointer;
   }
-  .incomplete .mat-card-content, .inprogress, .completed {
+  .incomplete .mat-card-content, .inprogress .mat-card-content, .completed .mat-card-content {
     min-height: 80%;
   }
   .overview {
+    /* clear: both; */
     min-height: 100%;
   }
   .noRecords {

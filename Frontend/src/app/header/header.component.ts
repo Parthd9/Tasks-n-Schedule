@@ -10,11 +10,17 @@ export class HeaderComponent implements OnInit {
 
   constructor(private _location: Location) { }
 
+  show = false;
+  toggleClicked = false;
   ngOnInit(): void {
   }
 
+  onToggle() {
+    document.getElementById('navbarNav').style.display = document.getElementById('navbarNav').style.display === 'block' ? 'none' : 'block';
+    this.toggleClicked=true;
+    this.show = !this.show;
+  }
   onBack() {
     this._location.back();
   }
-
 }

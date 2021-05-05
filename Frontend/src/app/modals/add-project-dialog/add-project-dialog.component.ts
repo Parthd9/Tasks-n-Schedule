@@ -15,7 +15,20 @@ export class AddProjectDialogComponent implements OnInit {
   description: string
   maxChars = 100;
 
-  constructor(private dialogRef: MatDialogRef<AddProjectDialogComponent>,  @Inject(MAT_DIALOG_DATA) data) { 
+  filterDevs = '';
+  devlopersList: any[] = [
+    {devloper: 'developer 123 123 123 123 1223 123 123 123333333', id: 1},
+    {devloper: 'developer 12', id: 12},
+    {devloper: 'developer 11', id: 11},
+    {devloper: 'developer 13', id: 13},
+    {devloper: 'developer 5', id: 5},
+    {devloper: 'developer 2', id: 2},
+    {devloper: 'developer 4', id: 4}
+  ];
+
+  filteredList = this.devlopersList.slice();
+
+  constructor(private dialogRef: MatDialogRef<AddProjectDialogComponent>,  @Inject(MAT_DIALOG_DATA) data) {
     this.header = data.header;
     this.name = data.name;
     this.description = data.description;
