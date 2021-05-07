@@ -14,6 +14,7 @@ export class ProjectComponent implements OnInit {
   projects = [];
 
   ngOnInit(): void {
+    this.projects=[];
     this.projects = [
       {
       title : "Project-1",
@@ -58,7 +59,8 @@ openDialog() {
     id: 1,
     header: 'Add New Project',
     name: 'Project Name',
-    description: 'Project Description'
+    description: 'Project Description',
+    devoptEnabled: 'Yes'
   };
   dialogConfig.width = '30%';
   dialogConfig.minWidth = '300px';

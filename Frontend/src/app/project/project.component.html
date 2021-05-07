@@ -1,6 +1,6 @@
 <div class = "overview" style="min-height: 100%;">
 <button class="btn btn-success" style="margin-top: 10px; margin-left: 5px;" (click)="openDialog()">Add Project</button>
-<div class="row">
+<div class="row" *ngIf="projects.length>0; else noRecord">
     <div *ngFor ="let project of projects; let ind=index" style="margin-top: 10px;" class = "col-sm-4 project">
       <div class="card">
         <div class="card-body">
@@ -13,4 +13,8 @@
       </div>
     </div>
   </div>
+  <ng-template #noRecord>
+    <hr>
+    <h2 style="text-align: center;">No Projects Found.</h2>
+  </ng-template>
 </div>

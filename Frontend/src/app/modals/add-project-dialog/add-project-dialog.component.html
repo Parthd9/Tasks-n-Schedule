@@ -13,7 +13,8 @@
     <span>Characters remaining: {{maxChars-pdesc.value.length}}</span>
     <br>
     <br>
-    <mat-form-field appearance="fill">
+    <div *ngIf="devOptEnabled === 'Yes'">
+    <mat-form-field appearance="fill" >
       <mat-label>Developers</mat-label>
       <mat-select required name="list" minlength="3" ngModel #list="ngModel" panelClass="example-long-panel" multiple>
         <mat-select-filter [placeholder]="'Filter'" [array]="devlopersList"
@@ -28,8 +29,9 @@
         <mat-option *ngFor="let dev of filteredList" [value]="dev.devloper" [matTooltip]="dev.devloper" matTooltipPosition=right>{{dev.devloper}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-error *ngIf="list.hasError('required') && list.touched">Please select devlopers.</mat-error>
+    <mat-error *ngIf="list.hasError('required') && list.touched ">Please select devlopers.</mat-error>
     <mat-error *ngIf="list.hasError('minlength') && list.touched">Please select at least 3 devlopers.</mat-error>
+  </div>
 </div>
 
 <mat-dialog-actions>

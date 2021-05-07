@@ -1,6 +1,6 @@
 <div class = "overview" style="min-height: 100%;">
 <button class="btn btn-success" style="margin-top: 10px; margin-left: 5px;" (click)="openDialog()">Add Version</button>
-<div class="row">
+<div class="row" *ngIf="versions.length>0; else noRecord">
     <div *ngFor ="let version of versions; let ind=index" style="margin-top: 10px;" class = "col-sm-4 version">
       <div class="card">
         <div class="card-body">
@@ -13,4 +13,8 @@
       </div>
     </div>
   </div>
+  <ng-template #noRecord>
+    <hr>
+    <h2 style="text-align: center;">No Version Found For This Project.</h2>
+  </ng-template>
   </div>

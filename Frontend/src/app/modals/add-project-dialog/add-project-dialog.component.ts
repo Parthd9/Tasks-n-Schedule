@@ -14,16 +14,17 @@ export class AddProjectDialogComponent implements OnInit {
   name:string;
   description: string
   maxChars = 100;
+  devOptEnabled;
 
   filterDevs = '';
   devlopersList: any[] = [
-    {devloper: 'developer 123 123 123 123 1223 123 123 123333333', id: 1},
-    {devloper: 'developer 12', id: 12},
-    {devloper: 'developer 11', id: 11},
-    {devloper: 'developer 13', id: 13},
-    {devloper: 'developer 5', id: 5},
-    {devloper: 'developer 2', id: 2},
-    {devloper: 'developer 4', id: 4}
+    {devloper: 'Parth Devmurari', id: 1},
+    {devloper: 'Mitul Patel', id: 12},
+    {devloper: 'Aakash Ramavat', id: 11},
+    {devloper: 'Kush Soni', id: 13},
+    {devloper: 'Urvil Patel', id: 5},
+    {devloper: 'Jaimin Vyas', id: 2},
+    {devloper: 'Preet Maniyar', id: 4}
   ];
 
   filteredList = this.devlopersList.slice();
@@ -32,6 +33,8 @@ export class AddProjectDialogComponent implements OnInit {
     this.header = data.header;
     this.name = data.name;
     this.description = data.description;
+    this.devOptEnabled = data.devoptEnabled;
+    console.log(this.devOptEnabled);
   }
 
   ngOnInit(): void {

@@ -1,73 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-<title>Register</title>
+<div class="overview">
+<mat-toolbar color="primary">
+    <span class="fill-remaining-space" style="text-align: center;">Create your account</span>
+  </mat-toolbar>
+  
+  <div class="container"> 
+    <form [formGroup]="registerForm" (ngSubmit)= "onSubmit()" class="m-auto form">
+  
+      <mat-form-field class="form-element">
+        <input matInput placeholder="Email" formControlName="email">
+        <mat-error *ngIf="f.email.touched && f.email.invalid">
+            <div *ngIf="f.email.errors.required">Email is required.</div>
+            <div *ngIf="f.email.errors.email">Please enter valid email.</div>
+        </mat-error>
+      </mat-form-field>
 
-</head>
-<body>
-<div class="signup-form">
-    <form [formGroup] = "registerForm" (ngSubmit)= "onSubmit()">
-		<h2>Register</h2>
-		<p class="hint-text">Create your account. It's free and only takes a minute.</p>
-        <!-- <div class="form-group">
-			<div class="row">
-				<div class="col-xs-6"><input type="text" class="form-control" formControlName='firstName' placeholder="First Name"></div>
-				<div class="col-xs-6"><input type="text" class="form-control" formControlName='lastName' placeholder="Last Name"></div>
-			</div>
-        </div> -->
-        <div class="form-group">
-            <input type="email" class="form-control" formControlName='email' placeholder="Email" >
-            <div *ngIf="f.email.touched && f.email.invalid" class="alert alert-danger">
-                <div *ngIf="f.email.errors.required">Email is required.</div>
-                <div *ngIf="f.email.errors.email">Please enter valid email.</div>
-            </div>
+      <mat-form-field class="form-element">
+        <input matInput type="password" placeholder="Password" formControlName="password">
+        <mat-error *ngIf="f.password.touched && f.password.invalid">
+            <div *ngIf="f.password.errors.required">Password is required.</div>
+            <div *ngIf="f.password.errors.minlength">Password must contain at least eight characters.</div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field style="padding: 0%;" class="form-element">
+        <input matInput type="password" placeholder="Confirm Password" #confirmPwd>
+      </mat-form-field>
+      <mat-error *ngIf="!isPwdMatched" style="text-align: left;font-size: 75%;"> 
+          <div>
+              Password and confirm password must be same.
         </div>
-		<div class="form-group">
-            <input type="password" class="form-control" formControlName='password' placeholder="Password" >
-            <div *ngIf="f.password.touched && f.password.invalid" class="alert alert-danger">
-                <div *ngIf="f.password.errors.required">Password is required.</div>
-                <div *ngIf="f.password.errors.minlength">Password must contain at least eight characters.</div>
-            </div>
-        </div>
-		<div class="form-group">
-            <input type="password" class="form-control" placeholder="Confirm Password" #confirmPwd>
-            <div *ngIf="!isPwdMatched" class="alert alert-danger">
-                <span>Password and confirm password must be same.</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" formControlName='orgName' placeholder="Organization Name" >
-            <div *ngIf="f.orgName.touched && f.orgName.invalid" class="alert alert-danger">
-                <div *ngIf="f.orgName.errors.required">Organization Name is required.</div>
-                <div *ngIf="f.orgName.errors.minlength">Organization Name must contain at least three characters.</div>
-                <div *ngIf="f.orgName.errors.pattern">Please enter valid Organization Name.</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <select formControlName="orgDomain" class="form-control" (change)="changeDomain($event)">
-                <option disabled>Select Domain</option>
-                <option>Choose Domain</option>
-                <option *ngFor="let domain of Domain">{{domain}}</option>
-            </select>
-            <div *ngIf="f.orgDomain.touched && f.orgDomain.invalid" class="alert alert-danger">
-                <div *ngIf="f.orgDomain.errors.required">OrgDomain is required.</div>
-            </div>
-        </div>
-        <!-- <div class="form-group">
-			<label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
-        </div> -->
-        <span *ngIf="!registerForm.valid && registerForm.touched" class="help-block">
-            Please enter a valid data!
-        </span>
-		<div class="form-group">
-            <button type="submit" class="btn btn-success btn-lg btn-block" [disabled] = "registerForm.invalid">Register Now</button>
-        </div>
-    </form>
-	<div class="text-center">Already have an account? <a routerLink="/login">Sign in</a></div>
+        </mat-error>
+
+      <mat-form-field class="form-element">
+        <input matInput type="text" formControlName='orgName' placeholder="Organization Name" >
+        <mat-error *ngIf="f.orgName.touched && f.orgName.invalid">
+            <div *ngIf="f.orgName.errors.required">Organization Name is required.</div>
+            <div *ngIf="f.orgName.errors.minlength">Organization Name must contain at least three characters.</div>
+            <div *ngIf="f.orgName.errors.pattern">Please enter valid Organization Name.</div>
+        </mat-error>
+      </mat-form-field>
+
+    <mat-form-field class="form-element">
+        <mat-select [(ngModel)]="selectedValue" name="domain" placeholder="Select Domain" formControlName="orgDomain">
+            <mat-option *ngFor="let domain of Domain" [value]="domain">
+              {{domain}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.orgDomain.touched && f.orgDomain.invalid">
+            <div *ngIf="f.orgDomain.errors.required">OrgDomain is required.</div>
+        </mat-error>
+    </mat-form-field>
+
+    <div class="form-element text-center">
+    <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">Register Data</button>
+  </div>
+</form>
+<div class="text-center">Already have an account? <a routerLink="/login">Sign in</a></div> 
 </div>
-</body>
-</html>
+
+</div>
+<app-footer></app-footer>

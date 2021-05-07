@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  selectedValue="";
   Domain: any = ['Finance', 'HealthCare', 'Network', 'Manufacturing'];
   @ViewChild ('confirmPwd') confirmPwd: ElementRef;
   isPwdMatched = true;
@@ -39,6 +40,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.registerForm);
     console.log(this.registerForm.value);
     console.log(this.confirmPwd.nativeElement.value);
     console.log(this.registerForm.get('password').value);
@@ -48,10 +50,11 @@ export class RegisterComponent implements OnInit {
     }
     if(this.confirmPwd.nativeElement.value !== this.registerForm.get('password').value)
     {
+      console.log('not true');
       this.isPwdMatched = false;
-      setTimeout(() => {
-        this.isPwdMatched = true;
-      },4000);
+       setTimeout(() => {
+         this.isPwdMatched = true;
+       },4000);
       return;
     } 
     this.router.navigate(['/login']);

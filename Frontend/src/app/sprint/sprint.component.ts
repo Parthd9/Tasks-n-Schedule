@@ -46,7 +46,8 @@ export class SprintComponent implements OnInit {
       id: 1,
       header: 'Add New Sprint',
       name: 'Sprint Number',
-      description: 'Sprint Description'
+      description: 'Sprint Description',
+      devoptEnabled: 'No'
     };
     dialogConfig.width = '30%';
     dialogConfig.minWidth = '300px';

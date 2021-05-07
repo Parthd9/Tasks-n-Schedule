@@ -9,7 +9,7 @@ import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-proj
   styleUrls: ['./version.component.css']
 })
 export class VersionComponent implements OnInit {
-
+  // versions=[];
   versions = [
     {
     title : "Version-1.0.0",
@@ -46,7 +46,8 @@ export class VersionComponent implements OnInit {
       id: 1,
       header: 'Add New Version',
       name: 'Version Name',
-      description: 'Version Description'
+      description: 'Version Description',
+      devoptEnabled: 'No'
     };
     dialogConfig.width = '30%';
     dialogConfig.minWidth = '300px';
