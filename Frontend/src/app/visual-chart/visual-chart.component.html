@@ -1,0 +1,54 @@
+<div class="overview">
+<div class="container">
+<form #f="ngForm" (ngSubmit)="onViewChart()">
+  <mat-form-field class="col-lg-4 col-md-4 col-sm-12" appearance="fill">
+    <mat-label>Select Project</mat-label>
+    <mat-select name="project" required ngModel #project="ngModel">
+      <mat-option *ngFor="let item of projects" [value]="item.title">
+        {{item.title}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="project.touched && project.hasError('required')">Please select project.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="col-lg-4 col-md-4 col-sm-12" appearance="fill">
+    <mat-label>Select Version</mat-label>
+    <mat-select name="version" required ngModel #version="ngModel">
+      <mat-option *ngFor="let item of versions" [value]="item.title">
+        {{item.title}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="version.touched && version.hasError('required')">Please select version.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="col-lg-4 col-md-4 col-sm-12" appearance="fill">
+    <mat-label>Select Sprint</mat-label>
+    <mat-select name="sprint" required ngModel #sprint="ngModel">
+      <mat-option *ngFor="let item of sprints" [value]="item.title">
+        {{item.title}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="sprint.touched && sprint.hasError('required')">Please select sprint.</mat-error>
+  </mat-form-field>
+
+  <mat-action-list class="col-lg-12 col-md-12 col-sm-12 text-center">
+    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Search</button>
+    <button type="button" mat-raised-button (click)="onReset()">Reset</button>
+  </mat-action-list>
+</form>
+</div>
+
+
+<div class="container">
+  <div *ngIf = "show===false"class="lds-ripple"><div></div><div></div></div>
+    <canvas *ngIf="show" baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [colors]="lineChartColors"
+            [chartType]="barChartType">
+    </canvas>
+</div>
+  </div>
+

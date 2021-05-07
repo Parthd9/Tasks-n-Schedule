@@ -9,9 +9,28 @@
       <li class="nav-item active">
         <a style="cursor: pointer; text-decoration: underline;" class="nav-link" (click)="onBack()" *ngIf="link !=''">{{link}}<span class="sr-only">(current)</span></a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="#">Projects</a>
-      </li> -->
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['visual-chart']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Visual Chart</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto navbar-right">
+      <li [matMenuTriggerFor]="menu" #menuTrigger style="color: white;cursor: pointer;">
+        <mat-icon mat-raised-button
+        matBadge="8" matBadgePosition="before" matBadgeColor="accent">
+      notifications
+        </mat-icon>
+        <mat-menu style="max-height: 50px;" #menu="matMenu">
+          <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
+          <hr>
+          <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
+          <hr>
+          <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
+          <hr>
+          <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span> \
+          <hr>
+          <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
+        </mat-menu>
+      </li>
     </ul>
   </div>
 </nav>

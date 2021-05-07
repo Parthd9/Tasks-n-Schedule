@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
@@ -19,13 +19,24 @@ export class AddBacklogComponent implements OnInit {
     {devloper: 'developer 2', id: 2},
     {devloper: 'developer 4', id: 4}
   ];
+  backlogTypes: any[] = [
+    'Bug',
+    'User Story'
+  ]
 
   filteredList = this.devlopersList.slice();
-  @ViewChild('f') addBackLogForm: NgForm;
+  addBacklogForm: FormGroup;
   maxChars = 128;
   constructor(
     public dialogRef: MatDialogRef<AddBacklogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.addBacklogForm = new FormGroup({
+        'description': new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(128)]),
+        'list': new FormControl('', Validators.required),
+        'type': new FormControl('', Validators.required),
+        'estTime': new FormControl('', [Validators.required, Validators.min(1),Validators.pattern('[0-9]+')])
+      });
+    }
 
     ngOnInit(){
     }
@@ -34,7 +45,8 @@ export class AddBacklogComponent implements OnInit {
     this.dialogRef.close({event:'cancel'});
   }
   onAddBacklog() {
-    console.log(this.addBackLogForm.value);
-    this.dialogRef.close({event:'save',data:this.addBackLogForm.value});
+    this.addBacklogForm.get('list').value.length;
+    console.log(this.addBacklogForm.value);
+    this.dialogRef.close({event:'save',data:this.addBacklogForm.value});
   }
 }

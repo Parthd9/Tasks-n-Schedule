@@ -9,6 +9,7 @@ import { ProjectComponent } from './project/project.component';
 import { RegisterComponent } from './register/register.component';
 import { SprintComponent } from './sprint/sprint.component';
 import { VersionComponent } from './version/version.component';
+import { VisualChartComponent } from './visual-chart/visual-chart.component';
 
 const routes: Routes = [
   {path:'', component: LandingPageComponent,pathMatch:'full'},
@@ -18,7 +19,8 @@ const routes: Routes = [
     { path: '', component: ProjectComponent},
     { path: 'version', component: VersionComponent},
     { path: 'version/sprint', component: SprintComponent},
-    { path: 'version/sprint/backlog', component: KanbanComponent}
+    { path: 'version/sprint/backlog', component: KanbanComponent},
+    { path: 'visual-chart', component: VisualChartComponent}
   ]},
   {path:'**', component: ErrorPageComponent}
 ];

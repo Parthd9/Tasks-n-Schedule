@@ -20,6 +20,7 @@ import { AddBacklogComponent } from './modals/add-backlog/add-backlog.component'
 import { ConfirmComponent } from './modals/confirm/confirm.component';
 import { VersionComponent } from './version/version.component';
 import { SprintComponent } from './sprint/sprint.component';
+import { VisualChartComponent } from './visual-chart/visual-chart.component';
 
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button'
@@ -39,6 +40,8 @@ import { MatTableModule } from "@angular/material/table";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectFilterModule } from 'mat-select-filter';
+import {MatBadgeModule} from '@angular/material/badge';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -57,7 +60,8 @@ import { MatSelectFilterModule } from 'mat-select-filter';
     KanbanComponent,
     AddBacklogComponent,
     ConfirmComponent,
-    SprintComponent
+    SprintComponent,
+    VisualChartComponent
   ],
 
   imports: [
@@ -84,7 +88,9 @@ import { MatSelectFilterModule } from 'mat-select-filter';
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatSelectFilterModule
+    MatSelectFilterModule,
+    MatBadgeModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

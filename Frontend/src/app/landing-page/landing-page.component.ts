@@ -41,6 +41,8 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
 
 
   }
-
+  onToggle() {
+    document.getElementById('navbarSupportedContent').style.display = document.getElementById('navbarSupportedContent').style.display === 'block' ? 'none' : 'block';
+  }
 
 }
