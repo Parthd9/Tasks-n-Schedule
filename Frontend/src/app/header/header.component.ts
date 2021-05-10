@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
   show = false;
   toggleClicked = false;
+  showNotification = false;
   link;
   ngOnInit(): void {
     // console.log(this.currentRoute.snapshot.queryParams);
@@ -34,6 +35,10 @@ export class HeaderComponent implements OnInit {
         // };
       }
     })
+
+    if(window.innerWidth < 992) {
+      this.showNotification = true;
+    }
   }
 
   onToggle() {
@@ -43,5 +48,14 @@ export class HeaderComponent implements OnInit {
   }
   onBack() {
     this._location.back();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if(window.innerWidth < 992) {
+      this.showNotification = true;
+    } else {
+      this.showNotification = false;
+    }
   }
 }

@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>{{data.type}} User</h1>
+<form #upsertUserForm="ngForm" (ngSubmit)="upsert()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput name="fname" ngModel required minlength="2" #fname="ngModel" [(ngModel)]="fnamedata">
+      <mat-error *ngIf="fname.touched && fname.hasError('required')">Please enter first name.</mat-error>
+      <mat-error *ngIf="fname.touched && fname.hasError('minlength')">First name should be 2 characters long.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput name="lname" ngModel required minlength="2" #lname="ngModel" [(ngModel)]="lnamedata">
+      <mat-error *ngIf="lname.touched && lname.hasError('required')">Please enter last name.</mat-error>
+      <mat-error *ngIf="lname.touched && lname.hasError('minlength')">Last name should be 2 characters long.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput name="email" ngModel required email #email="ngModel" [(ngModel)]="emaildata">
+      <mat-error *ngIf="email.touched && email.hasError('required')">Please enter email.</mat-error>
+      <mat-error *ngIf="email.touched && email.hasError('email')">Please enter valid email.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Select by Role</mat-label>
+      <mat-select name="role" ngModel required #role="ngModel" [(ngModel)]="roledata">
+        <mat-option *ngFor="let item of roles" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="role.touched && role.hasError('required')">Please select role.</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button type="submit" mat-raised-button color="primary" [disabled]="upsertUserForm.invalid">Save</button>
+    <button type="button" mat-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

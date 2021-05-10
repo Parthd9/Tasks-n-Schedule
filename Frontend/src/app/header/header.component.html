@@ -1,8 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" [routerLink]="['/project']">TnS</a>
-  <button (click)="onToggle()" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <div class="rightMenuMobile">
+    <mat-icon *ngIf="showNotification" style="color: white;margin: auto;margin-right: 1%;cursor: pointer;" mat-raised-button
+    matBadge="8" matBadgePosition="before" matBadgeColor="accent" [matMenuTriggerFor]="menu" #menuTrigger>
+  notifications
+    </mat-icon>
+    <mat-menu style="max-height: 50px;margin: auto;" #menu="matMenu">
+      <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
+      <hr>
+      <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
+      <hr>
+      <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
+      <hr>
+      <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
+      <hr>
+      <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
+    </mat-menu>
+    <button style="margin-left: 10%;" (click)="onToggle()" class="navbar-toggler" id="toggleButton" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    </div>
 
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
@@ -10,12 +27,15 @@
         <a style="cursor: pointer; text-decoration: underline;" class="nav-link" (click)="onBack()" *ngIf="link !=''">{{link}}<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['visual-chart']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Visual Chart</a>
+        <a class="nav-link" [routerLink]="['/project/visual-chart']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Visual Chart</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/admin/manage-users']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Manage Users</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto navbar-right">
-      <li [matMenuTriggerFor]="menu" #menuTrigger style="color: white;cursor: pointer;">
-        <mat-icon mat-raised-button
+      <li *ngIf="!showNotification" [matMenuTriggerFor]="menu" #menuTrigger style="color: white;cursor: pointer;">
+        <mat-icon mat-raised-button matTooltip="Notifications"
         matBadge="8" matBadgePosition="before" matBadgeColor="accent">
       notifications
         </mat-icon>
@@ -26,10 +46,14 @@
           <hr>
           <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
           <hr>
-          <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span> \
+          <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
           <hr>
           <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
         </mat-menu>
+      </li>
+      <li class="nav-item">
+        <mat-icon class="ml-2" matTooltip="Logout" style="color: white;cursor: pointer;" *ngIf="!showNotification">power_settings_new</mat-icon>
+        <a *ngIf="showNotification" style="cursor: pointer;" class="nav-link text-white">Logout</a>
       </li>
     </ul>
   </div>

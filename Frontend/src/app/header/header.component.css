@@ -4,3 +4,9 @@
 ::ng-deep .mat-menu-panel {
   scrollbar-width: thin;
 }
+@media(max-width: 992px) {
+  .rightMenuMobile {
+    display: flex;
+    margin-right: 2%;
+  }
+}

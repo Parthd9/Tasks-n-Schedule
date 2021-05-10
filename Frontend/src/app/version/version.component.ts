@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-project-dialog.component';
+import { EmailComponent } from '../modals/email/email.component';
 
 @Component({
   selector: 'app-version',
@@ -9,7 +10,7 @@ import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-proj
   styleUrls: ['./version.component.css']
 })
 export class VersionComponent implements OnInit {
-  // versions=[];
+
   versions = [
     {
     title : "Version-1.0.0",
@@ -46,13 +47,12 @@ export class VersionComponent implements OnInit {
       id: 1,
       header: 'Add New Version',
       name: 'Version Name',
-      description: 'Version Description',
-      devoptEnabled: 'No'
+      description: 'Version Description'
     };
     dialogConfig.width = '30%';
     dialogConfig.minWidth = '300px';
     const dialogRef = this.dialog.open(AddProjectDialogComponent,dialogConfig);
-  
+
     dialogRef.afterClosed().subscribe(data => {
       console.log('Dialog result:', data);
       if(data.event === 'save') {
@@ -61,6 +61,20 @@ export class VersionComponent implements OnInit {
     });
   }
 
+  openMail() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '30%';
+    dialogConfig.minWidth = '300px';
+    const dialogRef = this.dialog.open(EmailComponent,dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('Dialog result:', data);
+      if(data.event === 'save') {
+        console.log('data email:',data);
+      }
+    });
+  }
   onViewSprint(index) {
     this.router.navigate(['sprint'],{relativeTo:this.route, queryParams: {versionId: index}, queryParamsHandling: "merge"});
   }

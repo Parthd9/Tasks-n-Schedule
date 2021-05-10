@@ -21,6 +21,12 @@ import { ConfirmComponent } from './modals/confirm/confirm.component';
 import { VersionComponent } from './version/version.component';
 import { SprintComponent } from './sprint/sprint.component';
 import { VisualChartComponent } from './visual-chart/visual-chart.component';
+import { AdminPageComponent } from './admin/admin-page/admin-page.component';
+import { PieChartComponent } from './admin/pie-chart/pie-chart.component';
+import { BarChartComponent } from './admin/bar-chart/bar-chart.component';
+import { ManageUsersComponent } from './admin/manage-users/manage-users.component';
+import { UpsertUserComponent } from './admin/upsert-user/upsert-user.component';
+import { EmailComponent } from './modals/email/email.component';
 
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button'
@@ -42,9 +48,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectFilterModule } from 'mat-select-filter';
 import {MatBadgeModule} from '@angular/material/badge';
 import { ChartsModule } from 'ng2-charts';
-import { AdminPageComponent } from './admin-page/admin-page.component';
-import { PieChartComponent } from './pie-chart/pie-chart.component';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
+
+
+
 
 
 @NgModule({
@@ -67,7 +73,10 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     VisualChartComponent,
     AdminPageComponent,
     PieChartComponent,
-    BarChartComponent
+    BarChartComponent,
+    ManageUsersComponent,
+    UpsertUserComponent,
+    EmailComponent
   ],
 
   imports: [

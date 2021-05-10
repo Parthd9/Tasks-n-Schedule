@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminPageComponent } from './admin-page/admin-page.component';
+import { AdminPageComponent } from './admin/admin-page/admin-page.component';
+import { ManageUsersComponent } from './admin/manage-users/manage-users.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { KanbanComponent } from './kanban/kanban.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
   {path:'admin', component: AdminPageComponent},
+  {path:'admin/manage-users', component: ManageUsersComponent},
   {path:'project', component: HomePageComponent, children: [
     { path: '', component: ProjectComponent},
     { path: 'version', component: VersionComponent},
