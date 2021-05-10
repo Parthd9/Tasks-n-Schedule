@@ -37,7 +37,7 @@ export class VisualChartComponent implements OnInit {
       label: 'Completed',
     },
     {data: [20, 18, 17, 15, 14, 13, 10, 9, 8, 7 , 5, 5, 4, 2, 1], label: 'Backlogs'},
-    {data: [0, 3, 5, 5, 8, 7, 6, 5, 2, 0, 4, 3, 3, 1, 2], label: 'In-Progress'}
+    {data: [0, 2, 5, 5, 8, 7, 6, 5, 2, 0, 4, 3, 3, 1, 2], label: 'In-Progress'}
   ];
   public lineChartColors: Color[] = [
     {

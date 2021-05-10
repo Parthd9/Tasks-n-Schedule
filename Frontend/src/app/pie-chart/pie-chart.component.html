@@ -1,0 +1,39 @@
+<!-- <h4 style="text-align:center">Pie Chart For Browser usage of &nbsp; Eduforbetterment.com
+</h4> -->
+<div class="container-fluid">
+<div style="display: block" >
+<div class="row">
+
+<div class="col-sm-4">
+<canvas baseChart
+        [data]="pieChartData1"
+        [labels]="pieChartLabels1"
+        [chartType]="pieChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+</canvas>
+</div>
+
+<div class="col-sm-4">
+<canvas baseChart
+        [data]="pieChartData2"
+        [labels]="pieChartLabels2"
+        [chartType]="pieChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+</canvas>
+</div>
+
+<div class="col-sm-4">
+<canvas baseChart
+        [data]="pieChartData3"
+        [labels]="pieChartLabels3"
+        [chartType]="pieChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+</canvas>
+</div>
+
+</div>
+</div>
+</div>

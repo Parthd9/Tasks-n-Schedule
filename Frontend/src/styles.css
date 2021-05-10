@@ -12,3 +12,7 @@ body {
 .overview {
   min-height: 100%;
 }
+
+.row {
+  margin-right: 0px !important;
+}

@@ -42,6 +42,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectFilterModule } from 'mat-select-filter';
 import {MatBadgeModule} from '@angular/material/badge';
 import { ChartsModule } from 'ng2-charts';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 
 @NgModule({
@@ -61,7 +64,10 @@ import { ChartsModule } from 'ng2-charts';
     AddBacklogComponent,
     ConfirmComponent,
     SprintComponent,
-    VisualChartComponent
+    VisualChartComponent,
+    AdminPageComponent,
+    PieChartComponent,
+    BarChartComponent
   ],
 
   imports: [

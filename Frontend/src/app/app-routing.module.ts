@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { KanbanComponent } from './kanban/kanban.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'', component: LandingPageComponent,pathMatch:'full'},
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
+  {path:'admin', component: AdminPageComponent},
   {path:'project', component: HomePageComponent, children: [
     { path: '', component: ProjectComponent},
     { path: 'version', component: VersionComponent},
