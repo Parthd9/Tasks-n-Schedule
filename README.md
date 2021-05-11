@@ -1,2 +1,2 @@
 # Tasks-n-Schedule
-MEAN stack project to building agile based project management tool.
+MEAN stack project to build agile based project management tool.
