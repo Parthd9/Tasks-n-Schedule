@@ -1,0 +1,95 @@
+<div class="overview">
+  <button class="btn btn-success" style="margin-top: 10px; margin-left: 15px;">Add Subtask</button>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="subtaskItem col-lg-8 col-md-8 col-sm-12 mt-3">
+        <mat-card class="example-card">
+
+          <mat-card-content>
+            <div *ngIf="subtaskList.length > 0; else noRecord_todo">
+              <div class="example-box" *ngFor="let item of subtaskList;let i=index">
+                <div class="data" style="display: flex;align-items: center;">
+                  <mat-icon class="mr-2" style="margin-bottom: 16px;color: green;" *ngIf="item.isCompleted;else showCheck">check</mat-icon>
+                  <ng-template #showCheck>
+                    <mat-checkbox class="mr-3" [checked]="item.isCompleted" (change)="onComplete($event.checked, i)"></mat-checkbox>
+                  </ng-template>
+
+                <h4>
+                  <del *ngIf="item.isCompleted;else tobeCompleted">
+                  {{item.desc}}
+                  </del>
+                  <ng-template #tobeCompleted>
+                    {{item.desc}}
+                  </ng-template>
+                </h4>
+                </div>
+                <div style="display: flex;margin-left: 2%;">
+                <mat-icon matTooltip="Edit" class="mr-1" style="cursor: pointer;">create</mat-icon>
+                <mat-icon  matTooltip="Remove Subtask" style="cursor: pointer;">close</mat-icon>
+                </div>
+              </div>
+            </div>
+            <ng-template #noRecord_todo>
+              <div class="noRecords row h-100">
+                <div class="col-sm-12 my-auto">
+                    No Subtasks found.
+                </div>
+            </div>
+            </ng-template>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="subtaskItem col-lg-4 col-md-4 col-sm-12 mt-3">
+
+        <mat-card style="display: flex;height: 35%;min-height: 100px;" class="col-sm-10 mx-auto text-center mb-5 status">
+          <!-- <div class=" h-100"> -->
+            <div style="width: 100%;" class="my-auto">
+                In-Progress
+            </div>
+          <!-- </div> -->
+        </mat-card>
+        <mat-card class="col-sm-10 mx-auto card2 mb-5">
+          <mat-card-header  class="m-0">
+            <mat-card-title>
+              Backlog Description
+            </mat-card-title>
+          </mat-card-header>
+          <hr>
+          <mat-card-content style="display: flex;align-items: center;justify-content: space-between;">
+            <span>This is the backlog description.</span>
+            <mat-icon matTooltip="Edit" style="cursor: pointer;">create</mat-icon>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="col-sm-10 mx-auto card3">
+          <mat-card-header  class="m-0">
+            <mat-card-title>
+              Developers
+            </mat-card-title>
+          </mat-card-header>
+          <hr>
+          <mat-card-content style="display: flex;align-items: center;justify-content: space-between;">
+            <span>Parth Devmurari, Kush Soni</span>
+            <mat-icon matTooltip="Edit" style="cursor: pointer;">create</mat-icon>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+    </div>
+</div>
+
+
+
+
+<!-- <ul>
+  <li *ngFor="let item of subtaskList;let ind=index">
+      <div style="display: flex;align-items: center;">
+        <mat-checkbox></mat-checkbox>&nbsp;<h4 style="word-break: break-word;">{{item.desc}}</h4>
+      </div>
+      <span class="close">&times;</span>
+
+
+  </li>
+</ul> -->

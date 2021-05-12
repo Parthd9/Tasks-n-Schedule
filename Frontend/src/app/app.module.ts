@@ -27,6 +27,9 @@ import { BarChartComponent } from './admin/bar-chart/bar-chart.component';
 import { ManageUsersComponent } from './admin/manage-users/manage-users.component';
 import { UpsertUserComponent } from './admin/upsert-user/upsert-user.component';
 import { EmailComponent } from './modals/email/email.component';
+import { SubtaskComponent } from './subtask/subtask.component';
+import { SubtaskcompletionComponent } from './modals/subtaskcompletion/subtaskcompletion.component';
+
 
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button'
@@ -76,7 +79,9 @@ import { ChartsModule } from 'ng2-charts';
     BarChartComponent,
     ManageUsersComponent,
     UpsertUserComponent,
-    EmailComponent
+    EmailComponent,
+    SubtaskComponent,
+    SubtaskcompletionComponent
   ],
 
   imports: [

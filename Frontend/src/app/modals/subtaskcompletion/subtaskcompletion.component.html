@@ -1,0 +1,21 @@
+<form #subtaskcomplete="ngForm" (ngSubmit)="onSubmit()">
+<h1 mat-dialog-title>Confirm</h1>
+
+<div mat-dialog-content>
+    <span>Please enter total time taken to complete subtask(in hrs).</span>
+    <hr>
+    <mat-form-field appearance="fill">
+      <mat-label>Total time</mat-label>
+      <input type="number" matInput name="complete" ngModel min="1" required pattern="[1-9]+[0-9]*" #complete="ngModel">
+    </mat-form-field>
+    <mat-error *ngIf="complete.touched && complete.hasError('required')">Please enter estimated time.</mat-error>
+    <mat-error *ngIf="complete.touched && complete.hasError('pattern')">Please enter valid value in number(decimal places not allowed).</mat-error>
+    <br>
+    <span class="alert alert-warning" style="display: inline-block;width: 100%;">*You won't be able to  modify once submitted.</span>
+</div>
+<div mat-dialog-actions>
+  <button type="submit" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="subtaskcomplete.invalid">Save</button>
+  <button type="button" mat-button (click)="onNoClick()">Cancel</button>
+</div>
+</form>
+

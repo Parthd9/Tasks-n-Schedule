@@ -4,7 +4,9 @@
 	<mat-card-header  class="backlogs">
 		<mat-card-title>
       Backlogs
-      <span (click)="openDialog()"><i matTooltip="Add Backlog" class="fa fa-plus" aria-hidden="true"></i></span>
+      <span (click)="openDialog()">
+        <mat-icon matTooltip="Add Backlog" style="cursor: pointer;float: right;">add_circle</mat-icon>
+      </span>
     </mat-card-title>
 	</mat-card-header>
 
@@ -17,7 +19,10 @@
         </h3>
         <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
         </div>
-        <span matTooltip="Remove Backlog" class="close" (click)="removeBacklog(i)">&times;</span>
+        <div style="display: flex;margin-left: 2%;">
+          <mat-icon matTooltip="View Subtask" style="cursor: pointer;">visibility</mat-icon>
+        <mat-icon  matTooltip="Remove Backlog" (click)="removeBacklog(i)" style="cursor: pointer;">close</mat-icon>
+        </div>
       </div>
     </div>
     <ng-template #noRecord_todo>
@@ -45,6 +50,7 @@
           </h3>
           <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
           </div>
+          <mat-icon matTooltip="View Subtask" style="cursor: pointer;">visibility</mat-icon>
           <!-- <span class="close" >&times;</span> -->
       </div>
     </div>
@@ -73,6 +79,7 @@
             </h3>
             <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
             </div>
+            <mat-icon matTooltip="View Subtask" style="cursor: pointer;">visibility</mat-icon>
             <!-- <span class="close">&times;</span> -->
         </div>
       </div>

@@ -11,50 +11,50 @@ import { ConfirmComponent } from '../modals/confirm/confirm.component';
 export class KanbanComponent implements OnInit {
   ind;
   todo = [
-    // {task: 'sample task 1', date: '03-05-2021'},
-    // {task: 'sample task 2', date: '03-05-2021'},
-    // {task: 'sample task 3', date: '03-05-2021'},
-    // {task: 'sample task 4', date: '03-05-2021'},
-    // {task: 'sample task 5', date: '03-05-2021'},
-    // {task: 'sample task 6', date: '03-05-2021'},
-    // {task: 'sample task 7', date: '03-05-2021'},
-    // {task: 'sample task 8', date: '03-05-2021'},
-    // {task: 'sample task 9', date: '03-05-2021'},
-    // {task: 'sample task 10', date: '03-05-2021'},
-    // {task: 'sample task 11', date: '03-05-2021'},
-    // {task: 'sample task 12', date: '03-05-2021'},
-    // {task: 'sample task 13', date: '03-05-2021'}
+    {task: 'sample task 1', date: '03-05-2021'},
+    {task: 'sample task 2', date: '03-05-2021'},
+    {task: 'sample task 3', date: '03-05-2021'},
+    {task: 'sample task 4', date: '03-05-2021'},
+    {task: 'sample task 5', date: '03-05-2021'},
+    {task: 'sample task 6', date: '03-05-2021'},
+    {task: 'sample task 7', date: '03-05-2021'},
+    {task: 'sample task 8', date: '03-05-2021'},
+    {task: 'sample task 9', date: '03-05-2021'},
+    {task: 'sample task 10', date: '03-05-2021'},
+    {task: 'sample task 11', date: '03-05-2021'},
+    {task: 'sample task 12', date: '03-05-2021'},
+    {task: 'sample task 13', date: '03-05-2021'}
   ];
 
   inprogress = [
-    // {task: 'sample task 1', date: '03-05-2021'},
-    // {task: 'sample task 2', date: '03-05-2021'},
-    // {task: 'sample task 3', date: '03-05-2021'},
-    // {task: 'sample task 4', date: '03-05-2021'},
-    // {task: 'sample task 5', date: '03-05-2021'},
-    // {task: 'sample task 6', date: '03-05-2021'},
-    // {task: 'sample task 7', date: '03-05-2021'},
-    // {task: 'sample task 8', date: '03-05-2021'},
-    // {task: 'sample task 9', date: '03-05-2021'},
-    // {task: 'sample task 10', date: '03-05-2021'},
-    // {task: 'sample task 11', date: '03-05-2021'},
-    // {task: 'sample task 12', date: '03-05-2021'},
-    // {task: 'sample task 13', date: '03-05-2021'}
+    {task: 'sample task 1', date: '03-05-2021'},
+    {task: 'sample task 2', date: '03-05-2021'},
+    {task: 'sample task 3', date: '03-05-2021'},
+    {task: 'sample task 4', date: '03-05-2021'},
+    {task: 'sample task 5', date: '03-05-2021'},
+    {task: 'sample task 6', date: '03-05-2021'},
+    {task: 'sample task 7', date: '03-05-2021'},
+    {task: 'sample task 8', date: '03-05-2021'},
+    {task: 'sample task 9', date: '03-05-2021'},
+    {task: 'sample task 10', date: '03-05-2021'},
+    {task: 'sample task 11', date: '03-05-2021'},
+    {task: 'sample task 12', date: '03-05-2021'},
+    {task: 'sample task 13', date: '03-05-2021'}
   ];
   completed = [
-    // {task: 'sample task 1', date: '03-05-2021'},
-    // {task: 'sample task 2', date: '03-05-2021'},
-    // {task: 'sample task 3', date: '03-05-2021'},
-    // {task: 'sample task 4', date: '03-05-2021'},
-    // {task: 'sample task 5', date: '03-05-2021'},
-    // {task: 'sample task 6', date: '03-05-2021'},
-    // {task: 'sample task 7', date: '03-05-2021'},
-    // {task: 'sample task 8', date: '03-05-2021'},
-    // {task: 'sample task 9', date: '03-05-2021'},
-    // {task: 'sample task 10', date: '03-05-2021'},
-    // {task: 'sample task 11', date: '03-05-2021'},
-    // {task: 'sample task 12', date: '03-05-2021'},
-    // {task: 'sample task 13', date: '03-05-2021'}
+    {task: 'sample task 1', date: '03-05-2021'},
+    {task: 'sample task 2', date: '03-05-2021'},
+    {task: 'sample task 3', date: '03-05-2021'},
+    {task: 'sample task 4', date: '03-05-2021'},
+    {task: 'sample task 5', date: '03-05-2021'},
+    {task: 'sample task 6', date: '03-05-2021'},
+    {task: 'sample task 7', date: '03-05-2021'},
+    {task: 'sample task 8', date: '03-05-2021'},
+    {task: 'sample task 9', date: '03-05-2021'},
+    {task: 'sample task 10', date: '03-05-2021'},
+    {task: 'sample task 11', date: '03-05-2021'},
+    {task: 'sample task 12', date: '03-05-2021'},
+    {task: 'sample task 13', date: '03-05-2021'}
   ];
 
   constructor(public dialog: MatDialog) { }
