@@ -50,6 +50,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectFilterModule } from 'mat-select-filter';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ChartsModule } from 'ng2-charts';
 
 
@@ -110,6 +111,7 @@ import { ChartsModule } from 'ng2-charts';
     MatTooltipModule,
     MatSelectFilterModule,
     MatBadgeModule,
+    MatCheckboxModule,
     ChartsModule
   ],
   providers: [],

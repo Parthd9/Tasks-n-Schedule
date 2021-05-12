@@ -27,6 +27,8 @@ export class HeaderComponent implements OnInit {
         this.link = 'Back To Version';
       } else if(Object.keys(params).length == 3) {
         this.link = 'Back To Sprint';
+      } else if(Object.keys(params).length == 5) {
+        this.link = 'Back To Backlog';
       } else {
         this.link = '';
         // history.pushState(null, null, location.href);

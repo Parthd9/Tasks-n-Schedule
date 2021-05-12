@@ -62,7 +62,7 @@ export class SprintComponent implements OnInit {
   }
 
   onViewBacklog(index) {
-    console.log("called");
+    console.log("onViewBacklog called");
     this.router.navigate(['backlog'],{relativeTo:this.currentRoute, queryParams: {sprintId: index}, queryParamsHandling: "merge"});
   }
 

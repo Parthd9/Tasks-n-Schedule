@@ -40,8 +40,8 @@ export class BarChartComponent implements OnInit {
     }
   ];
     public barChartData:any[] = [
-      {data: [55, 60, 75, 82, 56, 62, 80], label: 'Company A'},
-      {data: [58, 55, 60, 79, 66, 57, 90], label: 'Company B'}
+      {data: [50, 70, 95, 125, 150, 180, 220], label: 'No Of Developers'},
+      {data: [7, 13, 23, 31, 45, 56, 70], label: 'No Of Projects'}
     ];
   
     // events

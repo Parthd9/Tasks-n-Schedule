@@ -18,8 +18,8 @@ export class PieChartComponent implements OnInit {
   public pieChartLabels2:string[] = ['Project Completed', 'Project In-progress'];
   public pieChartData2:number[] = [17, 6];
 
-  public pieChartLabels3:string[] = ['Developers Allowed', 'Developers Present'];
-  public pieChartData3:number[] = [50, 50 ];
+  // public pieChartLabels3:string[] = ['Developers Allowed', 'Developers Present'];
+  // public pieChartData3:number[] = [50, 50 ];
   
   public pieChartType:string = 'pie';
  

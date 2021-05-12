@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddBacklogComponent } from '../modals/add-backlog/add-backlog.component';
 import { ConfirmComponent } from '../modals/confirm/confirm.component';
 
@@ -57,7 +58,7 @@ export class KanbanComponent implements OnInit {
     {task: 'sample task 13', date: '03-05-2021'}
   ];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private router: Router, private currentRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -86,5 +87,18 @@ export class KanbanComponent implements OnInit {
         this.todo.splice(ind,1);
       }
     });
+  }
+
+  onViewBackLog(index) {
+    console.log("onViewBacklog called");
+    this.router.navigate(['subtask'],{relativeTo:this.currentRoute, queryParams: {taskId: index, status:'backlog'}, queryParamsHandling: "merge"});
+  }
+  onViewProgressTask(index) {
+    console.log("onViewProgressTaskcalled");
+    this.router.navigate(['subtask'],{relativeTo:this.currentRoute, queryParams: {taskId: index, status:'inProgress'}, queryParamsHandling: "merge"});
+  }
+  onViewCompletedTask(index) {
+    console.log("onViewCompletedTask called");
+    this.router.navigate(['subtask'],{relativeTo:this.currentRoute, queryParams: {taskId: index, status: 'completed'}, queryParamsHandling: "merge"});
   }
 }

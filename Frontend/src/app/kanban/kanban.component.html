@@ -20,7 +20,7 @@
         <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
         </div>
         <div style="display: flex;margin-left: 2%;">
-          <mat-icon matTooltip="View Subtask" style="cursor: pointer;">visibility</mat-icon>
+          <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewBackLog(i)">visibility</mat-icon>
         <mat-icon  matTooltip="Remove Backlog" (click)="removeBacklog(i)" style="cursor: pointer;">close</mat-icon>
         </div>
       </div>
@@ -50,7 +50,7 @@
           </h3>
           <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
           </div>
-          <mat-icon matTooltip="View Subtask" style="cursor: pointer;">visibility</mat-icon>
+          <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewProgressTask(i)">visibility</mat-icon>
           <!-- <span class="close" >&times;</span> -->
       </div>
     </div>
@@ -72,14 +72,14 @@
 
       <mat-card-content>
         <div *ngIf="inprogress.length > 0; else noRecord_completed">
-        <div class="example-box" *ngFor="let item of completed">
+        <div class="example-box" *ngFor="let item of completed; let i=index">
           <div class="data">
             <h3>
               {{item.task}}
             </h3>
             <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
             </div>
-            <mat-icon matTooltip="View Subtask" style="cursor: pointer;">visibility</mat-icon>
+            <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewCompletedTask(i)">visibility</mat-icon>
             <!-- <span class="close">&times;</span> -->
         </div>
       </div>
