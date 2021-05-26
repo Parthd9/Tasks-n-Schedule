@@ -7,6 +7,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { KanbanComponent } from './kanban/kanban.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
+import { PaymentComponent } from './payment/payment.component';
 import { ProjectComponent } from './project/project.component';
 import { RegisterComponent } from './register/register.component';
 import { SprintComponent } from './sprint/sprint.component';
@@ -17,6 +18,7 @@ import { VisualChartComponent } from './visual-chart/visual-chart.component';
 const routes: Routes = [
   {path:'', component: LandingPageComponent,pathMatch:'full'},
   {path:'register', component: RegisterComponent},
+  {path:'payment', component: PaymentComponent},
   {path:'login', component: LoginComponent},
   {path:'admin', component: AdminPageComponent},
   {path:'admin/manage-users', component: ManageUsersComponent},

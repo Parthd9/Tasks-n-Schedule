@@ -52,6 +52,8 @@ import { MatSelectFilterModule } from 'mat-select-filter';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ChartsModule } from 'ng2-charts';
+import { HttpClientModule } from '@angular/common/http';
+import { PaymentComponent } from './payment/payment.component';
 
 
 
@@ -82,7 +84,8 @@ import { ChartsModule } from 'ng2-charts';
     UpsertUserComponent,
     EmailComponent,
     SubtaskComponent,
-    SubtaskcompletionComponent
+    SubtaskcompletionComponent,
+    PaymentComponent
   ],
 
   imports: [
@@ -112,7 +115,8 @@ import { ChartsModule } from 'ng2-charts';
     MatSelectFilterModule,
     MatBadgeModule,
     MatCheckboxModule,
-    ChartsModule
+    ChartsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

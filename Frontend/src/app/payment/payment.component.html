@@ -1,0 +1,39 @@
+
+<div class="overview">
+  <div class="container">
+  <mat-card style="margin-top: 10%;" class="mx-auto col-lg-7 col-md-7 col-sm-12">
+    <div *ngIf="showMessage" class="alert alert-success">Data Registered successfully. You are redirecting to Login page...</div>
+    <mat-card-header style="display: block;" class="text-center">
+      <mat-card-title>User Data</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content class="col-lg-12 col-md-12 col-sm-12">
+      <div style="display: flex;">
+        <p class="col-lg-6 col-md-6 col-sm-6 text-center mr-3" style="max-width: 50%;word-break: break-word;hyphens: auto;">Registered Organization: </p>
+        <p class="col-lg-6 col-md-6 col-sm-6 text-center" style="max-width: 50%;word-break: break-word;hyphens: auto;">{{userData.orgName}}</p>
+      </div>
+
+      <div style="display: flex;">
+        <p class="col-lg-6 col-md-6 col-sm-6 text-center mr-3" style="max-width: 50%;word-break: break-word;hyphens: auto;">Organization admin email: </p>
+        <p class="col-lg-6 col-md-6 col-sm-6 text-center" style="max-width: 50%;word-break: break-word;hyphens: auto;">{{userData.email}}</p>
+      </div>
+
+      <div style="display: flex;">
+        <p class="col-lg-6 col-md-6 col-sm-6 text-center mr-3" style="max-width: 50%;word-break: break-word;hyphens: auto;">Total users allowed: </p>
+        <p class="col-lg-6 col-md-6 col-sm-6 text-center" style="max-width: 50%;word-break: break-word;hyphens: auto;">100</p>
+      </div>
+
+      <div style="display: flex;">
+        <p class="col-lg-6 col-md-6 col-sm-6 text-center mr-3" style="max-width: 50%;word-break: break-word;hyphens: auto;">License valid till: </p>
+        <p class="col-lg-6 col-md-6 col-sm-6 text-center" style="max-width: 50%;word-break: break-word;hyphens: auto;">{{date | date: 'fullDate'}}</p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="text-center">
+      <hr>
+      <button type="submit" mat-raised-button color="primary" (click)="onPay()">Pay</button>
+      <button type="submit" mat-raised-button (click)="onBack()">Back</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+</div>
+<app-footer></app-footer>

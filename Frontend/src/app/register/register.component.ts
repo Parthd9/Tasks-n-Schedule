@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonDataService } from '../common-data-service';
+
 
 @Component({
   selector: 'app-register',
@@ -14,16 +16,32 @@ export class RegisterComponent implements OnInit {
   @ViewChild ('confirmPwd') confirmPwd: ElementRef;
   isPwdMatched = true;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dataService: CommonDataService) { }
 
+  preservedData;
   ngOnInit(): void {
     this.createForm();
+
+    this.dataService.userData.subscribe(result => {
+      this.preservedData=result;
+    });
+    if(this.preservedData) {
+      console.log('preserved:',this.preservedData);
+      this.registerForm.patchValue({
+        fName: this.preservedData.fName,
+        lName: this.preservedData.lName,
+        email: this.preservedData.email,
+        password: null,
+        orgName: this.preservedData.orgName,
+        orgDomain: this.preservedData.orgDomain,
+      });
+    }
   }
 
   createForm() {
     this.registerForm = new FormGroup({
-      // 'firstName': new FormControl(null, Validators.required),
-      // 'lastName': new FormControl(null, Validators.required),
+      'fName': new FormControl(null, Validators.required),
+      'lName': new FormControl(null, Validators.required),
       'email': new FormControl(null, [Validators.email, Validators.required]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(8)]),
       'orgName': new FormControl(null, [Validators.required, Validators.minLength(3), Validators.pattern('^$|^[A-Za-z]+')]),
@@ -34,7 +52,7 @@ export class RegisterComponent implements OnInit {
   get f(){
     return this.registerForm.controls;
   }
-  
+
   changeDomain(e) {
     console.log(e.target.value);
   }
@@ -56,8 +74,9 @@ export class RegisterComponent implements OnInit {
          this.isPwdMatched = true;
        },4000);
       return;
-    } 
-    this.router.navigate(['/login']);
+    }
+    this.dataService.setData(this.registerForm.value);
+    this.router.navigate(['/payment']);
     this.registerForm.reset();
   }
 }

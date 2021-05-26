@@ -2,10 +2,24 @@
 <mat-toolbar color="primary">
     <span class="fill-remaining-space" style="text-align: center;">Create your account</span>
   </mat-toolbar>
-  
-  <div class="container"> 
+
+  <div class="container">
     <form [formGroup]="registerForm" (ngSubmit)= "onSubmit()" class="m-auto form">
-  
+
+      <mat-form-field class="form-element">
+        <input matInput placeholder="First Name" formControlName="fName">
+        <mat-error *ngIf="f.fName.touched && f.fName.invalid">
+            <div *ngIf="f.fName.errors.required">Please fill the required field.</div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-element">
+        <input matInput placeholder="Last Name" formControlName="lName">
+        <mat-error *ngIf="f.lName.touched && f.lName.invalid">
+          <div *ngIf="f.lName.errors.required">Please fill the required field.</div>
+        </mat-error>
+      </mat-form-field>
+
       <mat-form-field class="form-element">
         <input matInput placeholder="Email" formControlName="email">
         <mat-error *ngIf="f.email.touched && f.email.invalid">
@@ -15,7 +29,7 @@
       </mat-form-field>
 
       <mat-form-field class="form-element">
-        <input matInput type="password" placeholder="Password" formControlName="password">
+        <input matInput type="password" placeholder="Password" formControlName="password" autocomplete="off">
         <mat-error *ngIf="f.password.touched && f.password.invalid">
             <div *ngIf="f.password.errors.required">Password is required.</div>
             <div *ngIf="f.password.errors.minlength">Password must contain at least eight characters.</div>
@@ -25,7 +39,7 @@
       <mat-form-field style="padding: 0%;" class="form-element">
         <input matInput type="password" placeholder="Confirm Password" #confirmPwd>
       </mat-form-field>
-      <mat-error *ngIf="!isPwdMatched" style="text-align: left;font-size: 75%;"> 
+      <mat-error *ngIf="!isPwdMatched" style="text-align: left;font-size: 75%;">
           <div>
               Password and confirm password must be same.
         </div>
@@ -41,7 +55,7 @@
       </mat-form-field>
 
     <mat-form-field class="form-element">
-        <mat-select [(ngModel)]="selectedValue" name="domain" placeholder="Select Domain" formControlName="orgDomain">
+        <mat-select name="domain" placeholder="Select Domain" formControlName="orgDomain">
             <mat-option *ngFor="let domain of Domain" [value]="domain">
               {{domain}}
             </mat-option>
@@ -55,7 +69,7 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">Register Data</button>
   </div>
 </form>
-<div class="text-center">Already have an account? <a routerLink="/login">Sign in</a></div> 
+<div class="text-center">Already have an account? <a routerLink="/login">Sign in</a></div>
 </div>
 
 </div>
