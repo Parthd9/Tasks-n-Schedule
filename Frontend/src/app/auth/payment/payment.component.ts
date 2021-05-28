@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonDataService } from '../common-data-service';
+import { CommonDataService } from '../../services/common-data-service';
 
 @Component({
   selector: 'app-payment',

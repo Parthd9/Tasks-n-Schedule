@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmComponent } from '../modals/confirm/confirm.component';
 import { SubtaskcompletionComponent } from '../modals/subtaskcompletion/subtaskcompletion.component';
 
 @Component({

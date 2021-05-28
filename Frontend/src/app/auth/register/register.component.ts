@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CommonDataService } from '../common-data-service';
+import { CommonDataService } from '../../services/common-data-service';
 
 
 @Component({

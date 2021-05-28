@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ConfirmComponent } from 'src/app/modals/confirm/confirm.component';
+import { ConfirmComponent } from 'src/app/shared/confirm/confirm.component';
 import { UpsertUserComponent } from '../upsert-user/upsert-user.component';
 
 @Component({
