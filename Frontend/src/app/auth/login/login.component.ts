@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) { }
 
   @ViewChild('f') loginForm: NgForm;
   ngOnInit(): void {
@@ -20,12 +21,10 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.invalid) {
       return;
     }
-    this.http.post('/tns/auth/login', this.loginForm.value).subscribe(result => {
-      console.log('login result:',result);
-    });
-    console.log(this.loginForm.value);
-    this.loginForm.reset();
-    this.router.navigate(['/project']);
+    this.authService.loginUser(this.loginForm.value).subscribe(result => {
+      console.log(result);
+      this.loginForm.reset();
+      this.router.navigate(['/project']);
+    })
   }
-
 }

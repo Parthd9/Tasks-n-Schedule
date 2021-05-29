@@ -69,7 +69,8 @@ import { CommonModule } from "@angular/common";
         MatSelectFilterModule,
         MatBadgeModule,
         MatCheckboxModule,
-        ChartsModule
+        ChartsModule,
+        CommonModule
     ]
 })
 

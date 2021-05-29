@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonDataService } from '../../services/common-data-service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-payment',
@@ -13,7 +14,8 @@ export class PaymentComponent implements OnInit {
   userData;
   date;
   showMessage = false;
-  constructor(private dataService: CommonDataService, private http: HttpClient,private router: Router) { }
+  constructor(private dataService: CommonDataService, private http: HttpClient,private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.dataService.userData.subscribe(result => {
@@ -28,15 +30,14 @@ export class PaymentComponent implements OnInit {
   }
 
   onPay() {
-
-    this.http.post('/tns/auth/signup',this.userData).subscribe(result => {
-        console.log(result);
-        this.showMessage=true;
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-          this.dataService.setData(null);
-        }, 4000)
-    });
+   this.authService.registerUser(this.userData).subscribe(result => {
+    console.log(result);
+    this.showMessage=true;
+    setTimeout(() => {
+      this.router.navigate(['/login']);
+      this.dataService.setData(null);
+    }, 4000)
+});
   }
   onBack() {
     this.router.navigate(['/register']);

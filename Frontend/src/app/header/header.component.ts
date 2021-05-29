@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private _location: Location, private currentRoute: ActivatedRoute) { }
+  constructor(private _location: Location, private currentRoute: ActivatedRoute, private authService: AuthService) { }
 
   show = false;
   toggleClicked = false;
@@ -41,6 +42,10 @@ export class HeaderComponent implements OnInit {
     if(window.innerWidth < 992) {
       this.showNotification = true;
     }
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   onToggle() {

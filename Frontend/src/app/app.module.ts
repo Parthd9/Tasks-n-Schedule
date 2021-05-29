@@ -7,8 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AuthModule } from './auth/auth.module';
 import { MaterialModule } from './material.module';
-import { AdminModule } from './admin/admin.module';
-import { ProjectsModule } from './projects/projects.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -16,6 +14,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { CoreModule } from './core.module';
 
 
 @NgModule({
@@ -30,15 +29,14 @@ import { FooterComponent } from './footer/footer.component';
   imports: [
     BrowserModule,
     AuthModule,
-    AdminModule,
-    ProjectsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,17 +1,24 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements DoCheck{
+export class AppComponent implements DoCheck, OnInit{
   title = 'tasks-n-schedule';
   url;
   flagHeader:boolean;
   flagFooter:boolean;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {
+    
+  }
+
+  ngOnInit() {
+    this.authService.autoLogin();
+  }
 
   ngDoCheck() {
     console.log('current url:',this.router.url);

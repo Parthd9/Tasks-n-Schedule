@@ -9,7 +9,7 @@ import { VersionComponent } from './version/version.component';
 
 
 const routes: Routes = [
-    {path:'project', component: HomePageComponent, children: [
+    {path:'', component: HomePageComponent, children: [
           { path: '', component: ProjectComponent},
           { path: 'version', component: VersionComponent},
           { path: 'version/sprint', component: SprintComponent},

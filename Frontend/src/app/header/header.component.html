@@ -55,8 +55,8 @@
         </mat-menu>
       </li>
       <li class="nav-item">
-        <mat-icon class="ml-2" matTooltip="Logout" style="color: white;cursor: pointer;" *ngIf="!showNotification">power_settings_new</mat-icon>
-        <a *ngIf="showNotification" style="cursor: pointer;" class="nav-link text-white">Logout</a>
+        <mat-icon class="ml-2" matTooltip="Logout" style="color: white;cursor: pointer;" *ngIf="!showNotification" (click)="logout()">power_settings_new</mat-icon>
+        <a *ngIf="showNotification" style="cursor: pointer;" class="nav-link text-white" (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>

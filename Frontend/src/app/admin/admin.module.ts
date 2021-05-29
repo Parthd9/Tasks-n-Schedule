@@ -8,6 +8,7 @@ import { BarChartComponent } from "./bar-chart/bar-chart.component";
 import { ManageUsersComponent } from "./manage-users/manage-users.component";
 import { PieChartComponent } from "./pie-chart/pie-chart.component";
 import { UpsertUserComponent } from "./upsert-user/upsert-user.component";
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 @NgModule({
     declarations: [
@@ -15,12 +16,16 @@ import { UpsertUserComponent } from "./upsert-user/upsert-user.component";
         BarChartComponent,
         PieChartComponent,
         ManageUsersComponent,
-        UpsertUserComponent
+        UpsertUserComponent,
+        AdminHomeComponent
     ],
     imports: [
         RouterModule.forChild([
-            { path: 'admin', component: AdminPageComponent },
-            { path: 'admin/manage-users', component: ManageUsersComponent}
+            { path: '', component: AdminHomeComponent, children: [
+                {path: '', component: AdminPageComponent},
+                {path: 'manage-users', component: ManageUsersComponent}
+            ]
+        }
         ]),
         FormsModule,
         MaterialModule,

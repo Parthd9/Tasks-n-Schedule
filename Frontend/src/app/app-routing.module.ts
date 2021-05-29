@@ -5,19 +5,12 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
   {path:'', component: LandingPageComponent,pathMatch:'full'},
-  // {path:'main/register', component: RegisterComponent},
-  // {path:'main/payment', component: PaymentComponent},
-  // {path:'main/login', component: LoginComponent},
-  // {path:'main/admin', component: AdminPageComponent},
-  // {path:'main/admin/manage-users', component: ManageUsersComponent},
-  // { path: 'visual-chart', component: VisualChartComponent}
-  // {path:'project', component: HomePageComponent, children: [
-  //   { path: '', component: ProjectComponent},
-  //   { path: 'version', component: VersionComponent},
-  //   { path: 'version/sprint', component: SprintComponent},
-  //   { path: 'version/sprint/backlog', component: KanbanComponent},
-  //   { path: 'version/sprint/backlog/subtask', component: SubtaskComponent},
-  // ]},
+  {
+    path: 'project', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule)
+  },
+  {
+    path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
   {path:'**', component: ErrorPageComponent}
 ];
 
