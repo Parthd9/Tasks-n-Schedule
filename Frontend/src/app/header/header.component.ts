@@ -15,9 +15,13 @@ export class HeaderComponent implements OnInit {
   show = false;
   toggleClicked = false;
   showNotification = false;
+  role = '';
   link;
   ngOnInit(): void {
     // console.log(this.currentRoute.snapshot.queryParams);
+    this.authService.user.subscribe(user => {
+      this.role = user['role'];
+    });
     this.currentRoute.queryParams.subscribe(params => {
       console.log(Object.keys(params).length);
       if(Object.keys(params).length === 1)

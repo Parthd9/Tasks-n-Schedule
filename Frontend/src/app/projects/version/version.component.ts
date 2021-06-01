@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-project-dialog.component';
 import { EmailComponent } from '../modals/email/email.component';
 
@@ -11,6 +12,7 @@ import { EmailComponent } from '../modals/email/email.component';
 })
 export class VersionComponent implements OnInit {
 
+  userRole = '';
   versions = [
     {
     title : "Version-1.0.0",
@@ -33,10 +35,13 @@ export class VersionComponent implements OnInit {
       desc: "With supporting text below as a natural lead-in to additional content."
     }];
 
-  constructor(private dialog: MatDialog,private router: Router, private route: ActivatedRoute) { }
+  constructor(private dialog: MatDialog,private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
     console.log(this.route.snapshot.queryParams['projectId']);
+    this.authService.user.subscribe(user => {
+      this.userRole = user['role'];
+    })
   }
 
   openDialog() {

@@ -1,11 +1,11 @@
 <div class = "overview" style="min-height: 100%;">
-<button class="btn btn-success" style="margin-top: 10px; margin-left: 5px;" (click)="openDialog()">Add Version</button>
+<button *ngIf="userRole === 'Scrum Master'" class="btn btn-success" style="margin-top: 10px; margin-left: 5px;" (click)="openDialog()">Add Version</button>
 <div class="row">
     <div *ngFor ="let version of versions; let ind=index" style="margin-top: 10px;" class = "col-sm-4 version">
       <div class="card">
         <div class="card-body">
             <div class="info">
-                <h3 class="card-title">{{version.title}}<mat-icon (click)="openMail()" style="float: right;cursor: pointer;" matTooltip="Email">email</mat-icon></h3>
+                <h3 class="card-title">{{version.title}}<mat-icon *ngIf="userRole === 'Scrum Master'" (click)="openMail()" style="float: right;cursor: pointer;" matTooltip="Email">email</mat-icon></h3>
                 <p class="card-text">{{version.desc}}</p>
             </div>
           <a mat-raised-button color="primary" (click)="onViewSprint(ind)">View Sprint</a>

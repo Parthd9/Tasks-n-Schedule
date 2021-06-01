@@ -1,5 +1,5 @@
 <div class = "overview" style="min-height: 100%;">
-    <button class="btn btn-success" style="margin-top: 10px; margin-left: 5px;" (click)="openDialog()">Add Sprint</button>
+    <button *ngIf="userRole === 'Scrum Master'" class="btn btn-success" style="margin-top: 10px; margin-left: 5px;" (click)="openDialog()">Add Sprint</button>
     <div class="row" *ngIf="sprints.length>0; else noRecord">
         <div *ngFor ="let sprint of sprints; let ind=index" style="margin-top: 10px;" class = "col-sm-4 sprint">
           <div class="card">

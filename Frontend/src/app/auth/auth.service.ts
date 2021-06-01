@@ -11,7 +11,7 @@ export class AuthService {
 
     user = new BehaviorSubject<User>(null);
     private tokenExpirationTimer: any;
-    
+
     registerUser(userData) {
         return this.http.post('/tns/auth/signup',userData);
     }
@@ -37,17 +37,16 @@ export class AuthService {
 
     autoLogin() {
         const userData: {
-            _token: string, 
+            _token: string,
             _tokenExpirationDate:string,
-            email: string,
-            role:string
+            role: string
         } = JSON.parse(localStorage.getItem('userData')); // convert it to json bcz we stored string in local storage
         if(!userData) {
             return;
         }
 
         console.log(userData);
-        const loadedUser = new User(userData._token,new Date(userData._tokenExpirationDate));
+        const loadedUser = new User(userData._token,new Date(userData._tokenExpirationDate),userData.role);
         console.log(loadedUser);
 
         if(loadedUser.token) {
@@ -72,7 +71,7 @@ export class AuthService {
         // console.log(decoded);
         console.log("email:",email+" ,role:",role);
         const expirationDate = new Date(new Date().getTime() + (decoded.exp - decoded.iat)*1000);
-        const user = new User(tokenData.token, expirationDate);
+        const user = new User(tokenData.token, expirationDate, role);
         console.log('exp date:',expirationDate);
         this.user.next(user);
         localStorage.setItem('userData',JSON.stringify(user));

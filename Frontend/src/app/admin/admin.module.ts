@@ -9,6 +9,8 @@ import { ManageUsersComponent } from "./manage-users/manage-users.component";
 import { PieChartComponent } from "./pie-chart/pie-chart.component";
 import { UpsertUserComponent } from "./upsert-user/upsert-user.component";
 import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { AuthGuard } from "../auth/auth.guard";
+import { AdminGuard } from "../auth/admin.guard";
 
 @NgModule({
     declarations: [
@@ -21,7 +23,7 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     ],
     imports: [
         RouterModule.forChild([
-            { path: '', component: AdminHomeComponent, children: [
+            { path: '', component: AdminHomeComponent ,canActivate: [AuthGuard, AdminGuard],children: [
                 {path: '', component: AdminPageComponent},
                 {path: 'manage-users', component: ManageUsersComponent}
             ]

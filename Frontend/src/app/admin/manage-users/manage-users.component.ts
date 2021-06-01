@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from 'src/app/shared/confirm/confirm.component';
+import { AdminService } from '../admin.service';
 import { UpsertUserComponent } from '../upsert-user/upsert-user.component';
 
 @Component({
@@ -14,7 +15,7 @@ import { UpsertUserComponent } from '../upsert-user/upsert-user.component';
 })
 export class ManageUsersComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private adminService: AdminService) { }
 
   @ViewChild('searchUser') form: NgForm;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -54,10 +55,14 @@ export class ManageUsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       console.log('Dialog result:', data);
       if(data.event==='Add') {
-        this.data.push({name: data.value.fname+' '+data.value.lname, email: data.value.email, role: data.value.role});
-        this.dataSource = new MatTableDataSource(this.data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.adminService.addUser(data.value).subscribe(result => {
+          if(result) {
+            this.data.push({name: data.value.fname+' '+data.value.lname, email: data.value.email, role: data.value.role});
+            this.dataSource = new MatTableDataSource(this.data);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          }
+        });
       }
     });
   }

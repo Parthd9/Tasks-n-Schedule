@@ -43,8 +43,8 @@ export class RegisterComponent implements OnInit {
       'fName': new FormControl(null, Validators.required),
       'lName': new FormControl(null, Validators.required),
       'email': new FormControl(null, [Validators.email, Validators.required]),
-      'password': new FormControl(null, [Validators.required, Validators.minLength(8)]),
-      'orgName': new FormControl(null, [Validators.required, Validators.minLength(3), Validators.pattern('^$|^[A-Za-z]+')]),
+      'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      'orgName': new FormControl(null, [Validators.required, Validators.minLength(3), Validators.pattern('^$|^[A-Za-z ]+')]),
       'orgDomain': new FormControl('', Validators.required)
     });
   }

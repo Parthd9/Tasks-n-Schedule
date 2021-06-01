@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from 'src/app/auth/auth.service';
 import { SubtaskcompletionComponent } from '../modals/subtaskcompletion/subtaskcompletion.component';
 
 @Component({
@@ -9,8 +10,9 @@ import { SubtaskcompletionComponent } from '../modals/subtaskcompletion/subtaskc
 })
 export class SubtaskComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private authService: AuthService) { }
 
+  userRole = '';
   subtaskList=  [
     {desc: 'Subtask - 1', isCompleted: true},
     {desc: 'Subtask - 2', isCompleted: false},
@@ -21,6 +23,9 @@ export class SubtaskComponent implements OnInit {
   ];
   checked = false;
   ngOnInit(): void {
+    this.authService.user.subscribe(user => {
+      this.userRole = user['role'];
+    });
   }
 
   onComplete(data, ind) {

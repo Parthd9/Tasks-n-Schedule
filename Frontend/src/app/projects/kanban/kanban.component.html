@@ -4,7 +4,7 @@
 	<mat-card-header  class="backlogs">
 		<mat-card-title>
       Backlogs
-      <span (click)="openDialog()">
+      <span *ngIf="userRole === 'Scrum Master'" (click)="openDialog()">
         <mat-icon matTooltip="Add Backlog" style="cursor: pointer;float: right;">add_circle</mat-icon>
       </span>
     </mat-card-title>
@@ -21,7 +21,7 @@
         </div>
         <div style="display: flex;margin-left: 2%;">
           <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewBackLog(i)">visibility</mat-icon>
-        <mat-icon  matTooltip="Remove Backlog" (click)="removeBacklog(i)" style="cursor: pointer;">close</mat-icon>
+        <mat-icon *ngIf="userRole === 'Scrum Master'" matTooltip="Remove Backlog" (click)="removeBacklog(i)" style="cursor: pointer;">close</mat-icon>
         </div>
       </div>
     </div>

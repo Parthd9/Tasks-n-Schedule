@@ -23,8 +23,14 @@ export class LoginComponent implements OnInit {
     }
     this.authService.loginUser(this.loginForm.value).subscribe(result => {
       console.log(result);
-      this.loginForm.reset();
-      this.router.navigate(['/project']);
+      this.authService.user.subscribe(user => {
+        if(user['role'] === 'Admin') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/project']);
+        }
+        this.loginForm.reset();
+      })
     })
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-project-dialog.component';
 
 @Component({
@@ -10,6 +11,7 @@ import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-proj
 })
 export class SprintComponent implements OnInit {
 
+  userRole = '';
   sprints = [
     {
     title : "Sprint-1",
@@ -32,10 +34,13 @@ export class SprintComponent implements OnInit {
       desc: "With supporting text below as a natural lead-in to additional content."
     }];
 
-  constructor(private dialog: MatDialog, private currentRoute: ActivatedRoute, private router: Router) { }
+  constructor(private dialog: MatDialog, private currentRoute: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     console.log("sprint:",this.currentRoute.snapshot.queryParams);
+    this.authService.user.subscribe(user => {
+      this.userRole = user['role'];
+    });
   }
 
   openDialog() {
@@ -52,7 +57,7 @@ export class SprintComponent implements OnInit {
     dialogConfig.width = '30%';
     dialogConfig.minWidth = '300px';
     const dialogRef = this.dialog.open(AddProjectDialogComponent,dialogConfig);
-  
+
     dialogRef.afterClosed().subscribe(data => {
       console.log('Dialog result:', data);
       if(data.event === 'save') {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { ConfirmComponent } from '../../shared/confirm/confirm.component';
 import { AddBacklogComponent } from '../modals/add-backlog/add-backlog.component';
 
@@ -10,6 +11,7 @@ import { AddBacklogComponent } from '../modals/add-backlog/add-backlog.component
   styleUrls: ['./kanban.component.css']
 })
 export class KanbanComponent implements OnInit {
+  userRole = '';
   ind;
   todo = [
     {task: 'sample task 1', date: '03-05-2021'},
@@ -58,9 +60,12 @@ export class KanbanComponent implements OnInit {
     {task: 'sample task 13', date: '03-05-2021'}
   ];
 
-  constructor(public dialog: MatDialog, private router: Router, private currentRoute:ActivatedRoute) { }
+  constructor(public dialog: MatDialog, private router: Router, private currentRoute:ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.user.subscribe(user => {
+      this.userRole = user['role'];
+    })
   }
   openDialog() {
     const dialogRef = this.dialog.open(AddBacklogComponent, {

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '../auth/auth.guard';
+import { ProjectGuard } from '../auth/project.guard';
 import { HomePageComponent } from './home-page/home-page.component';
 import { KanbanComponent } from './kanban/kanban.component';
 import { ProjectComponent } from './project/project.component';
@@ -9,7 +11,7 @@ import { VersionComponent } from './version/version.component';
 
 
 const routes: Routes = [
-    {path:'', component: HomePageComponent, children: [
+    {path:'', component: HomePageComponent,canActivate: [AuthGuard, ProjectGuard],children: [
           { path: '', component: ProjectComponent},
           { path: 'version', component: VersionComponent},
           { path: 'version/sprint', component: SprintComponent},

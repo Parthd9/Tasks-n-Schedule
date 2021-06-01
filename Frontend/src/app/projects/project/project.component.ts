@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-project-dialog.component';
 
 @Component({
@@ -10,8 +11,9 @@ import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-proj
 })
 export class ProjectComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private router: Router, private route: ActivatedRoute) { }
+  constructor(private dialog: MatDialog, private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
   projects = [];
+  userRole = '';
 
   ngOnInit(): void {
     this.projects=[];
@@ -49,6 +51,9 @@ export class ProjectComponent implements OnInit {
         desc: "With supporting text below as a natural lead-in to additional content."
       },
   ];
+  this.authService.user.subscribe(user => {
+    this.userRole = user['role'];
+  })
 }
 
 openDialog() {

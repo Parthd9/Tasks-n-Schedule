@@ -1,5 +1,5 @@
 <div class="overview">
-  <button class="btn btn-success" style="margin-top: 10px; margin-left: 15px;">Add Subtask</button>
+  <button *ngIf="userRole !== 'Assurance'" class="btn btn-success" style="margin-top: 10px; margin-left: 15px;">Add Subtask</button>
 
   <div class="container-fluid">
     <div class="row">
@@ -10,9 +10,9 @@
             <div *ngIf="subtaskList.length > 0; else noRecord_todo">
               <div class="example-box" *ngFor="let item of subtaskList;let i=index">
                 <div class="data" style="display: flex;align-items: center;">
-                  <mat-icon class="mr-2" style="margin-bottom: 16px;color: green;" *ngIf="item.isCompleted;else showCheck">check</mat-icon>
+                  <mat-icon  class="mr-2" style="margin-bottom: 16px;color: green;" *ngIf="item.isCompleted;else showCheck">check</mat-icon>
                   <ng-template #showCheck>
-                    <mat-checkbox class="mr-3" [checked]="item.isCompleted" (change)="onComplete($event.checked, i)"></mat-checkbox>
+                    <mat-checkbox *ngIf="userRole!=='Assurance'" class="mr-3" [checked]="item.isCompleted" (change)="onComplete($event.checked, i)"></mat-checkbox>
                   </ng-template>
 
                 <h4>
@@ -25,8 +25,8 @@
                 </h4>
                 </div>
                 <div style="display: flex;margin-left: 2%;">
-                <mat-icon matTooltip="Edit" class="mr-1" style="cursor: pointer;">create</mat-icon>
-                <mat-icon  matTooltip="Remove Subtask" style="cursor: pointer;">close</mat-icon>
+                <mat-icon *ngIf="userRole !== 'Assurance'" matTooltip="Edit" class="mr-1" style="cursor: pointer;">create</mat-icon>
+                <mat-icon *ngIf="userRole !== 'Assurance'" matTooltip="Remove Subtask" style="cursor: pointer;">close</mat-icon>
                 </div>
               </div>
             </div>
@@ -58,7 +58,7 @@
           <hr>
           <mat-card-content style="display: flex;align-items: center;justify-content: space-between;">
             <span>This is the backlog description.</span>
-            <mat-icon matTooltip="Edit" style="cursor: pointer;">create</mat-icon>
+            <mat-icon *ngIf="userRole==='Scrum Master'" matTooltip="Edit" style="cursor: pointer;">create</mat-icon>
           </mat-card-content>
         </mat-card>
 
@@ -71,7 +71,7 @@
           <hr>
           <mat-card-content style="display: flex;align-items: center;justify-content: space-between;">
             <span>Parth Devmurari, Kush Soni</span>
-            <mat-icon matTooltip="Edit" style="cursor: pointer;">create</mat-icon>
+            <mat-icon *ngIf="userRole==='Scrum Master'" matTooltip="Edit" style="cursor: pointer;">create</mat-icon>
           </mat-card-content>
         </mat-card>
       </div>
