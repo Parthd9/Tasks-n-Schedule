@@ -1,13 +1,24 @@
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const csv= require('csv-parser');
+const { validationResult } = require('express-validator');
 
 const Organization = require("../models/organization");
 const User = require("../models/user");
 
 
 exports.signup = (req, res, next) => {
-    console.log(req.body);
+    // console.log(req.body);
+    const errors = validationResult(req);
+    console.log(errors);
+    if (!errors.isEmpty()) {
+      const error = new Error('Validation failed. Organization name and admin email must be unique.');
+      error.statusCode = 422;
+      error.data = errors.array();
+      throw error;
+    }
     const fName = req.body.fName;
     const lName = req.body.lName;
     const email = req.body.email;
@@ -23,7 +34,7 @@ exports.signup = (req, res, next) => {
             return bcrypt.hash(password, 10);
         })
         .then(hashedPassword => {
-            const user = new User(fName,lName,email,hashedPassword,org_id);
+            const user = new User(fName,lName,email,hashedPassword,org_id,'Admin');
             return user.save();
         })
         .then(userId => {
@@ -32,7 +43,7 @@ exports.signup = (req, res, next) => {
                 service: 'gmail',
                 auth: {
                   user: 'tasknschedule@gmail.com',
-                  pass: '<PASSWORD>'
+                  pass: '<Password>'
                 }
               });
             
@@ -51,13 +62,19 @@ exports.signup = (req, res, next) => {
                 if (error) {
                   console.log(error);
                 } else {
-                  console.log('Email sent: ' + info.response);
+                  // console.log('Email sent: ' + info.response);
                 }
               });
 
             res.status(200).json({'message': 'Organization and Admin data registered successfully.'});
         })
-        .catch(err=>console.log(err));
+        .catch(err=>{
+          console.log(err);
+          if (!err.statusCode) {
+            err.statusCode = 500;
+          }
+          next(err);
+        });
     
 }
 
@@ -81,14 +98,32 @@ exports.login = (req, res, next) => {
                     '<SECRET-KEY>',
                     {expiresIn: '1h'}
                 );
-
                 return res.status(200).json({
                     token: token
                 });
 
-            } else {
+            } else { 
               return res.status(401).json({'message': 'Invalid credentials.'});
             }
         })
         .catch(err => console.log(err));
+};
+
+exports.registerUsersData = (req, res, next) => {
+  console.log(req.file);
+  fs.createReadStream('./files/'+req.file.originalname)
+  .pipe(csv())
+  .on('data', (row) => {
+    console.log(row);
+  })
+  .on('end', () => {
+    console.log('CSV file successfully processed');
+    removeFile('./files/'+req.file.originalname)
+  });
+  res.json('arrived');
+} 
+
+const removeFile = filePath => {
+  // filePath = './files';
+  fs.unlink(filePath, err => console.log(err));
 };
