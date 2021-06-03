@@ -20,6 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectFilterModule } from 'mat-select-filter';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ChartsModule } from 'ng2-charts';
 import { CommonModule } from "@angular/common";
 
@@ -45,6 +46,7 @@ import { CommonModule } from "@angular/common";
         MatSelectFilterModule,
         MatBadgeModule,
         MatCheckboxModule,
+        MatSnackBarModule,
         ChartsModule,
         CommonModule
     ],
@@ -69,6 +71,7 @@ import { CommonModule } from "@angular/common";
         MatSelectFilterModule,
         MatBadgeModule,
         MatCheckboxModule,
+        MatSnackBarModule,
         ChartsModule,
         CommonModule
     ]

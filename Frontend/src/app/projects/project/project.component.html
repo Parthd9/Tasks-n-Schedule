@@ -5,10 +5,10 @@
       <div class="card">
         <div class="card-body">
             <div class="info">
-                <h3 class="card-title">{{project.title}}</h3>
-                <p class="card-text">{{project.desc}}</p>
+                <h3 class="card-title">{{project.name}}</h3>
+                <p class="card-text">{{project.description}}</p>
             </div>
-          <a [routerLink]="['version']" [queryParams]="{'projectId': ind}" mat-raised-button color="primary" >View Version</a>
+          <a [routerLink]="['version']" [queryParams]="{'projectId': project._id}" mat-raised-button color="primary" >View Version</a>
         </div>
       </div>
     </div>

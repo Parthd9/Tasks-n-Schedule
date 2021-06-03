@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ShowMessageComponent } from 'src/app/shared/show-message/show-message.component';
 import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-project-dialog.component';
+import { ProjectsService } from '../projects.service';
 
 @Component({
   selector: 'app-project',
@@ -11,46 +14,28 @@ import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-proj
 })
 export class ProjectComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
-  projects = [];
+  constructor(private dialog: MatDialog, private router: Router, private route: ActivatedRoute,
+    private authService: AuthService, private projectService: ProjectsService, private _snackBar: MatSnackBar) { }
+  projects = [] ;
   userRole = '';
+  developers;
+  durationInSeconds = 5;
 
   ngOnInit(): void {
-    this.projects=[];
-    this.projects = [
-      {
-      title : "Project-1",
-      desc: "With supporting text below as a natural lead-in to additional content."
-      },
-      {
-        title : "Project-2",
-        desc: "With supporting text below as a natural lead-in to additional content."
-      },
-      {
-        title : "Project-3",
-        desc: "With supporting text below as a natural lead-in to additional content."
-      },
-      {
-        title : "Project-4",
-        desc: "With supporting text below as a natural lead-in to additional content."
-      },
-      {
-        title : "Project-5",
-        desc: "With supporting text below as a natural lead-in to additional content."
-      },
-      {
-        title : "Project-6",
-        desc: "With supporting text below as a natural lead-in to additional content."
-      },
-      {
-        title : "Project-7",
-        desc: "With supporting text below as a natural lead-in to additional content."
-      },
-      {
-        title : "Project-8",
-        desc: "With supporting text below as a natural lead-in to additional content."
-      },
-  ];
+    this.route.data.subscribe((data: Data) => {
+      console.log(data['responses']['A']['developers']);
+      console.log(data['responses']['B']['projects']);
+      // this.developers = data['developers']['developers'];
+      // console.log('dev:',this.developers);
+      this.developers = data['responses']['A']['developers'];
+      this.projects = data['responses']['B']['projects']
+    })
+
+    // this.projectService.getProjects().subscribe(result => {
+    //   console.log(result);
+    //   this.projects = result['projects'];
+    // })
+
   this.authService.user.subscribe(user => {
     this.userRole = user['role'];
   })
@@ -65,7 +50,8 @@ openDialog() {
     header: 'Add New Project',
     name: 'Project Name',
     description: 'Project Description',
-    devoptEnabled: 'Yes'
+    devoptEnabled: 'Yes',
+    developers: this.developers
   };
   dialogConfig.width = '30%';
   dialogConfig.minWidth = '300px';
@@ -73,15 +59,17 @@ openDialog() {
 
   dialogRef.afterClosed().subscribe(data => {
     console.log('Dialog result:', data);
-    if(data.event === 'save') {
-      this.projects.push({title: data.value.title, desc:data.value.desc});
+    if(data.event === 'success') {
+      this.projects.push(data.value);
+      this._snackBar.openFromComponent(ShowMessageComponent, {
+        duration: this.durationInSeconds * 1000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['success'],
+        data: {type: 'success', msg: 'Project added successfully.'}
+      });
     }
   });
 }
-
-// onViewVersion(index) {
-//   console.log(index);
-//   this.router.navigate([index], {relativeTo: this.route});
-// }
 
 }

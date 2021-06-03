@@ -4,6 +4,7 @@ import { CommonDataService } from './services/common-data-service';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { AuthService } from './auth/auth.service';
 import { AdminService } from './admin/admin.service';
+import { ProjectsService } from './projects/projects.service';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { AdminService } from './admin/admin.service';
     CommonDataService,
     AuthService,
     AdminService,
+    ProjectsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

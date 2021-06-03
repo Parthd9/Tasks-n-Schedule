@@ -21,7 +21,7 @@ export class ManageUsersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  roles = ['Devloper','Scrum Master', 'Assurance'];
+  roles = ['Developer','Scrum Master', 'Assurance'];
   displayedColumns = ['name', 'email', 'role', 'actions'];
   data = [
     {name: 'Parth Devmurari(Member - Core TnS Project(India) - Agile based project management tool Project', email: 'parth.devmurari@tns.com', role:'Scrum Master'},

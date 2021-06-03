@@ -19,7 +19,7 @@ export class UpsertUserComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   @ViewChild('upsertUserForm') form: NgForm;
-  roles = ['Devloper', 'Scrum Master', 'Assurance'];
+  roles = ['Developer', 'Scrum Master', 'Assurance'];
   ngOnInit(): void {
     console.log('userData:',this.data.userData);
     this.fnamedata = this.data.userData.fname;

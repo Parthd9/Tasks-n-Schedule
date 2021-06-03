@@ -5,12 +5,14 @@ import { RouterModule } from "@angular/router";
 import { MaterialModule } from "../material.module";
 import { ConfirmComponent } from "./confirm/confirm.component";
 import { VisualChartComponent } from "./visual-chart/visual-chart.component";
+import { ShowMessageComponent } from './show-message/show-message.component';
 
 
 @NgModule({
     declarations: [
         VisualChartComponent,
-        ConfirmComponent
+        ConfirmComponent,
+        ShowMessageComponent
     ],
     imports: [
         RouterModule.forChild([

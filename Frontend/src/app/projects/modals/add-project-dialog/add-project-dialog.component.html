@@ -1,4 +1,5 @@
 <form #addProjectForm="ngForm" (ngSubmit)="onSubmit()">
+  <div *ngIf="showMsg" class="alert alert-danger">Please enter data in valid format.</div>
 <h2 mat-dialog-title>{{header}}</h2>
 <div mat-dialog-content>
     <mat-form-field>
@@ -17,16 +18,16 @@
     <mat-form-field appearance="fill" >
       <mat-label>Developers</mat-label>
       <mat-select required name="list" minlength="3" ngModel #list="ngModel" panelClass="example-long-panel" multiple>
-        <mat-select-filter [placeholder]="'Filter'" [array]="devlopersList"
-        displayMember="devloper" (filteredReturn)="filteredList=$event"
+        <mat-select-filter [placeholder]="'Filter'" [array]="developersList"
+        displayMember="name" (filteredReturn)="filteredList=$event"
         ></mat-select-filter>
         <mat-select-trigger>
-          {{list.value ? list.value[0] : ''}}
+          {{list.value ? list.value[0]['name'] : ''}}
           <span *ngIf="list.value?.length > 1" class="example-additional-selection">
             (+{{list.value.length - 1}} {{list.value?.length === 2 ? 'other' : 'others'}})
           </span>
         </mat-select-trigger>
-        <mat-option *ngFor="let dev of filteredList" [value]="dev.devloper" [matTooltip]="dev.devloper" matTooltipPosition=right>{{dev.devloper}}</mat-option>
+        <mat-option *ngFor="let dev of filteredList" [value]="dev" [matTooltip]="dev.email" matTooltipPosition=right>{{dev.name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-error *ngIf="list.hasError('required') && list.touched ">Please select devlopers.</mat-error>
@@ -35,7 +36,7 @@
 </div>
 
 <mat-dialog-actions>
-    <button mat-raised-button color="primary">Save</button>
+    <button mat-raised-button color="primary" [disabled]="addProjectForm.invalid">Save</button>
     <button type = "button" mat-raised-button (click)="close()">Close</button>
 </mat-dialog-actions>
 </form>
