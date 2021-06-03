@@ -43,7 +43,7 @@ exports.signup = (req, res, next) => {
                 service: 'gmail',
                 auth: {
                   user: 'tasknschedule@gmail.com',
-                  pass: '<Password>'
+                  pass: ''
                 }
               });
             

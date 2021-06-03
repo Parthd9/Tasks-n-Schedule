@@ -5,7 +5,7 @@ let _db;
 
 const mongoConnect = (callback) => {
 
-MongoClient.connect('mongodb+srv://admin_tns:<PASSWORD>@cluster0.3s6jw.mongodb.net/task-n-schedule?retryWrites=true&w=majority',{ useUnifiedTopology: true })
+MongoClient.connect('mongodb+srv://admin_tns:<Password>@cluster0.3s6jw.mongodb.net/task-n-schedule?retryWrites=true&w=majority',{ useUnifiedTopology: true })
 .then(client => {
   console.log('connected');
   _db = client.db(); // store the connection of database in this variable

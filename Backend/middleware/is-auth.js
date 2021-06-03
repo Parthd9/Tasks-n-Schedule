@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
   User.findUser({email: decodedToken.email})
         .then(userDoc => {
             req.user = userDoc;
-            console.log('E madyuuuu...:',userDoc);
+            // console.log('E madyuuuu...:',userDoc);
             next();
         })
         .catch(err => {

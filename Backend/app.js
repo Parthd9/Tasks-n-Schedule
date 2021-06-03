@@ -5,6 +5,8 @@ const app= express();
 
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
+const projectRoutes = require('./routes/projects');
+
 const db = require('./utils/db');
 
 const fileStorage = multer.diskStorage({
@@ -46,9 +48,11 @@ app.use('/tns/auth',authRoutes);
 
 app.use('/tns/api/admin',adminRoutes);
 
+app.use('/tns/api/projects',projectRoutes);
+
 
 app.use((error, req, res, next) => {
-  console.log(error);
+  console.log('error middleware:',error);
   const status = error.statusCode || 500;
   const message = error.message;
   const data = error.data;

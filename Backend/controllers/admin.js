@@ -4,12 +4,24 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const helper = require('../utils/helper');
 
+const { validationResult } = require('express-validator');
+
 exports.addUser = (req, res, next) => {
     console.log('data:',req.body);
     console.log('persisted user:',req.user);
-    let password = helper.getRandomString(6);
 
+    const errors = validationResult(req);
+    console.log(errors);
+    if (!errors.isEmpty()) {
+      const error = new Error('Validation failed. Please enter user-data in valid format.');
+      error.statusCode = 422;
+      error.data = errors.array();
+      throw error;
+    }
+
+    let password = helper.getRandomString(6);
     console.log('Password:',password);
+
     bcrypt.hash(password, 10)
           .then(hashedPwd => {
             if(!hashedPwd) {
@@ -25,7 +37,7 @@ exports.addUser = (req, res, next) => {
                 service: 'gmail',
                 auth: {
                   user: 'tasknschedule@gmail.com',
-                  pass: '<Password>'
+                  pass: ''
                 }
               });
             
