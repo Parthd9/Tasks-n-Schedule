@@ -1,0 +1,23 @@
+<form #addVersionForm="ngForm" (ngSubmit)="onSubmit()">
+  <div *ngIf="showMsg" class="alert alert-danger">Please enter data in valid format.</div>
+<h2 mat-dialog-title>{{header}}</h2>
+<div mat-dialog-content>
+    <mat-form-field>
+        <input matInput placeholder={{name}} name="title" ngModel required minlength="3" maxlength="30" #title=ngModel>
+    </mat-form-field>
+    <mat-error *ngIf="title.touched && title.invalid">Invalid {{name}}.</mat-error>
+  <br>
+    <mat-form-field>
+        <textarea matInput placeholder= {{description}} name="desc" ngModel #pdesc=ngModel required minlength="5" [maxlength]="maxChars"></textarea>
+    </mat-form-field>
+    <mat-error *ngIf="pdesc.touched && pdesc.invalid">Invalid {{description}}.</mat-error>
+    <span>Characters remaining: {{maxChars-pdesc.value.length}}</span>
+    <br>
+    <br>
+</div>
+
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="addVersionForm.invalid">Save</button>
+    <button type = "button" mat-raised-button (click)="close()">Close</button>
+</mat-dialog-actions>
+</form>

@@ -21,9 +21,9 @@ class Project {
         return db.collection('projects').find({name: pname}).toArray();
     }
 
-    static getProjects(orgId) {
+    static getProjects(orgId, email) {
         const db = database.getDb();
-        return db.collection('projects').find({orgId: orgId}).project({ creator: 1, description: 1, name:1, team:1 }).toArray();
+        return db.collection('projects').find({orgId: orgId, creator: email}).project({ creator: 1, description: 1, name:1, team:1 }).toArray();
     }
 
     static getDevelopers(orgId) {

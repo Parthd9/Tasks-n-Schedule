@@ -1,16 +1,20 @@
 <div class = "overview" style="min-height: 100%;">
 <button *ngIf="userRole === 'Scrum Master'" class="btn btn-success" style="margin-top: 10px; margin-left: 5px;" (click)="openDialog()">Add Version</button>
-<div class="row">
+<div class="row" *ngIf="versions.length>0; else noRecord">
     <div *ngFor ="let version of versions; let ind=index" style="margin-top: 10px;" class = "col-sm-4 version">
       <div class="card">
         <div class="card-body">
             <div class="info">
-                <h3 class="card-title">{{version.title}}<mat-icon *ngIf="userRole === 'Scrum Master'" (click)="openMail()" style="float: right;cursor: pointer;" matTooltip="Email">email</mat-icon></h3>
-                <p class="card-text">{{version.desc}}</p>
+                <h3 class="card-title">{{version.name}}<mat-icon *ngIf="userRole === 'Scrum Master'" (click)="openMail()" style="float: right;cursor: pointer;" matTooltip="Email">email</mat-icon></h3>
+                <p class="card-text">{{version.description}}</p>
             </div>
-          <a mat-raised-button color="primary" (click)="onViewSprint(ind)">View Sprint</a>
+          <a mat-raised-button color="primary" (click)="onViewSprint(version._id)">View Sprint</a>
         </div>
       </div>
     </div>
   </div>
+  <ng-template #noRecord>
+    <hr>
+    <h2 style="text-align: center;">No Versions Found.</h2>
+  </ng-template>
   </div>

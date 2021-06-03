@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ShowMessageComponent } from 'src/app/shared/show-message/show-message.component';
 import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-project-dialog.component';
+import { AddVersionComponent } from '../modals/add-version/add-version.component';
 import { EmailComponent } from '../modals/email/email.component';
+import { ProjectsService } from '../projects.service';
 
 @Component({
   selector: 'app-version',
@@ -13,35 +17,22 @@ import { EmailComponent } from '../modals/email/email.component';
 export class VersionComponent implements OnInit {
 
   userRole = '';
-  versions = [
-    {
-    title : "Version-1.0.0",
-    desc: "With supporting text below as a natural lead-in to additional content."
-    },
-    {
-      title : "Version-2.0.0",
-      desc: "With supporting text below as a natural lead-in to additional content."
-    },
-    {
-      title : "Version-3.0.0",
-      desc: "With supporting text below as a natural lead-in to additional content."
-    },
-    {
-      title : "Version-4.0.0",
-      desc: "With supporting text below as a natural lead-in to additional content."
-    },
-    {
-      title : "Version-5.0.0",
-      desc: "With supporting text below as a natural lead-in to additional content."
-    }];
+  versions = [];
+  durationInSeconds=4;
 
-  constructor(private dialog: MatDialog,private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
+  constructor(private dialog: MatDialog,private router: Router, private route: ActivatedRoute, private authService: AuthService,
+              private projectService: ProjectsService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     console.log(this.route.snapshot.queryParams['projectId']);
     this.authService.user.subscribe(user => {
       this.userRole = user['role'];
-    })
+    });
+    this.projectService.getVersions().subscribe(versionDoc => {
+      if(versionDoc['status'] === 200) {
+        this.versions = versionDoc['body']['versions'];
+      }
+    });
   }
 
   openDialog() {
@@ -52,16 +43,24 @@ export class VersionComponent implements OnInit {
       id: 1,
       header: 'Add New Version',
       name: 'Version Name',
-      description: 'Version Description'
+      description: 'Version Description',
+      fromVersion: true
     };
     dialogConfig.width = '30%';
     dialogConfig.minWidth = '300px';
-    const dialogRef = this.dialog.open(AddProjectDialogComponent,dialogConfig);
+    const dialogRef = this.dialog.open(AddVersionComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
       console.log('Dialog result:', data);
-      if(data.event === 'save') {
-        this.versions.push({title: data.value.title, desc:data.value.desc});
+      if(data.event === 'success') {
+        this.versions.push(data.value);
+        this._snackBar.openFromComponent(ShowMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['success'],
+          data: {type: 'success', msg: 'Version added successfully.'}
+        });
       }
     });
   }
@@ -80,8 +79,8 @@ export class VersionComponent implements OnInit {
       }
     });
   }
-  onViewSprint(index) {
-    this.router.navigate(['sprint'],{relativeTo:this.route, queryParams: {versionId: index}, queryParamsHandling: "merge"});
+  onViewSprint(id) {
+    this.router.navigate(['sprint'],{relativeTo:this.route, queryParams: {versionId: id}, queryParamsHandling: "merge"});
   }
 
 }

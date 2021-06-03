@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
-import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-project-dialog.component';
+import { ShowMessageComponent } from 'src/app/shared/show-message/show-message.component';
+import { AddVersionComponent } from '../modals/add-version/add-version.component';
+import { ProjectsService } from '../projects.service';
 
 @Component({
   selector: 'app-sprint',
@@ -12,34 +15,21 @@ import { AddProjectDialogComponent } from '../modals/add-project-dialog/add-proj
 export class SprintComponent implements OnInit {
 
   userRole = '';
-  sprints = [
-    {
-    title : "Sprint-1",
-    desc: "With supporting text below as a natural lead-in to additional content."
-    },
-    {
-      title : "Sprint-2",
-      desc: "With supporting text below as a natural lead-in to additional content."
-    },
-    {
-      title : "Sprint-3",
-      desc: "With supporting text below as a natural lead-in to additional content."
-    },
-    {
-      title : "Sprint-4",
-      desc: "With supporting text below as a natural lead-in to additional content."
-    },
-    {
-      title : "Sprint-5",
-      desc: "With supporting text below as a natural lead-in to additional content."
-    }];
+  sprints = [];
+  durationInSeconds = 4;
 
-  constructor(private dialog: MatDialog, private currentRoute: ActivatedRoute, private router: Router, private authService: AuthService) { }
+  constructor(private dialog: MatDialog, private currentRoute: ActivatedRoute, private router: Router,
+    private authService: AuthService, private projectService: ProjectsService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     console.log("sprint:",this.currentRoute.snapshot.queryParams);
     this.authService.user.subscribe(user => {
       this.userRole = user['role'];
+    });
+    this.projectService.getSprints().subscribe(sprintDoc => {
+      if(sprintDoc['status'] === 200) {
+        this.sprints = sprintDoc['body']['sprints'];
+      }
     });
   }
 
@@ -52,16 +42,23 @@ export class SprintComponent implements OnInit {
       header: 'Add New Sprint',
       name: 'Sprint Number',
       description: 'Sprint Description',
-      devoptEnabled: 'No'
+      fromVersion: false
     };
     dialogConfig.width = '30%';
     dialogConfig.minWidth = '300px';
-    const dialogRef = this.dialog.open(AddProjectDialogComponent,dialogConfig);
+    const dialogRef = this.dialog.open(AddVersionComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
       console.log('Dialog result:', data);
-      if(data.event === 'save') {
-        this.sprints.push({title: data.value.title, desc:data.value.desc});
+      if(data.event === 'success') {
+        this.sprints.push(data.value);
+        this._snackBar.openFromComponent(ShowMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['success'],
+          data: {type: 'success', msg: 'Sprint added successfully.'}
+        });
       }
     });
   }

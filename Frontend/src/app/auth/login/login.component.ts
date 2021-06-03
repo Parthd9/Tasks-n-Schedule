@@ -29,7 +29,9 @@ export class LoginComponent implements OnInit {
         } else {
           this.router.navigate(['/project']);
         }
-        this.loginForm.reset();
+        setTimeout(() => {
+          this.loginForm.reset();
+        },2000);
       })
     })
   }

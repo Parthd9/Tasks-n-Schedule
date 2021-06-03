@@ -43,12 +43,12 @@ export class AddProjectDialogComponent implements OnInit {
   onSubmit() {
     // this.dialogRef.close({event:'save',value:this.projectForm.value});
     this.projectService.addProject(this.projectForm.value).subscribe(result => {
-      if(result['status'] == 200) {
+      if(result['status'] == 201) {
         console.log('success');
         console.log(result['body']['data']);
         this.dialogRef.close({event:'success',value:result['body']['data']});
-      } 
-    }, 
+      }
+    },
     err => {
       console.log('err:',err);
       this.showMsg = true;

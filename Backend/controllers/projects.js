@@ -39,7 +39,7 @@ exports.addProject = (req,res,next) => {
             description: projectData['ops'][0]['description'], 
             team: projectData['ops'][0]['team']
             };
-        res.status(200).json({message: 'Project added successfully.',status: 'success', data: projectDoc});
+        res.status(201).json({message: 'Project added successfully.',status: 'success', data: projectDoc});
     })
     .catch(err => {
         console.log('err inside addProject:',err);
@@ -51,7 +51,7 @@ exports.addProject = (req,res,next) => {
 }
 
 exports.getProjects = (req,res,next) => {
-    Project.getProjects(req.user.orgId)
+    Project.getProjects(req.user.orgId, req.user.email)
     .then(projects => {
         if(projects) {
             res.status(200).json({projects:projects});

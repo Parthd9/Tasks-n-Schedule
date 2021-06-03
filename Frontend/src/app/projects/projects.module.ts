@@ -16,6 +16,7 @@ import { ProjectsRoutingModule } from "./projects-routing.module"
 import { SprintComponent } from "./sprint/sprint.component";
 import { SubtaskComponent } from "./subtask/subtask.component";
 import { VersionComponent } from "./version/version.component";
+import { AddVersionComponent } from './modals/add-version/add-version.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { VersionComponent } from "./version/version.component";
         KanbanComponent,
         AddBacklogComponent,
         SubtaskComponent,
-        SubtaskcompletionComponent
+        SubtaskcompletionComponent,
+        AddVersionComponent
     ],
     imports: [
         RouterModule,
