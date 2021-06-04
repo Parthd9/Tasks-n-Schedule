@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from 'src/app/shared/confirm/confirm.component';
+import { ShowMessageComponent } from 'src/app/shared/show-message/show-message.component';
 import { AdminService } from '../admin.service';
 import { UpsertUserComponent } from '../upsert-user/upsert-user.component';
 
@@ -15,22 +17,22 @@ import { UpsertUserComponent } from '../upsert-user/upsert-user.component';
 })
 export class ManageUsersComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private adminService: AdminService) { }
+  constructor(private dialog: MatDialog, private adminService: AdminService, private _snackBar: MatSnackBar) { }
 
   @ViewChild('searchUser') form: NgForm;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  durationInSeconds = 4;
   roles = ['Developer','Scrum Master', 'Assurance'];
   displayedColumns = ['name', 'email', 'role', 'actions'];
-  data = [
-    {name: 'Parth Devmurari(Member - Core TnS Project(India) - Agile based project management tool Project', email: 'parth.devmurari@tns.com', role:'Scrum Master'},
-    {name: 'Kush Soni(Member - Core TnS Project(India) - Agile based project management tool Project', email: 'kush.soni@tns.com', role:'Scrum Master'},
-    {name: 'Nimitt Gorasia(Member - Core DigiPay Project(India) - Fast and secure digital payment wallet Project', email: 'nimitt.gorasia@tns.com', role:'Scrum Master'}
-  ]
+  data = [];
   dataSource;
   ngOnInit(): void {
     document.getElementById('userData').style.display='none';
+    this.adminService.getUsers().subscribe(users => {
+      this.data = users['body']['users'];
+    })
   }
 
   onSearch() {
@@ -54,14 +56,18 @@ export class ManageUsersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       console.log('Dialog result:', data);
-      if(data.event==='Add') {
-        this.adminService.addUser(data.value).subscribe(result => {
-          if(result) {
-            this.data.push({name: data.value.fname+' '+data.value.lname, email: data.value.email, role: data.value.role});
-            this.dataSource = new MatTableDataSource(this.data);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          }
+      if(data.event==='success') {
+        this.data.push(data.value);
+        console.log(data);
+        this.dataSource = new MatTableDataSource(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this._snackBar.openFromComponent(ShowMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['success'],
+          data: {type: 'success', msg: 'User added successfully.'}
         });
       }
     });

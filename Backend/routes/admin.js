@@ -8,4 +8,6 @@ const router = express.Router();
 
 router.post('/add-user', isAuth, adminValidator.addUserValidation(),adminController.addUser);
 
+router.get('/get-users', isAuth,adminController.getUsers);
+
 module.exports = router;

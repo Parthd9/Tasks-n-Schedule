@@ -1,3 +1,4 @@
+<div *ngIf="showMsg" class="alert alert-danger">Please enter data in valid format.</div>
 <h1 mat-dialog-title>{{data.type}} User</h1>
 <form #upsertUserForm="ngForm" (ngSubmit)="upsert()">
   <div mat-dialog-content>

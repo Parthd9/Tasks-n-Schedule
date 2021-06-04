@@ -18,6 +18,6 @@ exports.signupValidation = () => {
               }
             });
           })
-          .normalizeEmail(),
+          // .normalizeEmail()
     ]
 }

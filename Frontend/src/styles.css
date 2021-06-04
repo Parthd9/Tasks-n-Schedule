@@ -16,3 +16,10 @@ body {
 .row {
   margin-right: 0px !important;
 }
+
+.success {
+  background: #34a834;
+}
+.failure {
+  background: #be3737;
+}

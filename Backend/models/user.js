@@ -2,13 +2,14 @@ const database= require('../utils/db');
 
 
 class User {
-    constructor(firstName, lastName, email, password, orgId, role) {
+    constructor(firstName, lastName, email, password, orgId, role, orgName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.orgId = orgId;
         this.role = role;
+        this.orgName = orgName;
     }
 
     save() {
@@ -19,12 +20,7 @@ class User {
         this.updatedAt = new Date();
 
         return db.collection('users')
-            .insertOne(this)
-            .then(userData => {
-                // console.log(userData);
-                return userData.insertedId;
-            })
-            .catch(err => console.log(err));
+            .insertOne(this);
     }
 
     static findUser(userData) {
@@ -36,6 +32,14 @@ class User {
                 return user;
             })
             .catch(err => console.log(err));
+    }
+
+    static findUsersByOrgId(orgId) {
+        const db= database.getDb();
+        return db.collection('users')
+                    .find({orgId: orgId})
+                    .project({firstName: 1, lastName: 1, email: 1, role: 1, _id:0})
+                    .toArray();
     }
 }
 

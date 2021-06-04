@@ -10,6 +10,13 @@ exports.addUserValidation = () => {
         body('email')
           .isEmail()
           .withMessage('Please enter a valid email.')
-          .normalizeEmail()
+          .custom((value, { req }) => {
+            return User.findUser({email: value}).then(userDoc => {
+              if (userDoc) {
+                return Promise.reject('E-Mail address already exists!');
+              }
+            });
+          })
+          // .normalizeEmail()
     ]
 }

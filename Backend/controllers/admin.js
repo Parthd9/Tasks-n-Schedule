@@ -29,7 +29,7 @@ exports.addUser = (req, res, next) => {
               error.statusCode = 500;
               throw error;
             }
-            const user = new User(req.body.fname, req.body.lname, req.body.email, hashedPwd, req.user.orgId, req.body.role);
+            const user = new User(req.body.fname, req.body.lname, req.body.email, hashedPwd, req.user.orgId, req.body.role, req.user.orgName);
             return user.save();
           })
           .then(result => {
@@ -61,7 +61,14 @@ exports.addUser = (req, res, next) => {
                   // console.log('Email sent: ' + info.response);
                 }
               });
-              res.status(201).json({message: 'User added'});
+              let userDoc = {
+                firstName: result['ops'][0]['firstName'],
+                lastName: result['ops'][0]['lastName'],
+                email: result['ops'][0]['email'], 
+                role: result['ops'][0]['role']
+                };
+    
+              res.status(201).json({user : userDoc});
         })
         .catch(err => {
             if(!err.statusCode) {
@@ -69,4 +76,22 @@ exports.addUser = (req, res, next) => {
             }
             next(err);
         });
+}
+
+exports.getUsers = (req, res, next) => {
+  User.findUsersByOrgId(req.user.orgId)
+      .then(usersDoc => {
+        console.log('usersdoc',usersDoc);
+        if(usersDoc) {
+          res.status(200).json({users: usersDoc});
+        } else {
+          res.status(200).json({users: []});
+        }
+      })
+      .catch(error => {
+        if(!error.statusCode) {
+          error.statusCode = 500;
+        }
+        next(error);
+      });
 }

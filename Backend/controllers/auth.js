@@ -34,11 +34,11 @@ exports.signup = (req, res, next) => {
             return bcrypt.hash(password, 10);
         })
         .then(hashedPassword => {
-            const user = new User(fName,lName,email,hashedPassword,org_id,'Admin');
+            const user = new User(fName,lName,email,hashedPassword,org_id,'Admin',orgName);
             return user.save();
         })
-        .then(userId => {
-            console.log('User id:',userId);
+        .then(user => {
+            // console.log('User id:',userId);
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
