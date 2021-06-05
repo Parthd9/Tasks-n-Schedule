@@ -14,6 +14,15 @@
     <span>Characters remaining: {{maxChars-pdesc.value.length}}</span>
     <br>
     <br>
+    <mat-form-field *ngIf="fromVersion===false" class="example-full-width" appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" name="selectedDate" #input="ngModel" ngModel [min]="minDate" [max]="maxDate">
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="input.hasError('matDatepickerMax')">Date should be inferior</mat-error>
+    </mat-form-field>    
 </div>
 
 <mat-dialog-actions>

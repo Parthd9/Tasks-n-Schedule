@@ -7,7 +7,7 @@
       <textarea matInput name="description" formControlName="description"></textarea>
     </mat-form-field>
     <mat-error *ngIf="addBacklogForm.get('description').hasError('required') && addBacklogForm.get('description').touched">Please fill description field.</mat-error>
-    <mat-error *ngIf="addBacklogForm.get('description').hasError('minlength') && addBacklogForm.get('description').touched">Minimum 5 letters required for description.</mat-error>
+    <mat-error *ngIf="addBacklogForm.get('description').hasError('minlength') && addBacklogForm.get('description').touched">Minimum 10 letters required for description.</mat-error>
     <mat-error *ngIf="addBacklogForm.get('description').hasError('maxlength') && addBacklogForm.get('description').touched">Maximum 128 letters are allowed.</mat-error>
     <span>Characters remaining: {{maxChars - addBacklogForm.get('description').value.length}}</span>
     <br>
@@ -19,12 +19,12 @@
         displayMember="devloper" (filteredReturn)="filteredList=$event"
         ></mat-select-filter>
         <mat-select-trigger>
-          {{addBacklogForm.get('list').value ? addBacklogForm.get('list').value[0] : ''}}
+          {{addBacklogForm.get('list').value ? addBacklogForm.get('list').value[0]['name'] : ''}}
           <span *ngIf="addBacklogForm.get('list').value?.length > 1" class="example-additional-selection">
             (+{{addBacklogForm.get('list').value.length - 1}} {{addBacklogForm.get('list').value?.length === 2 ? 'other' : 'others'}})
           </span>
         </mat-select-trigger>
-        <mat-option *ngFor="let dev of filteredList" [value]="dev.devloper" [matTooltip]="dev.devloper" matTooltipPosition=right>{{dev.devloper}}</mat-option>
+        <mat-option *ngFor="let dev of filteredList" [value]="dev" [matTooltip]="dev.email" matTooltipPosition=right>{{dev.name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-error *ngIf="addBacklogForm.get('list').hasError('required') && addBacklogForm.get('list').touched">Please select devlopers.</mat-error>

@@ -6,6 +6,7 @@ const app= express();
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const projectRoutes = require('./routes/projects');
+const taskRoutes = require('./routes/tasks');
 
 const db = require('./utils/db');
 
@@ -49,6 +50,8 @@ app.use('/tns/auth',authRoutes);
 app.use('/tns/api/admin',adminRoutes);
 
 app.use('/tns/api/projects',projectRoutes);
+
+app.use('/tns/api/tasks',taskRoutes);
 
 
 app.use((error, req, res, next) => {

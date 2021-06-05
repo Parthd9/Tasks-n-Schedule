@@ -1,0 +1,18 @@
+<form #addSubtaskForm="ngForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="showMsg" class="alert alert-danger">Please enter data in valid format.</div>
+  <h2 mat-dialog-title>Add Subtask</h2>
+  <div mat-dialog-content>
+      <mat-form-field>
+          <textarea matInput placeholder= "Description" name="description" ngModel #desc=ngModel required minlength="10" [maxlength]="maxChars"></textarea>
+      </mat-form-field>
+      <mat-error *ngIf="desc.touched && desc.invalid">Invalid {{description}}.</mat-error>
+      <span>Characters remaining: {{maxChars-desc.value.length}}</span>
+      <br>
+      <br>
+  </div>
+  <mat-dialog-actions>
+      <button mat-raised-button color="primary" [disabled]="addSubtaskForm.invalid">Save</button>
+      <button type = "button" mat-raised-button (click)="close()">Close</button>
+  </mat-dialog-actions>
+  </form>
+  

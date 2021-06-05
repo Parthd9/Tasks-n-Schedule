@@ -8,7 +8,7 @@
     <mat-error *ngIf="title.touched && title.invalid">Invalid {{name}}.</mat-error>
 <br>
     <mat-form-field>
-        <textarea matInput placeholder= {{description}} name="desc" ngModel #pdesc=ngModel required minlength="5" [maxlength]="maxChars"></textarea>
+        <textarea matInput placeholder= {{description}} name="desc" ngModel #pdesc=ngModel required minlength="10" [maxlength]="maxChars"></textarea>
     </mat-form-field>
     <mat-error *ngIf="pdesc.touched && pdesc.invalid">Invalid {{description}}.</mat-error>
     <span>Characters remaining: {{maxChars-pdesc.value.length}}</span>

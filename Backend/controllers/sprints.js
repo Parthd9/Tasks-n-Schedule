@@ -40,7 +40,6 @@ exports.addSprint = (req, res, next) => {
         throw error;
     }
 
-
     if (!errors.isEmpty()) {
       const error = new Error('Validation failed. Sprint name must be unique.');
       error.statusCode = 422;

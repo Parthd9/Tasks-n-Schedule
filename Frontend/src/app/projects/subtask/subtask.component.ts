@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ShowMessageComponent } from 'src/app/shared/show-message/show-message.component';
+import { AddSubtaskComponent } from '../modals/add-subtask/add-subtask.component';
 import { SubtaskcompletionComponent } from '../modals/subtaskcompletion/subtaskcompletion.component';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'app-subtask',
@@ -10,22 +14,21 @@ import { SubtaskcompletionComponent } from '../modals/subtaskcompletion/subtaskc
 })
 export class SubtaskComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private authService: AuthService) { }
+  constructor(public dialog: MatDialog, private authService: AuthService, private taskService: TaskService, private _snackBar: MatSnackBar) { }
 
   userRole = '';
-  subtaskList=  [
-    {desc: 'Subtask - 1', isCompleted: true},
-    {desc: 'Subtask - 2', isCompleted: false},
-    {desc: 'Subtask - 3', isCompleted: false},
-    {desc: 'Subtask - 4', isCompleted: false},
-    {desc: 'Subtask - 5', isCompleted: true},
-    {desc: 'Subtask - 6', isCompleted: false}
-  ];
+  subtaskList=  [];
   checked = false;
+  durationInSeconds = 4;
+
   ngOnInit(): void {
     this.authService.user.subscribe(user => {
       this.userRole = user['role'];
     });
+    this.taskService.getSubtasks().subscribe(result => {
+      console.log(result);
+      this.subtaskList = result['body']['subtasks'];
+    })
   }
 
   onComplete(data, ind) {
@@ -44,4 +47,28 @@ export class SubtaskComponent implements OnInit {
       });
     }
   }
+
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '30%';
+    dialogConfig.minWidth = '300px';
+    const dialogRef = this.dialog.open(AddSubtaskComponent,dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('Dialog result:', data);
+      if(data.event === 'success') {
+        this.subtaskList.push(data.value);
+        this._snackBar.openFromComponent(ShowMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['success'],
+          data: {type: 'success', msg: 'Subtask added successfully.'}
+        });
+      }
+    });
+  }
+
 }

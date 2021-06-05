@@ -6,6 +6,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
@@ -21,6 +22,7 @@ import { MatSelectFilterModule } from 'mat-select-filter';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 import { ChartsModule } from 'ng2-charts';
 import { CommonModule } from "@angular/common";
 
@@ -32,6 +34,7 @@ import { CommonModule } from "@angular/common";
         MatCardModule,
         MatTabsModule,
         MatDatepickerModule,
+        MatNativeDateModule,
         MatDialogModule,
         MatInputModule,
         MatListModule,
@@ -57,6 +60,7 @@ import { CommonModule } from "@angular/common";
         MatCardModule,
         MatTabsModule,
         MatDatepickerModule,
+        MatNativeDateModule,
         MatDialogModule,
         MatInputModule,
         MatListModule,

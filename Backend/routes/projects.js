@@ -18,6 +18,6 @@ router.post('/add-version', isAuth, projectValidator.versionValidation(),version
 
 router.get('/getSprints', isAuth,sprintsController.getSprints);
 
-router.post('/add-sprint', isAuth, projectValidator.versionValidation(),sprintsController.addSprint);
+router.post('/add-sprint', isAuth, projectValidator.sprintValidation(),sprintsController.addSprint);
 
 module.exports = router;

@@ -17,6 +17,9 @@ export class AddVersionComponent implements OnInit {
   fromVersion: boolean;
   maxChars = 200;
   showMsg = false;
+  selectedDate;
+  maxDate;
+  minDate;
 
   constructor(private dialogRef: MatDialogRef<AddVersionComponent>,  @Inject(MAT_DIALOG_DATA) data, private projectService: ProjectsService) {
     this.header = data.header;
@@ -27,11 +30,19 @@ export class AddVersionComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate() + 28);
+
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() + 14);
   }
 
 
   onSubmit() {
     // this.dialogRef.close({event:'save',value:this.projectForm.value});
+    // this.selectedDate = this.versionForm.value.selectedDate;
+    // var maxAllowedDate = new Date(this.selectedDate);
+    // maxAllowedDate.setDate(maxAllowedDate.getDate() + 28);
     let obsData;
     if(this.fromVersion) {
       obsData = this.projectService.addVersion(this.versionForm.value);

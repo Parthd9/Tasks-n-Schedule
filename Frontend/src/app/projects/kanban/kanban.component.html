@@ -15,12 +15,12 @@
       <div class="example-box" *ngFor="let item of todo;let i=index">
         <div class="data">
         <h3>
-          {{item.task}}
+          {{item.description}}
         </h3>
-        <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
+        <span style="display: grid;"><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.createdAt | date: 'longDate'}}</span></i></span>
         </div>
         <div style="display: flex;margin-left: 2%;">
-          <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewBackLog(i)">visibility</mat-icon>
+          <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewBackLog(item._id)">visibility</mat-icon>
         <mat-icon *ngIf="userRole === 'Scrum Master'" matTooltip="Remove Backlog" (click)="removeBacklog(i)" style="cursor: pointer;">close</mat-icon>
         </div>
       </div>
@@ -50,7 +50,7 @@
           </h3>
           <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
           </div>
-          <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewProgressTask(i)">visibility</mat-icon>
+          <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewProgressTask()">visibility</mat-icon>
           <!-- <span class="close" >&times;</span> -->
       </div>
     </div>
