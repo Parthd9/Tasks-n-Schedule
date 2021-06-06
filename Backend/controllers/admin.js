@@ -41,8 +41,9 @@ exports.addUser = (req, res, next) => {
                 }
               });
             
+              let from = `<tasknschedule@gmail.com> On Behalf of <${req.user.email}>`;
               var mailOptions = {
-                from: 'tasknschedule@gmail.com',
+                from: from,
                 to: req.body.email,
                 subject: 'Welcome to Task-n-Schedule',
                 html: "<h4>Dear "+req.body.fname+" "+req.body.lname+",</h4>\n"+

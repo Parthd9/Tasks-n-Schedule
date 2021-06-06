@@ -50,7 +50,7 @@ exports.addBacklog = (req, res, next) => {
     }
 
     const task = new Task(req.body.description,req.body.list,req.body.type,req.body.estTime,req.user.email,'Backlog',undefined,pId,vId,sId,req.user.orgId);
-    task.save().then(backlogData => {
+    task.save(false, undefined).then(backlogData => {
         console.log('inserted data:',backlogData['ops'][0]);
         let backlogDoc = {
             _id: backlogData['ops'][0]['_id'], 
@@ -84,7 +84,10 @@ exports.getDevelopers = (req,res,next) => {
         .then(developers => {
             console.log('devs:',developers);
             if(developers) {
-                res.status(200).json({developers:developers[0]['team']});
+                const devList = developers[0]['team'].filter(dev => {
+                    return dev['role'] === 'Developer';
+                  });
+                res.status(200).json({developers:devList});
             } else {
                 res.status(200).json({developers:[]})
             }
@@ -95,4 +98,39 @@ exports.getDevelopers = (req,res,next) => {
             }
             next(error);
         });
+}
+
+exports.editBacklog = (req, res, next) => {
+    const errors = validationResult(req);
+    console.log(errors);
+
+    const pId= req.query.projectId;
+    const vId= req.query.versionId;
+    const sId= req.query.sprintId;
+
+    if(!pId && !vId && !sId) {
+        const error = new Error('Invalid project id/ version id/ sprint id');
+        error.statusCode = 403;
+        throw error;
+    }
+
+    if (!errors.isEmpty()) {
+      const error = new Error('Please enter valid data.');
+      error.statusCode = 422;
+      error.data = errors.array();
+      throw error;
+    }
+
+    const task = new Task(req.body.description,req.body.list,req.body.type,req.body.estTime,req.user.email,req.body.status,undefined,pId,vId,sId,req.user.orgId);
+    task.save(true, req.body.id)
+        .then(backlogData => {
+            res.status(202).json({message: 'Task updated successfully'})
+         })
+        .catch(error => {
+            if(!error.statusCode) {
+                error.statusCode = 500;
+            }
+            next(error);
+        });
+
 }

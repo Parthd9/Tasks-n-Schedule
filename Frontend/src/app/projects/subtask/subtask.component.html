@@ -12,7 +12,7 @@
                 <div class="data" style="display: flex;align-items: center;">
                   <mat-icon  class="mr-2" style="margin-bottom: 16px;color: green;" *ngIf="item.isCompleted;else showCheck">check</mat-icon>
                   <ng-template #showCheck>
-                    <mat-checkbox *ngIf="userRole!=='Assurance'" class="mr-3" [checked]="item.isCompleted" (change)="onComplete($event.checked, i)"></mat-checkbox>
+                    <mat-checkbox *ngIf="userRole!=='Assurance'" class="mr-3" [checked]="item.isCompleted" (change)="onComplete($event.checked, item, i)"></mat-checkbox>
                   </ng-template>
 
                 <h4>
@@ -25,8 +25,8 @@
                 </h4>
                 </div>
                 <div style="display: flex;margin-left: 2%;">
-                <mat-icon *ngIf="userRole !== 'Assurance'" matTooltip="Edit" class="mr-1" style="cursor: pointer;">create</mat-icon>
-                <mat-icon *ngIf="userRole !== 'Assurance'" matTooltip="Remove Subtask" style="cursor: pointer;">close</mat-icon>
+                <mat-icon *ngIf="userRole !== 'Assurance' && !item.isCompleted" (click)="onSubtaskEdit(item)" matTooltip="Edit" class="mr-1" style="cursor: pointer;">create</mat-icon>
+                <mat-icon *ngIf="userRole !== 'Assurance' && !item.isCompleted" (click)="onRemoveSubtask(item)" matTooltip="Remove Subtask" style="cursor: pointer;">close</mat-icon>
                 </div>
               </div>
             </div>
@@ -42,13 +42,28 @@
       </div>
       <div class="subtaskItem col-lg-4 col-md-4 col-sm-12 mt-3">
 
-        <mat-card style="display: flex;height: 35%;min-height: 100px;" class="col-sm-10 mx-auto text-center mb-5 status">
+        <mat-card *ngIf="status === 'Backlog'" style="display: flex;height: 35%;min-height: 100px;" class="col-sm-10 mx-auto text-center mb-5 statusBacklog">
           <!-- <div class=" h-100"> -->
             <div style="width: 100%;" class="my-auto">
-                In-Progress
+                Backlog
             </div>
           <!-- </div> -->
         </mat-card>
+        <mat-card *ngIf="status === 'In-Progress'" style="display: flex;height: 35%;min-height: 100px;" class="col-sm-10 mx-auto text-center mb-5 statusInProgress">
+          <!-- <div class=" h-100"> -->
+            <div  style="width: 100%;" class="my-auto">
+              In-Progress
+          </div>
+          <!-- </div> -->
+        </mat-card>
+        <mat-card *ngIf="status === 'Completed'" style="display: flex;height: 35%;min-height: 100px;" class="col-sm-10 mx-auto text-center mb-5 statusCompleted">
+          <!-- <div class=" h-100"> -->
+            <div style="width: 100%;" class="my-auto">
+              Completed
+            </div>
+          <!-- </div> -->
+        </mat-card>
+
         <mat-card class="col-sm-10 mx-auto card2 mb-5">
           <mat-card-header  class="m-0">
             <mat-card-title>
@@ -57,8 +72,7 @@
           </mat-card-header>
           <hr>
           <mat-card-content style="display: flex;align-items: center;justify-content: space-between;">
-            <span>This is the backlog description.</span>
-            <mat-icon *ngIf="userRole==='Scrum Master'" matTooltip="Edit" style="cursor: pointer;">create</mat-icon>
+            <span>{{taskDetails.description}}</span>
           </mat-card-content>
         </mat-card>
 
@@ -70,8 +84,7 @@
           </mat-card-header>
           <hr>
           <mat-card-content style="display: flex;align-items: center;justify-content: space-between;">
-            <span>Parth Devmurari, Kush Soni</span>
-            <mat-icon *ngIf="userRole==='Scrum Master'" matTooltip="Edit" style="cursor: pointer;">create</mat-icon>
+            <span *ngFor="let dev of taskDetails.developers">{{dev.name}}</span>
           </mat-card-content>
         </mat-card>
       </div>

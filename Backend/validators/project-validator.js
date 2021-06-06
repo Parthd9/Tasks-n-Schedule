@@ -25,7 +25,7 @@ exports.versionValidation = () => {
       body('desc').trim().not().isEmpty().isLength({min: 10, max: 200}),
       body('title').trim().not().isEmpty()
         .custom((value, { req }) => {
-          return Version.getVersionByName(value).then(version => {
+          return Version.getVersionByName(value, req.user.orgId, req.query.projectId).then(version => {
             console.log('version by name:',version);
             if (version.length > 0) {
               return Promise.reject('Version with same name is already exist.');
@@ -41,7 +41,7 @@ exports.sprintValidation = () => {
       body('desc').trim().not().isEmpty().isLength({min: 10, max: 200}),
       body('title').trim().not().isEmpty()
         .custom((value, { req }) => {
-          return Sprint.getSprintByName(value).then(sprint => {
+          return Sprint.getSprintByName(value,req.user.orgId, req.query.projectId,req.query.versionId).then(sprint => {
             console.log('version by name:',sprint);
             if (sprint.length > 0) {
               return Promise.reject('Sprint with same name is already exist.');

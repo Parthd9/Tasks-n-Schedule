@@ -17,6 +17,7 @@ export class KanbanComponent implements OnInit {
   userRole = '';
   ind;
   durationInSeconds = 4;
+  tasks = [];
   todo = [];
   inprogress = [];
   completed = [];
@@ -28,16 +29,28 @@ export class KanbanComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user.subscribe(user => {
       this.userRole = user['role'];
-    })
+    });
     this.taskService.getBacklogs().subscribe(result => {
       console.log(result);
-      this.todo = result['body']['backlogs'];
-    })
+      this.tasks = result['body']['backlogs'];
+      this.todo = this.tasks.filter(task => {
+        return task['status'] === 'Backlog';
+      });
+      this.inprogress = this.tasks.filter(task => {
+        return task['status'] === 'In-Progress';
+      });
+      this.completed = this.tasks.filter(task => {
+        return task['status'] === 'Completed';
+      });
+    });
 
+    console.log('todo:',this.todo);
+    console.log('inprogress:',this.inprogress);
+    console.log('completed:',this.completed);
     this.taskService.getDevelopers().subscribe(result => {
       console.log(result);
       this.developers = result['body']['developers'];
-    })
+    });
   }
   openDialog() {
     const dialogRef = this.dialog.open(AddBacklogComponent, {
@@ -55,6 +68,38 @@ export class KanbanComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: ['success'],
           data: {type: 'success', msg: 'backlog added successfully.'}
+        });
+      }
+    });
+  }
+
+  onEditTask(item) {
+    const dialogRef = this.dialog.open(AddBacklogComponent, {
+      width: '40%',
+      minWidth: '300px',
+      data: { isEdit: true,taskDetail: item, developers: this.developers }
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('Dialog result:', data);
+      if(data.event === 'success') {
+
+        if(data.status === 'Backlog') {
+          const ind = this.todo.findIndex(p => {return p._id === item._id});
+          let doc = {...data.value, createdAt: item.createdAt};
+          this.todo[ind] = doc;
+        } else {
+          const ind = this.inprogress.findIndex(p => {return p._id === item._id});
+          let doc = {...data.value, createdAt: item.createdAt};
+          this.inprogress[ind] = doc;
+        }
+
+
+        this._snackBar.openFromComponent(ShowMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['success'],
+          data: {type: 'success', msg: 'Task updated successfully.'}
         });
       }
     });
@@ -77,12 +122,12 @@ export class KanbanComponent implements OnInit {
     console.log("onViewBacklog called");
     this.router.navigate(['subtask'],{relativeTo:this.currentRoute, queryParams: {taskId: id, status:'backlog'}, queryParamsHandling: "merge"});
   }
-  onViewProgressTask(index) {
+  onViewProgressTask(id) {
     console.log("onViewProgressTaskcalled");
-    this.router.navigate(['subtask'],{relativeTo:this.currentRoute, queryParams: {taskId: index, status:'inProgress'}, queryParamsHandling: "merge"});
+    this.router.navigate(['subtask'],{relativeTo:this.currentRoute, queryParams: {taskId: id, status:'inProgress'}, queryParamsHandling: "merge"});
   }
-  onViewCompletedTask(index) {
+  onViewCompletedTask(id) {
     console.log("onViewCompletedTask called");
-    this.router.navigate(['subtask'],{relativeTo:this.currentRoute, queryParams: {taskId: index, status: 'completed'}, queryParamsHandling: "merge"});
+    this.router.navigate(['subtask'],{relativeTo:this.currentRoute, queryParams: {taskId: id, status: 'completed'}, queryParamsHandling: "merge"});
   }
 }

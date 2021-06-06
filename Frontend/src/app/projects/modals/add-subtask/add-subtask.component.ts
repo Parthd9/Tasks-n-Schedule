@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TaskService } from '../../task.service';
 
 @Component({
@@ -12,18 +12,39 @@ export class AddSubtaskComponent implements OnInit {
   @ViewChild('addSubtaskForm',{static: true}) subtaskForm: NgForm;
   maxChars = 200;
   showMsg = false;
-  constructor(private dialogRef: MatDialogRef<AddSubtaskComponent>, private taskService: TaskService) { }
+  description = '';
+  isEdit;
+  subtaskId;
+  constructor(private dialogRef: MatDialogRef<AddSubtaskComponent>, @Inject(MAT_DIALOG_DATA) data,private taskService: TaskService) {
+    if(data.isEdit) {
+      this.description = data.subtask.description;
+      this.subtaskId = data.subtask._id;
+      this.isEdit = data.isEdit;
+    }
+  }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
     // this.dialogRef.close({event:'save',value:this.projectForm.value});
-    this.taskService.addSubtask(this.subtaskForm.value).subscribe(result => {
+    let obs;
+    if(this.isEdit) {
+      obs= this.taskService.editSubTask({desc: this.subtaskForm.value.description,id: this.subtaskId});
+    } else {
+      obs = this.taskService.addSubtask(this.subtaskForm.value);
+    }
+    obs.subscribe(result => {
       if(result['status'] == 201) {
         console.log('success');
         console.log(result['body']['subtask']);
-        this.dialogRef.close({event:'success',value:result['body']['subtask']});
+        this.dialogRef.close({isEdit: this.isEdit,event:'success',value:result['body']['subtask']});
+      }
+      if(result['status'] == 202) {
+        console.log('success');
+        console.log(result['body']['subtask']);
+        console.log('desc:',this.subtaskForm.value.description);
+        this.dialogRef.close({isEdit: this.isEdit,event:'success',value:this.subtaskForm.value.description});
       }
     },
     err => {

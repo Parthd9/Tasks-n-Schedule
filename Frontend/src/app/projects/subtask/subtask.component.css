@@ -27,11 +27,19 @@ ul li:hover {
   padding: 12px 16px;
   transform: translate(0%, -50%);
 } */
-.status {
-  background-color: rgb(223, 223, 25);
+.statusBacklog, .statusInProgress, .statusCompleted {
   color: white;
   font-weight: bold;
   font-size: 25px;
+}
+.statusBacklog {
+  background-color: red;
+}
+.statusInProgress {
+  background-color: #dfdf19;
+}
+.statusCompleted {
+  background-color: green;
 }
 .card2 ::ng-deep .mat-card-header-text, .card3 ::ng-deep .mat-card-header-text {
   margin: 0px;

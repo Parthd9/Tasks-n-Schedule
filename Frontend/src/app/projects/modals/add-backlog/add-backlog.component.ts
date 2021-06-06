@@ -19,13 +19,20 @@ export class AddBacklogComponent implements OnInit {
 
   filteredList = [];
   addBacklogForm: FormGroup;
+  preservedData;
+  isEdit=false;
   maxChars = 128;
-  constructor(public dialogRef: MatDialogRef<AddBacklogComponent>,@Inject(MAT_DIALOG_DATA) public data: any, 
+  constructor(public dialogRef: MatDialogRef<AddBacklogComponent>,@Inject(MAT_DIALOG_DATA) public data: any,
             private taskService: TaskService) {
-      console.log('data:',data['developers']);
-      this.devlopersList = data['developers'];
-      this.filteredList = [...this.devlopersList];
-      
+      this.isEdit = data.isEdit;
+      if(!data.isEdit) {
+        console.log('data:',data['developers']);
+        this.devlopersList = data['developers'];
+        this.filteredList = [...this.devlopersList];
+      } else {
+        this.preservedData = data;
+      }
+
       this.addBacklogForm = new FormGroup({
         'description': new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(128)]),
         'list': new FormControl('', Validators.required),
@@ -35,6 +42,16 @@ export class AddBacklogComponent implements OnInit {
     }
 
     ngOnInit(){
+      if(this.preservedData) {
+        this.addBacklogForm.patchValue({
+          description: this.preservedData['taskDetail']['description'],
+          list: this.preservedData['developers'],
+          type: this.preservedData['taskDetail']['backlogType'],
+          estTime: this.preservedData['taskDetail']['estimatedTime'],
+        });
+        this.devlopersList = this.preservedData['developers'];
+        this.filteredList = [...this.devlopersList];
+      }
     }
 
   onNoClick(): void {
@@ -43,12 +60,23 @@ export class AddBacklogComponent implements OnInit {
   onAddBacklog() {
     // this.addBacklogForm.get('list').value.length;
     console.log(this.addBacklogForm.value);
-    this.taskService.addBacklog(this.addBacklogForm.value).subscribe(result => {
+    let obs;
+    if(this.isEdit) {
+      let data = {...this.addBacklogForm.value, status: this.preservedData['taskDetail']['status'], id: this.preservedData['taskDetail']['_id']};
+      obs = this.taskService.editBacklog(data)
+    } else {
+      obs = this.taskService.addBacklog(this.addBacklogForm.value)
+    }
+    obs.subscribe(result => {
       console.log(result);
-      if(result['status'] === 201) {
-        // 
+      if(result['status'] === 201 || result['status'] === 202) {
+        //
         console.log(result['body']['backlog']);
-        this.dialogRef.close({event:'success',value:result['body']['backlog']});
+        if(this.isEdit) {
+          this.dialogRef.close({event:'success', status: this.preservedData['taskDetail']['status'], value: this.addBacklogForm.value});
+        } else {
+          this.dialogRef.close({event:'success',value:result['body']['backlog']});
+        }
       }
     })
   }

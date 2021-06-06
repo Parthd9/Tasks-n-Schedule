@@ -1,4 +1,5 @@
 const database= require('../utils/db');
+const ObjectId = require('mongodb').ObjectId;
 class SubTask {
 
 constructor(description,creator,isCompleted,completionTime,projectId,versionId,sprintId,taskId,orgId) {
@@ -24,6 +25,29 @@ static getSubtasks(orgId, email, projectId, versionId, sprintId, taskId) {
     const db = database.getDb();
     return db.collection('subtasks').find({orgId: orgId, creator: email, projectId: projectId, 
         versionId: versionId, sprintId: sprintId, taskId: taskId}).toArray();
+}
+
+static editSubTask(orgId, subtaskId, description) {
+    const db = database.getDb();
+    return db.collection('subtasks').updateOne({_id: new ObjectId(subtaskId), orgId: orgId},{$set: {description: description}});
+}
+
+static removeSubtask(orgId, subtaskId) {
+    const db = database.getDb();
+    return db.collection('subtasks').deleteOne({orgId: orgId, _id: new ObjectId(subtaskId)});
+}
+
+static getDocumentCount(orgId, taskId) {
+    const db = database.getDb();
+    return db.collection('subtasks').find({orgId: orgId, taskId: taskId}).count();
+}
+static subtaskComplete(orgId, subtaskId, completionTime) {
+    const db = database.getDb();
+    return db.collection('subtasks').updateOne({orgId: orgId, _id: new ObjectId(subtaskId)}, {$set: {completionTime: completionTime, isCompleted: true}});
+}
+static getCompletedDocumentCount(orgId, taskId) {
+    const db = database.getDb();
+    return db.collection('subtasks').find({orgId: orgId, taskId: taskId, isCompleted: true}).count();
 }
 
 }

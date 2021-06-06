@@ -1,4 +1,5 @@
 <form #subtaskcomplete="ngForm" (ngSubmit)="onSubmit()">
+  <div *ngIf="showMsg" class="alert alert-danger">Something went wrong.</div>
 <h1 mat-dialog-title>Confirm</h1>
 
 <div mat-dialog-content>

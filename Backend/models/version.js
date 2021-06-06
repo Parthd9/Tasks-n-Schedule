@@ -22,9 +22,9 @@ class Version {
         return db.collection('versions').find({orgId: orgId, creator: email, projectId: projectId}).project({ creator: 1, description: 1, name:1 }).toArray();
     }
 
-    static getVersionByName(vname) {
+    static getVersionByName(vname, orgId, projectId) {
         const db = database.getDb();
-        return db.collection('versions').find({name: vname}).toArray();
+        return db.collection('versions').find({name: vname, orgId: orgId, projectId: projectId}).toArray();
     }
 }
 

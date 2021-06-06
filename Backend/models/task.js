@@ -17,24 +17,38 @@ class Task {
             this.orgId = orgId;
     }
 
-    save() {
-        const db = database.getDb();
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
-        return db.collection('tasks').insertOne(this);
+    save(isEdit, taskId) {
+        const db = database.getDb();   
+        
+        if(isEdit) {
+            this.updatedAt = new Date();
+            return db.collection('tasks').updateOne({_id: new ObjectId(taskId)},{$set: this});
+        } else {
+            this.createdAt = new Date();
+            this.updatedAt = new Date();
+            return db.collection('tasks').insertOne(this);   
+        }
     }
 
     static getBacklogs(orgId, email, projectId, versionId, sprintId) {
         const db = database.getDb();
         return db.collection('tasks').find({orgId: orgId, creator: email, projectId: projectId, 
             versionId: versionId, sprintId: sprintId})
-        .project({ creator: 1, description: 1, createdAt: 1, backlogType:1, estimatedTime: 1}).toArray();
+        .project({ creator: 1, description: 1, createdAt: 1, backlogType:1, estimatedTime: 1, status: 1}).toArray();
     }
 
     static getDevelopers(orgId, projectId) {
         const db = database.getDb();
-        return db.collection('projects').find({orgId: orgId, _id: new ObjectId(projectId), 'team.role': 'Developer'})
-        .project({team: 1, _id:0}).toArray();
+        return db.collection('projects').find({orgId: orgId, _id: new ObjectId(projectId),team: {$elemMatch: {role : "Developer"}}}).toArray();
+    }
+    static getBacklogDetails(orgId, taskId) {
+        const db = database.getDb();
+        return db.collection('tasks').find({orgId: orgId, _id: new ObjectId(taskId)})
+                .project({developers: 1,status:1, description:1,_id:0}).toArray();
+    }
+    static updateBacklogStatus(orgId, taskId, status) {
+        const db = database.getDb();
+        return db.collection('tasks').updateOne({orgId: orgId, _id: new ObjectId(taskId)}, {$set: {status: status}});
     }
 }
 

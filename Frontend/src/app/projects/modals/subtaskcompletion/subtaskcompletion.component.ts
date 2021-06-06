@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TaskService } from '../../task.service';
 
 @Component({
   selector: 'app-subtaskcompletion',
@@ -9,8 +10,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class SubtaskcompletionComponent implements OnInit {
 
+  subtaskId;
+  showMsg = false;
   constructor( public dialogRef: MatDialogRef<SubtaskcompletionComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private taskService: TaskService) {
+      this.subtaskId = data.id;
+    }
 
   ngOnInit(): void {
   }
@@ -18,7 +23,18 @@ export class SubtaskcompletionComponent implements OnInit {
   @ViewChild('subtaskcomplete') form: NgForm;
 
   onSubmit() {
-    this.dialogRef.close({event:'save',data:this.form.value});
+    this.taskService.onSubtaskCompletion({id: this.subtaskId, completionTime: this.form.value.complete}).subscribe(result => {
+      console.log(result);
+      if(result['status']===200) {
+        this.dialogRef.close({event:'save',status: result['body']['status']});
+      }
+    }, err => {
+      console.log('err:',err);
+      this.showMsg = true;
+      setTimeout(() => {
+        this.showMsg = false;
+      }, 4000)
+  })
   }
   onNoClick(): void {
     this.dialogRef.close({event:'cancel'});

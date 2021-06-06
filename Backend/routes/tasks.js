@@ -13,10 +13,18 @@ router.get('/getDevelopers', isAuth,taskController.getDevelopers);
 
 router.post('/add-backlog', isAuth, taskValidator.backlogValidation(),taskController.addBacklog);
 
+router.put('/edit-task', isAuth, taskController.editBacklog);
+
 router.get('/getSubtasks', isAuth, subTaskController.getSubtasks);
 
 router.post('/add-subtask', isAuth,[
     body('description').isString().withMessage('Please enter a valid Description.'),
 ],subTaskController.addSubtask);
+
+router.put('/edit-subtask', isAuth, subTaskController.editSubtask);
+
+router.put('/remove-subtask', isAuth, subTaskController.removeSubtask);
+
+router.put('/complete-subtask', isAuth, subTaskController.completeSubtask);
 
 module.exports = router;

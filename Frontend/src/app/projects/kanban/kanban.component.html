@@ -21,6 +21,7 @@
         </div>
         <div style="display: flex;margin-left: 2%;">
           <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewBackLog(item._id)">visibility</mat-icon>
+          <mat-icon matTooltip="Edit Task" style="cursor: pointer;" (click)="onEditTask(item)">create</mat-icon>
         <mat-icon *ngIf="userRole === 'Scrum Master'" matTooltip="Remove Backlog" (click)="removeBacklog(i)" style="cursor: pointer;">close</mat-icon>
         </div>
       </div>
@@ -46,11 +47,14 @@
       <div class="example-box" *ngFor="let item of inprogress;let i=index">
         <div class="data">
           <h3>
-            {{item.task}}
+            {{item.description}}
           </h3>
-          <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
+          <span style="display: grid;"><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.createdAt | date: 'longDate'}}</span></i></span>
           </div>
-          <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewProgressTask()">visibility</mat-icon>
+          <div style="display: flex;margin-left: 2%;">
+          <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewProgressTask(item._id)">visibility</mat-icon>
+          <mat-icon matTooltip="Edit Task" style="cursor: pointer;" (click)="onEditTask(item)">create</mat-icon>
+        </div>
           <!-- <span class="close" >&times;</span> -->
       </div>
     </div>
@@ -71,15 +75,15 @@
       </mat-card-header>
 
       <mat-card-content>
-        <div *ngIf="inprogress.length > 0; else noRecord_completed">
+        <div *ngIf="completed.length > 0; else noRecord_completed">
         <div class="example-box" *ngFor="let item of completed; let i=index">
           <div class="data">
             <h3>
-              {{item.task}}
+              {{item.description}}
             </h3>
-            <span><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.date}}</span></i></span>
+            <span style="display: grid;"><i class="fa fa-calendar" aria-hidden="true"><span style="margin-left: 2%;">{{item.createdAt | date: 'longDate'}}</span></i></span>
             </div>
-            <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewCompletedTask(i)">visibility</mat-icon>
+            <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewCompletedTask(item._id)">visibility</mat-icon>
             <!-- <span class="close">&times;</span> -->
         </div>
       </div>

@@ -33,7 +33,7 @@ exports.addSprint = (req, res, next) => {
 
     const pId= req.query.projectId;
     const vId= req.query.versionId;
-    // console.log('pId:',pId);
+    // console.log('date',req.body.selectedDate);
     if(!pId && !vId) {
         const error = new Error('Invalid project id/ version id');
         error.statusCode = 403;
@@ -47,7 +47,7 @@ exports.addSprint = (req, res, next) => {
       throw error;
     }
 
-    const sprint = new Sprint(req.body.title,req.body.desc,req.user.orgId,req.user.email, pId, vId);
+    const sprint = new Sprint(req.body.title,req.body.desc,req.user.orgId,req.user.email,req.body.selectedDate,pId, vId);
     sprint.save().then(sprintData => {
         console.log('inserted data:',sprintData['ops'][0]);
         let sprintDoc = {
