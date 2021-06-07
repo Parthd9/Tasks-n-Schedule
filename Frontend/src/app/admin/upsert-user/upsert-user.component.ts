@@ -16,28 +16,43 @@ export class UpsertUserComponent implements OnInit {
   emaildata = '';
   roledata = '';
   showMsg = false;
-
+  type;
   constructor(public dialogRef: MatDialogRef<UpsertUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private adminService: AdminService) { }
 
   @ViewChild('upsertUserForm') form: NgForm;
-  roles = ['Developer', 'Scrum Master', 'Assurance'];
+  roles = ['Developer', 'Scrum Master', 'Assurance','Admin'];
   ngOnInit(): void {
     console.log('userData:',this.data.userData);
-    if(this.data.type === 'Add') {
-      this.fnamedata = this.data.userData.fname;
-      this.lnamedata = this.data.userData.lname;
+    this.type = this.data.type;
+    if(this.type === 'Update') {
+      this.fnamedata = this.data.userData.firstName;
+      this.lnamedata = this.data.userData.lastName;
       this.emaildata = this.data.userData.email;
       this.roledata = this.data.userData.role;
     }
   }
 
   upsert() {
+    let userDoc;
     console.log(this.form.value);
-    this.adminService.addUser(this.form.value).subscribe(result => {
+    let obs;
+    if(this.type == 'Add') {
+      obs = this.adminService.addUser(this.form.value);
+    } else {
+      obs = this.adminService.editUser({...this.form.value, id: this.data.userData._id});
+    }
+    obs.subscribe(result => {
       if(result) {
-        if(result['status'] == 201) {
+        if(result['status'] == 201 || result['status'] == 202) {
+          if(this.type === 'Update') {
+            userDoc = {_id: this.data.userData._id, fname: this.form.value.fname,lname: this.form.value.lname,
+              email: this.data.userData.email,role: this.form.value.role};
+
+            this.dialogRef.close({event:'success',value:userDoc});
+          } else {
           this.dialogRef.close({event:'success',value:result['body']['user']});
+          }
         }
       }
     }, err => {

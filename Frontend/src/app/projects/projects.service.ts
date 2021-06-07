@@ -80,4 +80,39 @@ export class ProjectsService {
     }
   );
 }
+
+editSprint(sprintData) {
+  let projectId = '';
+  let versionId = '';
+  this.route.queryParams.subscribe(result => {
+    console.log('result query:',result);
+    projectId = result['projectId'];
+    versionId = result['versionId'];
+  });
+  return this.http.put('/tns/api/projects/edit-sprint', sprintData,
+  {
+    params: new HttpParams().set('projectId', projectId).set('versionId',versionId),
+    observe: 'response'
+  }
+);
+}
+
+editVersion(versionData) {
+  let projectId = '';
+  this.route.queryParams.subscribe(result => {
+    console.log('result query:',result);
+    projectId = result['projectId'];
+  });
+  return this.http.put('/tns/api/projects/edit-version', versionData,
+  {
+    params: new HttpParams().set('projectId', projectId),
+    observe: 'response'
+  }
+);
+}
+
+editProject(projectData) {
+  return this.http.put('/tns/api/projects/edit-project', projectData,{observe: 'response'});
+}
+
 }

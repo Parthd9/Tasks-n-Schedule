@@ -6,7 +6,7 @@ const Sprint = require('../models/sprint');
 exports.projectValidation = () => {
     console.log('add project validation');
     return [
-        body('desc').trim().not().isEmpty().isLength({min: 10, max: 200}),
+        body('description').trim().not().isEmpty().isLength({min: 10, max: 200}),
         body('title').trim().not().isEmpty()
           .custom((value, { req }) => {
             return Project.getProjectByName(value).then(project => {

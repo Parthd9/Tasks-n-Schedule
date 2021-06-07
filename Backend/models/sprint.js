@@ -1,4 +1,5 @@
 const database= require('../utils/db');
+const ObjectId = require('mongodb').ObjectId;
 
 class Sprint {
 
@@ -12,16 +13,22 @@ class Sprint {
         this.completionDate = completionDate;
     }
 
-    save() {
+    save(id) {
         const db = database.getDb();
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
-        return db.collection('sprints').insertOne(this);
+        if(!id) {
+            this.updatedAt = new Date();
+            this.createdAt = new Date();
+            return db.collection('sprints').insertOne(this);
+        } else {
+            this.updatedAt = new Date();
+            return db.collection('sprints').updateOne({_id: new ObjectId(id)},{$set: this});
+        }
+        
     }
 
     static getSprints(orgId, email, projectId, versionId) {
         const db = database.getDb();
-        return db.collection('sprints').find({orgId: orgId, creator: email, projectId: projectId, versionId: versionId}).project({ creator: 1, description: 1, name:1 }).toArray();
+        return db.collection('sprints').find({orgId: orgId, creator: email, projectId: projectId, versionId: versionId}).project({ creator: 1, description: 1, name:1, completionDate:1 }).toArray();
     }
 
     static getSprintByName(sname, orgId, projectId, versionId) {

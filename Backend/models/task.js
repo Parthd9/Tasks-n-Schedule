@@ -18,7 +18,7 @@ class Task {
     }
 
     save(isEdit, taskId) {
-        const db = database.getDb();   
+        const db = database.getDb(); 
         
         if(isEdit) {
             this.updatedAt = new Date();
@@ -39,7 +39,14 @@ class Task {
 
     static getDevelopers(orgId, projectId) {
         const db = database.getDb();
-        return db.collection('projects').find({orgId: orgId, _id: new ObjectId(projectId),team: {$elemMatch: {role : "Developer"}}}).toArray();
+        // return db.collection('projects').find({orgId: orgId, _id: new ObjectId(projectId),team: {$elemMatch: {role : "Developer"}}}).toArray();
+        return db.collection('projects').aggregate(
+            {$match: {orgId: orgId, _id: new ObjectId(projectId)} }, 
+            {$unwind: '$team'},
+            {$match : {"team.role": 'Developer'}},
+            {$group: {_id: '$name',team: {$push : '$team'} }},
+            {$project: {team: 1}}
+        ).toArray();
     }
     static getBacklogDetails(orgId, taskId) {
         const db = database.getDb();
@@ -49,6 +56,11 @@ class Task {
     static updateBacklogStatus(orgId, taskId, status) {
         const db = database.getDb();
         return db.collection('tasks').updateOne({orgId: orgId, _id: new ObjectId(taskId)}, {$set: {status: status}});
+    }
+
+    static removeTask(orgId, taskId) {
+        const db = database.getDb();
+        return db.collection('tasks').deleteOne({orgId: orgId, _id: new ObjectId(taskId)});
     }
 }
 

@@ -18,7 +18,7 @@
     <br>
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
-      <input matInput name="email" ngModel required email #email="ngModel" [(ngModel)]="emaildata">
+      <input matInput name="email" ngModel required email #email="ngModel" [(ngModel)]="emaildata" [disabled]="type==='Update'">
       <mat-error *ngIf="email.touched && email.hasError('required')">Please enter email.</mat-error>
       <mat-error *ngIf="email.touched && email.hasError('email')">Please enter valid email.</mat-error>
     </mat-form-field>

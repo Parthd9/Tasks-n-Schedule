@@ -11,4 +11,16 @@ export class AdminService {
   getUsers() {
     return this.http.get('/tns/api/admin/get-users', {observe: 'response'});
   }
+  editUser(data) {
+    // console.log(data);
+    return this.http.put('/tns/api/admin/edit-user', data,  {observe: 'response'});
+  }
+  removeUser(id) {
+    return this.http.post('/tns/api/admin/remove-user', id, {observe: 'response'});
+  }
+
+  getProjectsData() {
+    return this.http.get('/tns/api/admin/getProjectsData', {observe: 'response'});
+  }
+  
 }

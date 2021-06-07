@@ -20,4 +20,10 @@ router.get('/getSprints', isAuth,sprintsController.getSprints);
 
 router.post('/add-sprint', isAuth, projectValidator.sprintValidation(),sprintsController.addSprint);
 
+router.put('/edit-sprint', isAuth, sprintsController.editSprint);
+
+router.put('/edit-version', isAuth, versionsController.editVersion);
+
+router.put('/edit-project', isAuth, projectsController.editProject);
+
 module.exports = router;

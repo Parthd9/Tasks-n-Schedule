@@ -27,4 +27,6 @@ router.put('/remove-subtask', isAuth, subTaskController.removeSubtask);
 
 router.put('/complete-subtask', isAuth, subTaskController.completeSubtask);
 
+router.put('/remove-task', isAuth, taskController.removeTask);
+
 module.exports = router;

@@ -156,6 +156,19 @@ export class TaskService {
         }
       );
       }
+
+      removeBacklog(task) {
+        let sprintId = '';
+        this.route.queryParams.subscribe(result => {
+          sprintId = result['sprintId'];
+        });
+        return this.http.put('/tns/api/tasks/remove-task', task,
+        {
+          params: new HttpParams().set('sprintId', sprintId),
+          observe: 'response'
+        }
+      );
+      }
 }
 
 

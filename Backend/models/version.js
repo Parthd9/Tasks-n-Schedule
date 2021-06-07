@@ -1,4 +1,5 @@
 const database= require('../utils/db');
+const ObjectId = require('mongodb').ObjectId;
 
 class Version {
 
@@ -10,11 +11,16 @@ class Version {
         this.creator = creator
     }
 
-    save() {
+    save(id) {
         const db = database.getDb();
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
-        return db.collection('versions').insertOne(this);
+        if(!id) {
+            this.createdAt = new Date();
+            this.updatedAt = new Date();
+            return db.collection('versions').insertOne(this);
+        } else {
+            this.updatedAt = new Date();
+            return db.collection('versions').updateOne({_id: new ObjectId(id)},{$set: this});
+        }
     }
 
     static getVersions(orgId, email, projectId) {

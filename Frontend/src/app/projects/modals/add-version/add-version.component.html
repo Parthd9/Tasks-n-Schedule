@@ -3,12 +3,12 @@
 <h2 mat-dialog-title>{{header}}</h2>
 <div mat-dialog-content>
     <mat-form-field>
-        <input matInput placeholder={{name}} name="title" ngModel required minlength="3" maxlength="30" #title=ngModel>
+        <input matInput placeholder={{name}} name="title" [(ngModel)]="sname" required minlength="3" maxlength="30" #title=ngModel>
     </mat-form-field>
     <mat-error *ngIf="title.touched && title.invalid">Invalid {{name}}.</mat-error>
   <br>
     <mat-form-field>
-        <textarea matInput placeholder= {{description}} name="desc" ngModel #pdesc=ngModel required minlength="5" [maxlength]="maxChars"></textarea>
+        <textarea matInput placeholder= {{description}} name="desc" [(ngModel)]="sdesc" #pdesc=ngModel required minlength="5" [maxlength]="maxChars"></textarea>
     </mat-form-field>
     <mat-error *ngIf="pdesc.touched && pdesc.invalid">Invalid {{description}}.</mat-error>
     <span>Characters remaining: {{maxChars-pdesc.value.length}}</span>
@@ -16,7 +16,7 @@
     <br>
     <mat-form-field *ngIf="fromVersion===false" class="example-full-width" appearance="fill">
       <mat-label>Sprint End Date</mat-label>
-      <input matInput [matDatepicker]="picker" name="selectedDate" #input="ngModel" ngModel [min]="minDate" [max]="maxDate">
+      <input matInput [matDatepicker]="picker" name="selectedDate" #input="ngModel" [(ngModel)]="selDate" [min]="minDate" [max]="maxDate">
       <mat-datepicker-toggle matSuffix [for]="picker">
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>

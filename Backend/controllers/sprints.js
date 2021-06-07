@@ -48,7 +48,7 @@ exports.addSprint = (req, res, next) => {
     }
 
     const sprint = new Sprint(req.body.title,req.body.desc,req.user.orgId,req.user.email,req.body.selectedDate,pId, vId);
-    sprint.save().then(sprintData => {
+    sprint.save(undefined).then(sprintData => {
         console.log('inserted data:',sprintData['ops'][0]);
         let sprintDoc = {
             _id: sprintData['ops'][0]['_id'], 
@@ -60,6 +60,40 @@ exports.addSprint = (req, res, next) => {
     })
     .catch(err => {
         console.log('err inside addSprint:',err);
+        if(!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    })
+}
+
+exports.editSprint = (req,res,next) => {
+    const errors = validationResult(req);
+    console.log(errors);
+
+    const pId= req.query.projectId;
+    const vId= req.query.versionId;
+    // console.log('date',req.body.selectedDate);
+    if(!pId && !vId) {
+        const error = new Error('Invalid project id/ version id');
+        error.statusCode = 403;
+        throw error;
+    }
+
+    if (!errors.isEmpty()) {
+      const error = new Error('Validation failed. Sprint name must be unique.');
+      error.statusCode = 422;
+      error.data = errors.array();
+      throw error;
+    }
+
+    const sprint = new Sprint(req.body.title,req.body.desc,req.user.orgId,req.user.email,req.body.selectedDate,pId, vId);
+    console.log('id:',req.body.id);
+    sprint.save(req.body.id).then(sprintData => {
+        res.status(202).json({message: 'Sprint updated successfully.'});
+    })
+    .catch(err => {
+        console.log('err inside editSprint:',err);
         if(!err.statusCode) {
             err.statusCode = 500;
         }

@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 const helper = require('../utils/helper');
+const Admin = require('../models/admin');
 
 const { validationResult } = require('express-validator');
 
@@ -63,6 +64,7 @@ exports.addUser = (req, res, next) => {
                 }
               });
               let userDoc = {
+                _id: result['ops'][0]['_id'],
                 firstName: result['ops'][0]['firstName'],
                 lastName: result['ops'][0]['lastName'],
                 email: result['ops'][0]['email'], 
@@ -95,4 +97,60 @@ exports.getUsers = (req, res, next) => {
         }
         next(error);
       });
+}
+
+exports.editUser = (req, res, next) => {
+  console.log('data:',req.body);
+  // console.log('persisted user:',req.user);
+  const fname = req.body.fname;
+  const userId = req.body.id;
+  const lname = req.body.lname;
+  const role = req.body.role;
+
+  const errors = validationResult(req);
+  console.log(errors);
+
+  if (!errors.isEmpty()) {
+    const error = new Error('Validation failed. Please enter user-data in valid format.');
+    error.statusCode = 422;
+    error.data = errors.array();
+    throw error;
+  }
+      return User.updateUser(fname, lname, role, userId)
+        .then(result => {
+            res.status(202).json({message: 'User updated successfully.'});
+      })
+      .catch(err => {
+          if(!err.statusCode) {
+              err.statusCode = 500;
+          }
+          next(err);
+      });
+}
+
+exports.removeUser = (req,res, next) => {
+  User.removeUser(req.user.orgId, req.body.id)
+  .then(result => {
+      res.status(200).json({message: 'User deleted successfully.'});
+})
+.catch(err => {
+    if(!err.statusCode) {
+        err.statusCode = 500;
+    }
+    next(err);
+});
+}
+
+exports.getProjectsData = (req, res, next) => {
+    Admin.getProjectsData(req.user.orgId)
+    .then(data => {
+      console.log('proj data:',data);
+      res.status(200).json({projectData: data});
+    })
+    .catch(error => {
+      if(!error.statusCode) {
+          error.statusCode = 500;
+      }
+      next(error);
+  });
 }

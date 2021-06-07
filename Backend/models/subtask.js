@@ -6,7 +6,7 @@ constructor(description,creator,isCompleted,completionTime,projectId,versionId,s
     this.description = description;
     this.creator = creator;
     this.isCompleted = isCompleted;
-    this.completionTime = completionTime
+    this.completionTime = completionTime;
     this.projectId = projectId;
     this.versionId = versionId;
     this.sprintId = sprintId;

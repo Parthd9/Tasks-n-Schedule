@@ -1,5 +1,5 @@
 const database= require('../utils/db');
-
+const ObjectId = require('mongodb').ObjectId;
 
 class User {
     constructor(firstName, lastName, email, password, orgId, role, orgName) {
@@ -38,8 +38,18 @@ class User {
         const db= database.getDb();
         return db.collection('users')
                     .find({orgId: orgId})
-                    .project({firstName: 1, lastName: 1, email: 1, role: 1, _id:0})
+                    .project({firstName: 1, lastName: 1, email: 1, role: 1, _id:1})
                     .toArray();
+    }
+
+    static updateUser(fname, lname, role, id) {
+        const db= database.getDb();
+        return db.collection('users').updateOne({_id: new ObjectId(id)},{ $set: {firstName: fname, lastName: lname, role: role, updatedAt: new Date()}});
+    }
+
+    static removeUser(orgId, userId) {
+        const db= database.getDb();
+        return db.collection('users').deleteOne({_id: new ObjectId(userId), orgId: orgId});
     }
 }
 

@@ -84,9 +84,8 @@ exports.getDevelopers = (req,res,next) => {
         .then(developers => {
             console.log('devs:',developers);
             if(developers) {
-                const devList = developers[0]['team'].filter(dev => {
-                    return dev['role'] === 'Developer';
-                  });
+                const devList = developers[0]['team'];
+                console.log('devlist:',devList);
                 res.status(200).json({developers:devList});
             } else {
                 res.status(200).json({developers:[]})
@@ -132,5 +131,26 @@ exports.editBacklog = (req, res, next) => {
             }
             next(error);
         });
+}
 
+exports.removeTask = (req,res,next) => {
+    const sId= req.query.sprintId;
+    console.log('body:',req.body);
+    if(!sId) {
+        const error = new Error('Invalid sprint id');
+        error.statusCode = 403;
+        throw error;
+    }
+
+    Task.removeTask(req.user.orgId, req.body.id)
+        .then(result => {
+            console.log('res:',result);
+            res.status(200).json({message: 'Task deleted successfully'});
+        })
+        .catch(err => {
+            if(!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        })
 }

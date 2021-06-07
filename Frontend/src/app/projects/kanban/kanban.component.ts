@@ -104,7 +104,7 @@ export class KanbanComponent implements OnInit {
       }
     });
   }
-  removeBacklog(ind) {
+  removeBacklog(item) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '20%',
       minWidth: '300px',
@@ -113,7 +113,20 @@ export class KanbanComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog result:', result);
       if(result.event === 'yes') {
-        this.todo.splice(ind,1);
+        this.taskService.removeBacklog({id: item._id}).subscribe(result => {
+          console.log('result:',result);
+          if(result['status'] == 200) {
+            const ind = this.todo.findIndex(p =>{ return p._id===item._id});
+            this.todo.splice(ind,1);
+            this._snackBar.openFromComponent(ShowMessageComponent, {
+              duration: this.durationInSeconds * 1000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: ['success'],
+              data: {type: 'success', msg: 'Task removed successfully.'}
+            });
+          }
+        })
       }
     });
   }

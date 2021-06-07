@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ShowMessageComponent } from 'src/app/shared/show-message/show-message.component';
 import { AddVersionComponent } from '../modals/add-version/add-version.component';
+import { EmailComponent } from '../modals/email/email.component';
 import { ProjectsService } from '../projects.service';
 
 @Component({
@@ -35,7 +36,7 @@ export class SprintComponent implements OnInit {
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = true;
+    dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       id: 1,
@@ -66,6 +67,46 @@ export class SprintComponent implements OnInit {
   onViewBacklog(id) {
     console.log("onViewBacklog called");
     this.router.navigate(['backlog'],{relativeTo:this.currentRoute, queryParams: {sprintId: id}, queryParamsHandling: "merge"});
+  }
+
+  openMail() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '30%';
+    dialogConfig.minWidth = '300px';
+    dialogConfig.disableClose = true;
+    const dialogRef = this.dialog.open(EmailComponent,dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('Dialog result:', data);
+      if(data.event === 'save') {
+        console.log('data email:',data);
+      }
+    });
+  }
+
+  onEditSprint(item) {
+    const dialogRef = this.dialog.open(AddVersionComponent, {
+      width: '40%',
+      minWidth: '300px',
+      data: { isEdit: true,fromVersion: false,details: item, header: 'Edit Sprint'}
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('Dialog result:', data);
+      if(data.event === 'success') {
+        const index = this.sprints.findIndex(s=> {
+          return s._id === item._id;
+        })
+        this.sprints[index] = data.value;
+        this._snackBar.openFromComponent(ShowMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['success'],
+          data: {type: 'success', msg: 'Sprint updated successfully.'}
+        });
+      }
+    });
   }
 
 }

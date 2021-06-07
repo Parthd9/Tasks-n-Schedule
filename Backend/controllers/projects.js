@@ -30,8 +30,8 @@ exports.addProject = (req,res,next) => {
       throw error;
     }
 
-    const project = new Project(req.body.title,req.body.desc,req.body.list,req.user.orgId,req.user.email);
-    project.save().then(projectData => {
+    const project = new Project(req.body.title,req.body.description,req.body.list,req.body.technologies,req.user.orgId,req.user.email);
+    project.save(undefined).then(projectData => {
         console.log('inserted data:',projectData['ops'][0]);
         let projectDoc = {
             _id: projectData['ops'][0]['_id'], 
@@ -90,6 +90,30 @@ exports.getProjects = (req,res,next) => {
             res.status(200).json({projects:[]})
         }
     }).catch(err => {
+        console.log('err inside getProjects:',err);
+        if(!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    })
+}
+
+exports.editProject = (req, res, next) => {
+    const errors = validationResult(req);
+    console.log(errors);
+    if (!errors.isEmpty()) {
+      const error = new Error('Validation failed. Project name must be unique.');
+      error.statusCode = 422;
+      error.data = errors.array();
+      throw error;
+    }
+
+    const project = new Project(req.body.title,req.body.description,req.body.list,req.body.technologies,req.user.orgId,req.user.email);
+    project.save(req.body.id)
+    .then(result => {
+        res.status(202).json({message: 'Project updated successfully.'});
+    })
+    .catch(err => {
         console.log('err inside getProjects:',err);
         if(!err.statusCode) {
             err.statusCode = 500;

@@ -5,7 +5,7 @@
       <div class="card">
         <div class="card-body">
             <div class="info">
-                <h3 class="card-title">{{version.name}}<mat-icon *ngIf="userRole === 'Scrum Master'" (click)="openMail()" style="float: right;cursor: pointer;" matTooltip="Email">email</mat-icon></h3>
+                <h3 class="card-title">{{version.name}}<mat-icon matTooltip="Edit Version" style="cursor: pointer; float: right;" (click)="onEditVersion(version)">create</mat-icon></h3>
                 <p class="card-text">{{version.description}}</p>
             </div>
           <a mat-raised-button color="primary" (click)="onViewSprint(version._id)">View Sprint</a>

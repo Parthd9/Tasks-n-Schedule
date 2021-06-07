@@ -16,30 +16,23 @@
       <!-- Position Column -->
       <ng-container matColumnDef="project">
         <th mat-header-cell *matHeaderCellDef> Project </th>
-        <td mat-cell *matCellDef="let element"><span class="mobile-label">Project:</span> <span class="elementData" matTooltip="{{element.position}}">{{element.position}}</span></td>
+        <td mat-cell *matCellDef="let element"><span class="mobile-label">Project:</span> <span class="elementData" matTooltip="{{element.name}}">{{element.name}}</span></td>
       </ng-container>
   
       <!-- Name Column -->
       <ng-container matColumnDef="startDate">
         <th mat-header-cell *matHeaderCellDef> Start-date </th>
-        <td mat-cell *matCellDef="let element"><span class="mobile-label">Start-date:</span> <span class="elementData">{{element.startDate}}</span></td>
-      </ng-container>
-  
-      <!-- Weight Column -->
-      <ng-container matColumnDef="endDate">
-        <th mat-header-cell *matHeaderCellDef> End-date </th>
-        <td mat-cell *matCellDef="let element"><span class="mobile-label">End-date:</span> <span class="elementData">{{element.endDate}}</span></td>
-      </ng-container>
-  
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="version">
-        <th mat-header-cell *matHeaderCellDef> Version </th>
-        <td mat-cell *matCellDef="let element"><span class="mobile-label">Version:</span> <span class="elementData">{{element.version}}</span></td>
+        <td mat-cell *matCellDef="let element"><span class="mobile-label">Start-date:</span> <span class="elementData">{{element.createdAt | date: 'longDate'}}</span></td>
       </ng-container>
 
       <ng-container matColumnDef="developers">
         <th mat-header-cell *matHeaderCellDef> Developers </th>
-        <td mat-cell *matCellDef="let element"><span class="mobile-label">Developers:</span> <span class="elementData">{{element.developers}}</span></td>
+        <td mat-cell *matCellDef="let element"><span class="mobile-label">Developers:</span> <span class="elementData">{{element.team.length}}</span></td>
+      </ng-container>
+
+      <ng-container matColumnDef="technologies">
+        <th mat-header-cell *matHeaderCellDef> Technologies </th>
+        <td mat-cell *matCellDef="let element"><span class="mobile-label">Technologies:</span> <span class="elementData" matTooltip="{{element.tech}}">{{element.tech}}</span></td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

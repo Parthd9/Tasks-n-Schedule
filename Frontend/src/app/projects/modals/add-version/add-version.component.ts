@@ -20,12 +20,19 @@ export class AddVersionComponent implements OnInit {
   selectedDate;
   maxDate;
   minDate;
+  isEdit;
+  sname=''; 
+  sdesc = '';
+  selDate = null;
 
+  preservedData;
   constructor(private dialogRef: MatDialogRef<AddVersionComponent>,  @Inject(MAT_DIALOG_DATA) data, private projectService: ProjectsService) {
     this.header = data.header;
     this.name = data.name;
     this.description = data.description;
     this.fromVersion = data.fromVersion;
+    this.isEdit = data.isEdit;
+    this.preservedData = data['details'];
   }
 
 
@@ -35,25 +42,46 @@ export class AddVersionComponent implements OnInit {
 
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() + 14);
+
+    if(this.preservedData) {
+      console.log('desc:',this.preservedData['description']);
+      this.sname = this.preservedData['name'];
+      this.sdesc = this.preservedData['description'];
+      if(!this.fromVersion) {
+      this.selDate = this.preservedData['completionDate'];
+      }
+    }
   }
 
 
   onSubmit() {
-    // this.dialogRef.close({event:'save',value:this.projectForm.value});
-    // this.selectedDate = this.versionForm.value.selectedDate;
-    // var maxAllowedDate = new Date(this.selectedDate);
-    // maxAllowedDate.setDate(maxAllowedDate.getDate() + 28);
     let obsData;
-    if(this.fromVersion) {
+    let doc;
+    if(this.fromVersion && !this.isEdit) {
       obsData = this.projectService.addVersion(this.versionForm.value);
-    } else {
+    } 
+    if(!this.fromVersion && !this.isEdit) {
       obsData = this.projectService.addSprint(this.versionForm.value);
+    } 
+    if(this.fromVersion && this.isEdit) {
+      // edit version...
+      obsData = this.projectService.editVersion({...this.versionForm.value, id: this.preservedData['_id']});
+      doc = {...this.versionForm.value, id: this.preservedData['_id']};
+    }
+    if(!this.fromVersion && this.isEdit) {
+      obsData = this.projectService.editSprint({...this.versionForm.value, id: this.preservedData['_id']});
+      doc = {...this.versionForm.value, id: this.preservedData['_id']};
     }
     obsData.subscribe(result => {
-      if(result['status'] == 201) {
+      if(result['status'] == 201 || result['status'] == 202) {
         console.log('success');
         console.log(result['body']['data']);
-        this.dialogRef.close({event:'success',value:result['body']['data']});
+        if(this.isEdit) {
+          doc = { name:this.versionForm.value.title , description: this.versionForm.value.desc, completionDate: this.versionForm.value.selectedDate, _id: this.preservedData['_id']}
+          this.dialogRef.close({event:'success',value:doc});
+        } else {
+          this.dialogRef.close({event:'success',value:result['body']['data']});
+        }
       }
     },
     err => {

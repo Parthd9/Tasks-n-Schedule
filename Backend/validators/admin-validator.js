@@ -20,3 +20,12 @@ exports.addUserValidation = () => {
           // .normalizeEmail()
     ]
 }
+
+exports.editUserValidation = () => {
+  console.log('add-user validation');
+  return [
+      body('fname').trim().not().isEmpty().isString(),
+      body('lname').trim().not().isEmpty().isString(),
+      body('role').trim().not().isEmpty().isString(),
+  ]
+}

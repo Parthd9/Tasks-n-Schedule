@@ -37,7 +37,7 @@ export class VersionComponent implements OnInit {
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = true;
+    dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       id: 1,
@@ -65,22 +65,33 @@ export class VersionComponent implements OnInit {
     });
   }
 
-  openMail() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '30%';
-    dialogConfig.minWidth = '300px';
-    const dialogRef = this.dialog.open(EmailComponent,dialogConfig);
-
-    dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
-      if(data.event === 'save') {
-        console.log('data email:',data);
-      }
-    });
-  }
   onViewSprint(id) {
     this.router.navigate(['sprint'],{relativeTo:this.route, queryParams: {versionId: id}, queryParamsHandling: "merge"});
   }
+
+  onEditVersion(item) {
+    const dialogRef = this.dialog.open(AddVersionComponent, {
+      width: '40%',
+      minWidth: '300px',
+      data: { isEdit: true,fromVersion: true,details: item, header: 'Edit Version'}
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('Dialog result:', data);
+      if(data.event === 'success') {
+        const index = this.versions.findIndex(v=> {
+          return v._id === item._id;
+        })
+        this.versions[index] = data.value;
+        this._snackBar.openFromComponent(ShowMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['success'],
+          data: {type: 'success', msg: 'Version updated successfully.'}
+        });
+      }
+    });
+  }
+
 
 }

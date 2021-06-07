@@ -22,7 +22,7 @@
         <div style="display: flex;margin-left: 2%;">
           <mat-icon matTooltip="View Subtask" style="cursor: pointer;" (click)="onViewBackLog(item._id)">visibility</mat-icon>
           <mat-icon matTooltip="Edit Task" style="cursor: pointer;" (click)="onEditTask(item)">create</mat-icon>
-        <mat-icon *ngIf="userRole === 'Scrum Master'" matTooltip="Remove Backlog" (click)="removeBacklog(i)" style="cursor: pointer;">close</mat-icon>
+        <mat-icon *ngIf="userRole === 'Scrum Master'" matTooltip="Remove Backlog" (click)="removeBacklog(item)" style="cursor: pointer;">close</mat-icon>
         </div>
       </div>
     </div>

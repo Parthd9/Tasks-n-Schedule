@@ -10,4 +10,10 @@ router.post('/add-user', isAuth, adminValidator.addUserValidation(),adminControl
 
 router.get('/get-users', isAuth,adminController.getUsers);
 
+router.put('/edit-user', isAuth, adminValidator.editUserValidation(),adminController.editUser);
+
+router.post('/remove-user', isAuth, adminController.removeUser);
+
+router.get('/getProjectsData', isAuth,adminController.getProjectsData);
+
 module.exports = router;

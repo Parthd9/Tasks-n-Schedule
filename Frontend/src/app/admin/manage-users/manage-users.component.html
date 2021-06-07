@@ -58,7 +58,7 @@
 
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element;let ind=index"><span class="mobile-label">Actions:</span><span class="elementData"><mat-icon (click)="editUser(element,ind)" matTooltip="Edit">create</mat-icon><mat-icon (click)="deleteUser(ind)" matTooltip="Remove">delete</mat-icon></span></td>
+        <td mat-cell *matCellDef="let element;let ind=index"><span class="mobile-label">Actions:</span><span class="elementData"><mat-icon (click)="editUser(element,ind)" matTooltip="Edit">create</mat-icon><mat-icon *ngIf= "element.role !== 'Admin'" (click)="deleteUser(element, ind)" matTooltip="Remove">delete</mat-icon></span></td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

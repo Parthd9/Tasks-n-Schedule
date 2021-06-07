@@ -43,15 +43,12 @@ export class ProjectComponent implements OnInit {
 
 openDialog() {
   const dialogConfig = new MatDialogConfig();
-  // dialogConfig.disableClose = true;
+  dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
   dialogConfig.data = {
-    id: 1,
-    header: 'Add New Project',
-    name: 'Project Name',
-    description: 'Project Description',
-    devoptEnabled: 'Yes',
-    developers: this.developers
+    developers: this.developers,
+    header: 'Add Project',
+    isEdit: false
   };
   dialogConfig.width = '30%';
   dialogConfig.minWidth = '300px';
@@ -71,5 +68,37 @@ openDialog() {
     }
   });
 }
+
+onEditProject(project) {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.data = {
+    developers: this.developers,
+    header: 'Edit Project',
+    isEdit: true,
+    projectData: project
+  };
+  dialogConfig.width = '30%';
+  dialogConfig.minWidth = '300px';
+  const dialogRef = this.dialog.open(AddProjectDialogComponent,dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('Dialog result:', data);
+      if(data.event === 'success') {
+        const index = this.projects.findIndex(p=> {
+          return p._id === project._id;
+        })
+        this.projects[index] = data.value;
+        this._snackBar.openFromComponent(ShowMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['success'],
+          data: {type: 'success', msg: 'Project updated successfully.'}
+        });
+      }
+    });
+  }
 
 }
