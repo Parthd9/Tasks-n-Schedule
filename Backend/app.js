@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const ejs = require('ejs');
 
 const app= express();
 
@@ -9,6 +10,9 @@ const projectRoutes = require('./routes/projects');
 const taskRoutes = require('./routes/tasks');
 
 const db = require('./utils/db');
+
+app.set('view engine', 'ejs');
+app.set('views', 'views');
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {

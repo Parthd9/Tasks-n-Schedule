@@ -82,7 +82,7 @@ exports.addProject = (req,res,next) => {
 }
 
 exports.getProjects = (req,res,next) => {
-    Project.getProjects(req.user.orgId, req.user.email)
+    Project.getProjects(req.user.orgId, req.user.email, req.user.role)
     .then(projects => {
         if(projects) {
             res.status(200).json({projects:projects});

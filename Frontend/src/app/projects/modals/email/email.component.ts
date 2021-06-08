@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ProjectsService } from '../../projects.service';
 import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dialog.component';
 
 @Component({
@@ -10,24 +11,35 @@ import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dia
 })
 export class EmailComponent implements OnInit {
 
-  constructor(private dialogRef: MatDialogRef<AddProjectDialogComponent>,  @Inject(MAT_DIALOG_DATA) data) { }
-
   @ViewChild('emailForm') emailForm: NgForm;
-  devlopersList: any[] = [
-    {devloper: 'developer 123 123 123 123 1223 123 123 123333333', id: 1},
-    {devloper: 'developer 12', id: 12},
-    {devloper: 'developer 11', id: 11},
-    {devloper: 'developer 13', id: 13},
-    {devloper: 'developer 5', id: 5},
-    {devloper: 'developer 2', id: 2},
-    {devloper: 'developer 4', id: 4}
-  ];
-  filteredList = this.devlopersList.slice();
+  devlopersList: any[] = [];
+  filteredToList = [];
+  filteredCCList = [];
+  sprintId;
+  showMsg = false;
+
+  constructor(private dialogRef: MatDialogRef<AddProjectDialogComponent>,  @Inject(MAT_DIALOG_DATA) data, private projectService: ProjectsService) {
+    this.devlopersList = data['list'];
+    this.sprintId = data['id'];
+    this.filteredToList = this.devlopersList.slice();
+    this.filteredCCList = this.devlopersList.slice();
+  }
+
   ngOnInit(): void {
   }
 
   onSend() {
-    this.dialogRef.close({event:'save',value:this.emailForm.value});
+    this.projectService.sendReportMail(this.sprintId, this.emailForm.value).subscribe(result => {
+      if(result['status'] === 200) {
+        this.dialogRef.close({event:'save'});
+      }
+    }, err => {
+      console.log('err:',err);
+      this.showMsg = true;
+      setTimeout(() => {
+        this.showMsg = false;
+      }, 4000)
+  })
   }
   close() {
     this.dialogRef.close({event: 'close'});

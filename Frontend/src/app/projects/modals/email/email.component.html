@@ -1,19 +1,20 @@
 <form #emailForm="ngForm" (ngSubmit)="onSend()">
   <h2 mat-dialog-title>Email Report</h2>
+  <div *ngIf="showMsg" class="alert alert-danger">Some error occurred. Please try again after sometime.</div>
   <div mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>To</mat-label>
     <mat-select required name="toList" minlength="1" ngModel #toList="ngModel" panelClass="example-long-panel" multiple>
       <mat-select-filter [placeholder]="'Filter'" [array]="devlopersList"
-      displayMember="devloper" (filteredReturn)="filteredList=$event"
+      displayMember="devloper" (filteredReturn)="filteredToList=$event"
       ></mat-select-filter>
       <mat-select-trigger>
-        {{toList.value ? toList.value[0] : ''}}
+        {{toList.value ? toList.value[0]['name'] : ''}}
         <span *ngIf="toList.value?.length > 1" class="example-additional-selection">
           (+{{toList.value.length - 1}} {{toList.value?.length === 2 ? 'other' : 'others'}})
         </span>
       </mat-select-trigger>
-      <mat-option *ngFor="let dev of filteredList" [value]="dev.devloper" [matTooltip]="dev.devloper" matTooltipPosition=right>{{dev.devloper}}</mat-option>
+      <mat-option *ngFor="let dev of filteredToList" [value]="dev" [matTooltip]="dev.email" matTooltipPosition=right>{{dev.name}}</mat-option>
     </mat-select>
     <mat-error *ngIf="toList.hasError('required') && toList.touched">Please select reciever names.</mat-error>
     <mat-error *ngIf="toList.hasError('minlength') && toList.touched">Please select at least 1 reciever name.</mat-error>
@@ -24,20 +25,20 @@
     <mat-label>CC</mat-label>
     <mat-select name="ccList" ngModel #ccList="ngModel" panelClass="example-long-panel" multiple>
       <mat-select-filter [placeholder]="'Filter'" [array]="devlopersList"
-      displayMember="devloper" (filteredReturn)="filteredList=$event"
+      displayMember="devloper" (filteredReturn)="filteredCCList=$event"
       ></mat-select-filter>
       <mat-select-trigger>
-        {{ccList.value ? ccList.value[0] : ''}}
+        {{ccList.value ? ccList.value[0]['name']: ''}}
         <span *ngIf="ccList.value?.length > 1" class="example-additional-selection">
           (+{{ccList.value.length - 1}} {{ccList.value?.length === 2 ? 'other' : 'others'}})
         </span>
       </mat-select-trigger>
-      <mat-option *ngFor="let dev of filteredList" [value]="dev.devloper" [matTooltip]="dev.devloper" matTooltipPosition=right>{{dev.devloper}}</mat-option>
+      <mat-option *ngFor="let dev of filteredCCList" [value]="dev" [matTooltip]="dev.email" matTooltipPosition=right>{{dev.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   </div>
   <mat-dialog-actions>
-    <button mat-raised-button color="primary">Save</button>
+    <button mat-raised-button color="primary">Send</button>
     <button type = "button" mat-raised-button (click)="close()">Close</button>
 </mat-dialog-actions>
 </form>

@@ -26,4 +26,10 @@ router.put('/edit-version', isAuth, versionsController.editVersion);
 
 router.put('/edit-project', isAuth, projectsController.editProject);
 
+router.get('/getMailList', isAuth,sprintsController.getMailList);
+
+router.post('/sendReport', isAuth,sprintsController.generateReport);
+
+
+
 module.exports = router;

@@ -5,8 +5,8 @@
           <div class="card">
             <div class="card-body">
                 <div class="info">
-                    <h3 class="card-title">{{sprint.name}}<mat-icon matTooltip="Edit Sprint" style="cursor: pointer; float: right;" (click)="onEditSprint(sprint)">create</mat-icon>
-                      <mat-icon *ngIf="userRole === 'Scrum Master'" (click)="openMail()" style="float: right;cursor: pointer; margin-right: 2%;" matTooltip="Email">email</mat-icon>
+                    <h3 class="card-title">{{sprint.name}}<mat-icon *ngIf="userRole === 'Scrum Master'" matTooltip="Edit Sprint" style="cursor: pointer; float: right;" (click)="onEditSprint(sprint)">create</mat-icon>
+                      <mat-icon *ngIf="userRole === 'Scrum Master' && sprint.showMail===true" (click)="openMail(sprint)" style="float: right;cursor: pointer; margin-right: 2%;" matTooltip="Email">email</mat-icon>
                     </h3>
                     <p class="card-text">{{sprint.description}}</p>
                 </div>

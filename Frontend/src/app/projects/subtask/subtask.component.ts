@@ -42,7 +42,7 @@ export class SubtaskComponent implements OnInit {
       const dialogRef = this.dialog.open(SubtaskcompletionComponent, {
         width: '30%',
         minHeight: '300px',
-        data: {id: item._id}
+        data: {id: item._id, taskDetails: this.taskDetails}
         // data: { message: 'Please enter total time taken to complete the subtask.', subTaskCompletion: true }
       });
       dialogRef.afterClosed().subscribe(result => {

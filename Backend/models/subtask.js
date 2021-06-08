@@ -23,7 +23,7 @@ save() {
 
 static getSubtasks(orgId, email, projectId, versionId, sprintId, taskId) {
     const db = database.getDb();
-    return db.collection('subtasks').find({orgId: orgId, creator: email, projectId: projectId, 
+    return db.collection('subtasks').find({orgId: orgId, projectId: projectId, 
         versionId: versionId, sprintId: sprintId, taskId: taskId}).toArray();
 }
 
@@ -49,7 +49,34 @@ static getCompletedDocumentCount(orgId, taskId) {
     const db = database.getDb();
     return db.collection('subtasks').find({orgId: orgId, taskId: taskId, isCompleted: true}).count();
 }
-
+static saveSpentTime(orgId, taskId, sId,time, taskDetails,type) {
+    const db = database.getDb();
+    if(type==='Add') {
+        return db.collection('backlog-subtask').insertOne({orgId: orgId, taskId: taskId, sprintId: sId,spentTime: time, taskDetails: taskDetails});
+    } else {
+        console.log('time:',time);
+        console.log('sprintid:',sId);
+        return db.collection('backlog-subtask').updateOne({orgId: orgId, taskId: taskId, sprintId: sId},{$set: {spentTime: time, taskDetails: taskDetails}});
+    }
+}
+static updateStatusInTaskDetail(orgId, taskId,sprintId, status) {
+    const db = database.getDb();
+    return db.collection('backlog-subtask').updateOne({orgId: orgId, taskId: taskId, sprintId: sprintId},{$set: {'taskDetails.status': status}});
 }
 
+static getSpentTime(orgId, taskId) {
+    const db = database.getDb();
+    return db.collection('backlog-subtask').findOne({orgId: orgId, taskId: taskId});
+}
+static deleteSpentTime(orgId, taskId) {
+    const db = database.getDb();
+    return db.collection('backlog-subtask').deleteOne({orgId: orgId, taskId: taskId});
+}
+
+static getSpentTimeBySprint(orgId, sprintId) {
+    const db = database.getDb();
+    return db.collection('backlog-subtask').find({orgId: orgId, sprintId: sprintId}).toArray();
+}
+
+}
 module.exports = SubTask;

@@ -29,9 +29,19 @@ class Project {
         return db.collection('projects').find({name: pname}).toArray();
     }
 
-    static getProjects(orgId, email) {
+    static getProjects(orgId, email, role) {
         const db = database.getDb();
-        return db.collection('projects').find({orgId: orgId, creator: email}).project({ creator: 1, description: 1, name:1, team:1, technologies:1 }).toArray();
+        if(role === 'Scrum Master') {
+            return db.collection('projects').find({orgId: orgId, creator: email}).project({ creator: 1, description: 1, name:1, team:1, technologies:1 }).toArray();
+        } else {
+            return db.collection('projects').aggregate(
+                {$match: {orgId: orgId} }, 
+                {$unwind: '$team'},
+                {$match : {"team.email": email}},
+                {$group: {_id: null,team: {$push : '$team'} }},
+                // {$project: {team: 1}}
+            ).toArray();
+        }
     }
 
     static getDevelopers(orgId) {
@@ -39,7 +49,10 @@ class Project {
         return db.collection('users').find({orgId: orgId, $or: [{role: 'Developer'},{role: 'Assurance'}]})
         .project({ firstName: 1, lastName: 1, email:1, role:1 , _id: 0}).toArray();
     }
-
+    static getProjectById(orgId, pId) {
+        const db = database.getDb();
+        return db.collection('projects').find({orgId: orgId, _id: new ObjectId(pId)}).project({ creator: 1, description: 1, name:1, team:1, technologies:1 }).toArray();
+    }
 }
 
 module.exports = Project

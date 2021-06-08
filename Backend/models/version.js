@@ -25,7 +25,7 @@ class Version {
 
     static getVersions(orgId, email, projectId) {
         const db = database.getDb();
-        return db.collection('versions').find({orgId: orgId, creator: email, projectId: projectId}).project({ creator: 1, description: 1, name:1 }).toArray();
+        return db.collection('versions').find({orgId: orgId, projectId: projectId}).project({ creator: 1, description: 1, name:1 }).toArray();
     }
 
     static getVersionByName(vname, orgId, projectId) {

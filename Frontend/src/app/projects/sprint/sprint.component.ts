@@ -17,6 +17,7 @@ export class SprintComponent implements OnInit {
 
   userRole = '';
   sprints = [];
+  mailList = [];
   durationInSeconds = 4;
 
   constructor(private dialog: MatDialog, private currentRoute: ActivatedRoute, private router: Router,
@@ -30,6 +31,21 @@ export class SprintComponent implements OnInit {
     this.projectService.getSprints().subscribe(sprintDoc => {
       if(sprintDoc['status'] === 200) {
         this.sprints = sprintDoc['body']['sprints'];
+        this.sprints = this.sprints.map(sprint => {
+          let showMail;
+          if(new Date(sprint['completionDate'])< new Date()) {
+            showMail = true;
+          } else {
+            showMail = false;
+          }
+          return {...sprint, showMail: showMail};
+        })
+        console.log('final data:',this.sprints);
+      }
+    });
+    this.projectService.getMailList().subscribe(data => {
+      if(data['status'] === 200) {
+        this.mailList = data['body']['list'];
       }
     });
   }
@@ -69,18 +85,29 @@ export class SprintComponent implements OnInit {
     this.router.navigate(['backlog'],{relativeTo:this.currentRoute, queryParams: {sprintId: id}, queryParamsHandling: "merge"});
   }
 
-  openMail() {
+  openMail(item) {
+    if(!item.showMail) {
+      return;
+    }
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = '30%';
     dialogConfig.minWidth = '300px';
     dialogConfig.disableClose = true;
+    dialogConfig.data = {'list':this.mailList, id: item._id};
     const dialogRef = this.dialog.open(EmailComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
       console.log('Dialog result:', data);
       if(data.event === 'save') {
         console.log('data email:',data);
+        this._snackBar.openFromComponent(ShowMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['success'],
+          data: {type: 'success', msg: 'Report mail sent successfully.'}
+        });
       }
     });
   }

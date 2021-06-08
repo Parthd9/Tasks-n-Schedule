@@ -12,9 +12,11 @@ export class SubtaskcompletionComponent implements OnInit {
 
   subtaskId;
   showMsg = false;
+  taskDetails;
   constructor( public dialogRef: MatDialogRef<SubtaskcompletionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private taskService: TaskService) {
       this.subtaskId = data.id;
+      this.taskDetails = data.taskDetails;
     }
 
   ngOnInit(): void {
@@ -23,7 +25,7 @@ export class SubtaskcompletionComponent implements OnInit {
   @ViewChild('subtaskcomplete') form: NgForm;
 
   onSubmit() {
-    this.taskService.onSubtaskCompletion({id: this.subtaskId, completionTime: this.form.value.complete}).subscribe(result => {
+    this.taskService.onSubtaskCompletion({id: this.subtaskId, completionTime: this.form.value.complete,taskDetails:this.taskDetails}).subscribe(result => {
       console.log(result);
       if(result['status']===200) {
         this.dialogRef.close({event:'save',status: result['body']['status']});

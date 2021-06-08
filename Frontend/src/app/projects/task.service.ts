@@ -133,12 +133,14 @@ export class TaskService {
 
       removeSubtask(subtask) {
         let taskId = '';
+        let sprintId = '';
         this.route.queryParams.subscribe(result => {
           taskId = result['taskId'];
+          sprintId = result['sprintId'];
         });
         return this.http.put('/tns/api/tasks/remove-subtask', subtask,
         {
-          params: new HttpParams().set('taskId', taskId),
+          params: new HttpParams().set('taskId', taskId).set('sprintId', sprintId),
           observe: 'response'
         }
       );
@@ -146,12 +148,14 @@ export class TaskService {
 
       onSubtaskCompletion(subtask) {
         let taskId = '';
+        let sprintId = '';
         this.route.queryParams.subscribe(result => {
           taskId = result['taskId'];
+          sprintId = result['sprintId'];
         });
-        return this.http.put('/tns/api/tasks/complete-subtask', subtask,
+        return this.http.post('/tns/api/tasks/complete-subtask', subtask,
         {
-          params: new HttpParams().set('taskId', taskId),
+          params: new HttpParams().set('taskId', taskId).set('sprintId', sprintId),
           observe: 'response'
         }
       );

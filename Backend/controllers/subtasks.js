@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const SubTask = require('../models/subtask');
 const Task = require('../models/task');
+const ObjectId = require('mongodb').ObjectId;
 
 exports.getSubtasks = (req,res,next) => {
     const pId= req.query.projectId;
@@ -79,6 +80,9 @@ exports.addSubtask = (req, res, next) => {
         return Task.updateBacklogStatus(req.user.orgId, tId, 'In-Progress');
     })
     .then(result => {
+        return SubTask.updateStatusInTaskDetail(new ObjectId(req.user.orgId), new ObjectId(tId), sId, 'In-Progress');
+    })
+    .then(result => {
         subtaskDoc = {...subtaskDoc,taskStatus : 'In-Progress'};
         res.status(201).json({message: 'Subtask added successfully.',status: 'success', subtask: subtaskDoc});
     })
@@ -109,9 +113,10 @@ exports.editSubtask = (req, res, next) => {
 
 exports.removeSubtask = (req, res, next) => {
     const tId= req.query.taskId;
+    const sId= req.query.sprintId;
 
-    if(!tId) {
-        const error = new Error('Invalid task id');
+    if(!tId && !sId) {
+        const error = new Error('Invalid task id/ sprintId');
         error.statusCode = 403;
         throw error;
     }
@@ -141,6 +146,9 @@ exports.removeSubtask = (req, res, next) => {
                 } 
             })
             .then(result => {
+                return SubTask.updateStatusInTaskDetail(new ObjectId(req.user.orgId), new ObjectId(tId), sId, status);
+            })
+            .then(result => {
                 res.status(200).json({message: 'Subtask deleted successfully', status: status});
                 
             })
@@ -154,9 +162,12 @@ exports.removeSubtask = (req, res, next) => {
 
 exports.completeSubtask = (req, res, next) => {
     const tId= req.query.taskId;
+    const sId = req.query.sprintId;
     let subtaskCompletedCount;
-    if(!tId) {
-        const error = new Error('Invalid task id');
+    let type = '';
+    let status = '';
+    if(!tId && !sId) {
+        const error = new Error('Invalid task id/ sprint id');
         error.statusCode = 403;
         throw error;
     }
@@ -166,17 +177,50 @@ exports.completeSubtask = (req, res, next) => {
             })
             .then(completedCount => {
                 subtaskCompletedCount = completedCount;
+                console.log('completedd:',completedCount);
+                if(completedCount===1) {
+                    type='Add';
+                    console.log('In add');
+                    delete req.body.taskDetails.developers;
+                    return SubTask.saveSpentTime(new ObjectId(req.user.orgId), new ObjectId(tId), sId,req.body.completionTime, req.body.taskDetails,'Update');
+                } else {
+                    type='Update';
+                    console.log('In update');
+                    return SubTask.getSpentTime(new ObjectId(req.user.orgId), new ObjectId(tId));
+                }
+            })
+            .then(data => {
+                if(type==='Update') {
+                    console.log('In then update',data);
+                    const updatedTime = +data['spentTime'] + req.body.completionTime;
+                    delete req.body.taskDetails.developers;
+                    return SubTask.saveSpentTime(new ObjectId(req.user.orgId),new ObjectId(tId),sId, updatedTime, req.body.taskDetails,'Update');
+                }
+            })
+            .then(result => {
+                console.log('In 189:');
                 return SubTask.getDocumentCount(req.user.orgId, tId);
             })
             .then(count => {
                 if(count === subtaskCompletedCount) {
+                    console.log('In 194:');
+                    status = 'Completed'
                     return Task.updateBacklogStatus(req.user.orgId, tId, 'Completed')
                 } else {
+                    console.log('In 197:');
+                    type='In-Progress';
+                    status = 'In-Progress';
                     res.status(200).json({message: 'Subtask completed', status: 'In-Progress'})
                 }
             })
             .then(result => {
-                res.status(200).json({message: 'Subtask completed', status: 'Completed'})
+                return SubTask.updateStatusInTaskDetail(new ObjectId(req.user.orgId), new ObjectId(tId), sId, status);
+            })
+            .then(result => {
+                console.log('In 202:');
+                if(type!=='In-Progress') {
+                    res.status(200).json({message: 'Subtask completed', status: 'Completed'})
+                }
             })
             .catch(err => {
                 if(!err.statusCode) {

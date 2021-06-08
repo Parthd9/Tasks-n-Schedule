@@ -28,12 +28,23 @@ class Sprint {
 
     static getSprints(orgId, email, projectId, versionId) {
         const db = database.getDb();
-        return db.collection('sprints').find({orgId: orgId, creator: email, projectId: projectId, versionId: versionId}).project({ creator: 1, description: 1, name:1, completionDate:1 }).toArray();
+        return db.collection('sprints').find({orgId: orgId, projectId: projectId, versionId: versionId}).project({ creator: 1, description: 1, name:1, completionDate:1 }).toArray();
     }
 
     static getSprintByName(sname, orgId, projectId, versionId) {
         const db = database.getDb();
         return db.collection('sprints').find({name: sname, orgId: orgId, projectId: projectId, versionId: versionId}).toArray();
+    }
+
+    static getSprintById(orgId, projectId, versionId, sId) {
+        const db = database.getDb();
+        return db.collection('sprints').find({_id: new ObjectId(sId), orgId: orgId, projectId: projectId, versionId: versionId}).toArray();
+    }
+
+    static getMailList(orgId, pId) {
+        const db = database.getDb();
+        return db.collection('projects').find({orgId: orgId, _id: new ObjectId(pId)})
+                    .project({team: 1, creator: 1}).toArray();
     }
 }
 

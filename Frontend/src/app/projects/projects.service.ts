@@ -115,4 +115,32 @@ editProject(projectData) {
   return this.http.put('/tns/api/projects/edit-project', projectData,{observe: 'response'});
 }
 
+getMailList() {
+  let projectId = '';
+  this.route.queryParams.subscribe(result => {
+    console.log('result query:',result);
+    projectId = result['projectId'];
+  });
+  return this.http.get('/tns/api/projects/getMailList',
+  {
+    params: new HttpParams().set('projectId', projectId),
+    observe: 'response',
+  });
+}
+
+sendReportMail(sprintId, list) {
+  let projectId = '';
+  let versionId = '';
+  this.route.queryParams.subscribe(result => {
+    console.log('result query:',result);
+    projectId = result['projectId'];
+    versionId = result['versionId'];
+  });
+  return this.http.post('/tns/api/projects/sendReport',{list:list},
+  {
+    params: new HttpParams().set('projectId', projectId).set('versionId',versionId).set('sprintId',sprintId),
+    observe: 'response',
+  });
+}
+
 }

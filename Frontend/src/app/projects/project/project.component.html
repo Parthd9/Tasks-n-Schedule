@@ -5,7 +5,7 @@
       <div class="card">
         <div class="card-body">
             <div class="info">
-                <h3 class="card-title">{{project.name}}<mat-icon matTooltip="Edit Project" style="cursor: pointer; float: right;" (click)="onEditProject(project)">create</mat-icon></h3>
+                <h3 class="card-title">{{project.name}}<mat-icon *ngIf="userRole === 'Scrum Master'" matTooltip="Edit Project" style="cursor: pointer; float: right;" (click)="onEditProject(project)">create</mat-icon></h3>
                 <p class="card-text">{{project.description}}</p>
             </div>
           <a [routerLink]="['version']" [queryParams]="{'projectId': project._id}" mat-raised-button color="primary" >View Version</a>
