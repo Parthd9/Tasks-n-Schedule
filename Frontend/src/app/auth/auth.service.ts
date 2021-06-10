@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import jwtDecode from "jwt-decode";
 import { BehaviorSubject } from "rxjs";
-import { tap } from "rxjs/operators";
+import {tap } from "rxjs/operators";
 import { User } from "./user.model";
 @Injectable()
 export class AuthService {
@@ -17,16 +17,15 @@ export class AuthService {
     }
 
     loginUser(loginData) {
-        return this.http.post<{token: string}>('/tns/auth/login', loginData).pipe(tap(tokenData => {
-            console.log('tokendata:',tokenData);
-            this.handleAuthentication(tokenData);
-        }));
+      return this.http.post<{token: string}>('/tns/auth/login', loginData).pipe(tap(tokenData => {
+        console.log('tokendata:',tokenData);
+        this.handleAuthentication(tokenData);
+      }));
     }
 
     logout() {
         this.user.next(null);
         localStorage.removeItem('userData');
-
         if(this.tokenExpirationTimer) {
             console.log(this.tokenExpirationTimer);
             clearTimeout(this.tokenExpirationTimer);

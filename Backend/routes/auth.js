@@ -4,6 +4,7 @@ const router = express.Router();
 const { body } = require('express-validator');
 const authController = require('../controllers/auth');
 const authValidator = require('../validators/auth-validator');
+const isAuth = require('../middleware/is-auth');
 
 router.post('/signup', authValidator.signupValidation(),authController.signup);
 router.post('/login', [
@@ -11,6 +12,6 @@ router.post('/login', [
     // .normalizeEmail(),
     body('password', 'Password has to be valid.').trim().isLength({min: 6})
 ],authController.login);
-router.post('/register-users', authController.registerUsersData);
+// router.post('/register-users', isAuth,authController.registerUsersData);
 
 module.exports = router;

@@ -11,6 +11,9 @@ import { UpsertUserComponent } from "./upsert-user/upsert-user.component";
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AuthGuard } from "../auth/auth.guard";
 import { AdminGuard } from "../auth/admin.guard";
+import { AdminResolverService } from "./admin-resolver.service";
+import { UploadDataComponent } from "./upload-data/upload-data.component";
+import { NgxFileDropModule } from "ngx-file-drop";
 
 @NgModule({
     declarations: [
@@ -19,19 +22,21 @@ import { AdminGuard } from "../auth/admin.guard";
         PieChartComponent,
         ManageUsersComponent,
         UpsertUserComponent,
-        AdminHomeComponent
+        AdminHomeComponent,
+        UploadDataComponent
     ],
     imports: [
         RouterModule.forChild([
             { path: '', component: AdminHomeComponent ,canActivate: [AuthGuard, AdminGuard],children: [
-                {path: '', component: AdminPageComponent},
+                {path: '', component: AdminPageComponent,resolve: {responses: AdminResolverService}},
                 {path: 'manage-users', component: ManageUsersComponent}
             ]
         }
         ]),
         FormsModule,
         MaterialModule,
-        SharedModule
+        SharedModule,
+        NgxFileDropModule
     ]
 })
 

@@ -1,0 +1,17 @@
+.mat-dialog-content {
+  min-height: 180px;
+}
+::ng-deep .dropZone {
+  border: 2px dotted #0782d0;
+  border-radius: 30px;
+  min-height: 155px;
+  margin: auto;
+}
+
+::ng-deep .dropZoneContent {
+  align-items: center;
+  color: #0782d0;
+  display: flex;
+  height: 155px;
+  justify-content: center;
+}

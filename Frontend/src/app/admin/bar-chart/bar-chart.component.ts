@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-bar-chart',
@@ -7,20 +7,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarChartComponent implements OnInit {
 
+  @Input() barChartData;
+
+  public mbarChartLabels:string[] = [];
+  public barChartType:string = 'bar';
+  public barChartLegend:boolean = true;
+
+  public barChartDetail:any[] = [
+    {data: [], label: 'Projects'},
+    {data: [], label: 'Employees'}
+  ];
+
   constructor() { }
 
   ngOnInit(): void {
+
+    for(let item of this.barChartData.yearWiseProjectCount) {
+      this.mbarChartLabels.push(item['_id']);
+      this.barChartDetail[0]['data'].push(item['count']);
+
+    }
+    for(let item of this.barChartData.yearWiseUserCount) {
+      this.barChartDetail[1]['data'].push(item['count']);
+    }
   }
 
   public barChartOptions:any = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+        }
+      }]
+    }
   };
 
-    public mbarChartLabels:string[] = ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
-    public barChartType:string = 'bar';
-    public barChartLegend:boolean = true;
-  
+
+
     public barChartColors:Array<any> = [
     {
       backgroundColor: 'rgba(105,159,177,0.2)',
@@ -30,7 +55,7 @@ export class BarChartComponent implements OnInit {
       pointHoverBackgroundColor: '#fafafa',
       pointHoverBorderColor: 'rgba(105,159,177)'
     },
-    { 
+    {
       backgroundColor: 'rgba(77,20,96,0.3)',
       borderColor: 'rgba(77,20,96,1)',
       pointBackgroundColor: 'rgba(77,20,96,1)',
@@ -39,20 +64,17 @@ export class BarChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(77,20,96,1)'
     }
   ];
-    public barChartData:any[] = [
-      {data: [50, 70, 95, 125, 150, 180, 220], label: 'No Of Developers'},
-      {data: [7, 13, 23, 31, 45, 56, 70], label: 'No Of Projects'}
-    ];
-  
+
+
     // events
     public chartClicked(e:any):void {
       console.log(e);
     }
-  
+
     public chartHovered(e:any):void {
       console.log(e);
     }
-  
+
     public randomize():void {
       let data = [
         Math.round(Math.random() * 100),

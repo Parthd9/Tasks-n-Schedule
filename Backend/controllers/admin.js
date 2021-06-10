@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const helper = require('../utils/helper');
 const Admin = require('../models/admin');
+const Project = require('../models/project');
+const Task = require('../models/task');
 
 const { validationResult } = require('express-validator');
 
@@ -22,7 +24,7 @@ exports.addUser = (req, res, next) => {
 
     let password = helper.getRandomString(6);
     console.log('Password:',password);
-
+    let generatedhashedPwd;
     bcrypt.hash(password, 10)
           .then(hashedPwd => {
             if(!hashedPwd) {
@@ -30,7 +32,16 @@ exports.addUser = (req, res, next) => {
               error.statusCode = 500;
               throw error;
             }
-            const user = new User(req.body.fname, req.body.lname, req.body.email, hashedPwd, req.user.orgId, req.body.role, req.user.orgName);
+            generatedhashedPwd = hashedPwd;
+            return User.getOrgUsersCount(req.user.orgId);
+          })
+          .then(usersCount => {
+            if(usersCount[0]['count']>=100) {
+              const error = new Error('Already 100 users in the organization');
+              error.statusCode = 406;
+              throw error;
+            } 
+            const user = new User(req.body.fname, req.body.lname, req.body.email, generatedhashedPwd, req.user.orgId, req.body.role, req.user.orgName);
             return user.save();
           })
           .then(result => {
@@ -106,6 +117,7 @@ exports.editUser = (req, res, next) => {
   const userId = req.body.id;
   const lname = req.body.lname;
   const role = req.body.role;
+  const email = req.body.email;
 
   const errors = validationResult(req);
   console.log(errors);
@@ -118,7 +130,19 @@ exports.editUser = (req, res, next) => {
   }
       return User.updateUser(fname, lname, role, userId)
         .then(result => {
-            res.status(202).json({message: 'User updated successfully.'});
+            return Project.updateProjectTeam(req.user.orgId, {name: fname+' '+lname, email: email, role: role})
+      })
+      .then(result => {
+        if(role === 'Developer') {
+          console.log('In if part:',email);
+          return Task.updateDeveloperTeam(req.user.orgId, {name: fname+' '+lname, email: email, role: role});
+        } else {
+          console.log('In else:',email);
+          return Task.removeUserFromDevelopers(req.user.orgId, email);
+        }
+      })
+      .then(result => {
+        res.status(202).json({message: 'User updated successfully.'});
       })
       .catch(err => {
           if(!err.statusCode) {
@@ -131,7 +155,10 @@ exports.editUser = (req, res, next) => {
 exports.removeUser = (req,res, next) => {
   User.removeUser(req.user.orgId, req.body.id)
   .then(result => {
-      res.status(200).json({message: 'User deleted successfully.'});
+      return Project.removeUserFromProjectTeam(req.user.orgId, req.body.email);
+})
+.then(result => {
+  res.status(200).json({message: 'User deleted successfully.'});
 })
 .catch(err => {
     if(!err.statusCode) {
@@ -146,6 +173,51 @@ exports.getProjectsData = (req, res, next) => {
     .then(data => {
       console.log('proj data:',data);
       res.status(200).json({projectData: data});
+    })
+    .catch(error => {
+      if(!error.statusCode) {
+          error.statusCode = 500;
+      }
+      next(error);
+  });
+}
+
+exports.getAllusersCount = (req, res, next) => {
+  Admin.getAllusersCount(req.user.orgId)
+    .then(data => {
+      console.log('proj data:',data);
+      res.status(200).json({userCount: data});
+    })
+    .catch(error => {
+      if(!error.statusCode) {
+          error.statusCode = 500;
+      }
+      next(error);
+  });
+}
+exports.techDataCount = (req, res, next) => {
+  Admin.techDataCount(req.user.orgId)
+    .then(data => {
+      console.log('proj data:',data);
+      res.status(200).json({techDataCount: data});
+    })
+    .catch(error => {
+      if(!error.statusCode) {
+          error.statusCode = 500;
+      }
+      next(error);
+  });
+}
+exports.getYearwiseCount = (req, res, next) => {
+  let yearWiseProject;
+  Admin.getYearwiseProjectCount(req.user.orgId)
+    .then(data => {
+      console.log('proj data:',data);
+      yearWiseProject = data;
+      return Admin.getYearwiseUserCount(req.user.orgId);
+    })
+    .then(data => {
+      res.status(200).json({yearWiseData: {yearWiseProjectCount: yearWiseProject, yearWiseUserCount: data} });
     })
     .catch(error => {
       if(!error.statusCode) {

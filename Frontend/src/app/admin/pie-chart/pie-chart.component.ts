@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pie-chart',
@@ -6,28 +6,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pie-chart.component.css']
 })
 export class PieChartComponent implements OnInit {
+  @Input() pieChartData;
 
-  constructor() { }
+  public pieChartLabels1:string[] = [];
+  public pieChartData1:number[] = [];
 
-  ngOnInit(): void {
-  }
-
-  public pieChartLabels1:string[] = ['Developers', 'Scrum Master', 'Assurance'];
-  public pieChartData1:number[] = [28, 4, 9 ];
-
-  public pieChartLabels2:string[] = ['Project Completed', 'Project In-progress'];
-  public pieChartData2:number[] = [17, 6];
+  public pieChartLabels2:string[] = [];
+  public pieChartData2:number[] = [];
 
   // public pieChartLabels3:string[] = ['Developers Allowed', 'Developers Present'];
   // public pieChartData3:number[] = [50, 50 ];
-  
+
   public pieChartType:string = 'pie';
- 
+
+  constructor() { }
+
+
+  ngOnInit(): void {
+    console.log('From pie:',this.pieChartData);
+    for(let item of this.pieChartData.userCount) {
+      this.pieChartLabels1.push(item['_id']);
+      this.pieChartData1.push(item['count']);
+    }
+    for(let item of this.pieChartData.techDataCount) {
+      this.pieChartLabels2.push(item['_id']);
+      this.pieChartData2.push(item['count']);
+    }
+
+  }
+
+
+
   // events
   public chartClicked(e:any):void {
     // console.log(e);
   }
- 
+
   public chartHovered(e:any):void {
     // console.log(e);
   }

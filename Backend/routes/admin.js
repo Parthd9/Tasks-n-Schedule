@@ -16,4 +16,10 @@ router.post('/remove-user', isAuth, adminController.removeUser);
 
 router.get('/getProjectsData', isAuth,adminController.getProjectsData);
 
+router.get('/getAllusersCount', isAuth,adminController.getAllusersCount);
+
+router.get('/getTechDataCount', isAuth,adminController.techDataCount);
+
+router.get('/getYearWiseCount', isAuth,adminController.getYearwiseCount);
+
 module.exports = router;

@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>Upload user data</h1>
+<hr>
+<h4><b>Demo of upcoming TnS functionality</b></h4>
+<div mat-dialog-content>
+  <a href="../../../assets/Files/User-Data.csv" download="User-Data.csv"><button class="mb-2" mat-raised-button color="primary">Download sample csv</button></a>
+  <div class="center">
+    <ngx-file-drop  contentClassName="dropZoneContent"	dropZoneClassName="dropZone" dropZoneLabel="Drop files here" [multiple]="false" accept=".csv" [directory]="false" [disabled]="disable" (onFileDrop)="dropped($event)">
+        <ng-template class="drop-file" *ngIf="!disable; else fileSelected"  ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+          <p class="text-center">
+            Drag file here<br>
+            OR<br>
+            <button class="p-1" type="button" mat-button (click)="openFileSelector()">Click to upload</button><br>
+            Only .csv format allowed, download sample csv to see required user data
+          </p>
+        </ng-template>
+        <ng-template #fileSelected ngx-file-drop-content-tmp>
+          <p class="text-center">Only 1 csv file allowed to select<br>To change it please remove the selected file by clicking cancel icon below.</p>
+        </ng-template>
+    </ngx-file-drop>
+    <br>
+    <div class="upload-table" *ngIf="disable">
+      <table class="table">
+          <thead>
+              <tr>
+                  <th class="text-left">Name</th>
+                  <th class="text-center">Size(in bytes)</th>
+                  <th class="text-center">Remove</th>
+              </tr>
+          </thead>
+          <tbody class="upload-name-style">
+              <tr>
+                  <td class="text-left">{{ file.name }}</td>
+                  <td class="text-center">{{file.size}}</td>
+                  <td matTooltip="Remove File" class="text-center"  style="cursor: pointer;" (click)="onFileRemove()">&times;</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="text-center mb-2">
+    <button class="mr-2" mat-raised-button color="primary" [disabled]="!disable" (click)="onFileUpload()">Upload</button>
+    <button mat-raised-button (click)="onCancel()">Cancel</button>
+  </div>
+</div>
+</div>

@@ -12,9 +12,12 @@ import { AfterViewInit, Component, OnInit} from '@angular/core';
 export class LandingPageComponent implements OnInit, AfterViewInit {
 
 
+  width;
   constructor() { }
 
   ngOnInit(): void {
+    this.width = window.innerWidth;
+    console.log('width:',this.width);
     $(document).ready(function(){
       $('.header').height($(window).height());
 

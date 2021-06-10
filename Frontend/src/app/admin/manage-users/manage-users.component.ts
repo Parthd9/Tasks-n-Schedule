@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { ConfirmComponent } from 'src/app/shared/confirm/confirm.component';
 import { ShowMessageComponent } from 'src/app/shared/show-message/show-message.component';
 import { AdminService } from '../admin.service';
+import { UploadDataComponent } from '../upload-data/upload-data.component';
 import { UpsertUserComponent } from '../upsert-user/upsert-user.component';
 
 @Component({
@@ -93,12 +94,15 @@ export class ManageUsersComponent implements OnInit {
       console.log('Dialog result:', data);
       if(data.event==='success') {
         const elem = this.data.find(p => p._id === element._id);
+        const index = this.data.findIndex(p => p._id === element._id);
         let val = {...elem};
         console.log('val before:',val);
-        val.name = data.value.fname+' '+data.value.lname;
+        val.firstName = data.value.fname;
+        val.lastName = data.value.lname;
         val.email = data.value.email;
         val.role = data.value.role;
-        this.data[ind] = val;
+        this.data[index] = val;
+        console.log(this.data);
         console.log('ind:',ind);
         console.log('val:',val)
         this.dataSource = new MatTableDataSource(this.data);
@@ -124,10 +128,13 @@ export class ManageUsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog result:', result);
       if(result.event==='yes') {
-        this.adminService.removeUser({id: element._id}).subscribe(result => {
+        this.adminService.removeUser({id: element._id, email: element.email}).subscribe(result => {
           console.log(result);
           if(result['status'] == 200) {
-            this.data.splice(ind,1);
+            console.log('before splicing:',this.data);
+            const index = this.data.findIndex(p => p._id === element._id);
+            this.data.splice(index,1);
+            console.log('after splicing:',this.data);
             this.dataSource = new MatTableDataSource(this.data);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -141,6 +148,13 @@ export class ManageUsersComponent implements OnInit {
           }
         })
       }
+    });
+  }
+
+  openCSVupload() {
+    const dialogRef = this.dialog.open(UploadDataComponent);
+    dialogRef.afterClosed().subscribe(result => {
+
     });
   }
 }

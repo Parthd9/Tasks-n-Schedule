@@ -22,5 +22,15 @@ export class AdminService {
   getProjectsData() {
     return this.http.get('/tns/api/admin/getProjectsData', {observe: 'response'});
   }
-  
+  getAllUsersCount() {
+    return this.http.get('/tns/api/admin/getAllusersCount', {observe: 'response'});
+  }
+  getTechDataCount() {
+    return this.http.get('/tns/api/admin/getTechDataCount', {observe: 'response'});
+  }
+  getYearWiseCount() {
+    return this.http.get('/tns/api/admin/getYearWiseCount', {observe: 'response'});
+  }
+
+
 }

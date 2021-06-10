@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Data } from '@angular/router';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -10,11 +11,15 @@ import { AdminService } from '../admin.service';
 })
 export class AdminPageComponent implements OnInit,AfterViewInit {
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private route: ActivatedRoute) { }
 
   displayedColumns: string[] = ['project', 'startDate','developers','technologies'];
   dataSource;
   projectData;
+  pieChartData;
+  barChartData;
+  userCount;
+  techDataCount;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -23,11 +28,22 @@ export class AdminPageComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.adminService.getProjectsData().subscribe(data => {
-      if(data['status']==200) {
+    console.log('subscribing data');
+    this.route.data.subscribe((data: Data) => {
       console.log('data:',data);
-      this.projectData = data['body']['projectData'];
-      console.log('first data:',this.projectData);
+      console.log(data['responses']['A']['body']['projectData']);
+      console.log(data['responses']['B']['body']['userCount']);
+      console.log(data['responses']['C']['body']['techDataCount']);
+      this.projectData = data['responses']['A']['body']['projectData'];
+      this.userCount = data['responses']['B']['body']['userCount'];
+      this.techDataCount = data['responses']['C']['body']['techDataCount'];
+      this.barChartData = data['responses']['D']['body']['yearWiseData'];
+      this.pieChartData = {
+        userCount: this.userCount,
+        techDataCount: this.techDataCount
+      }
+    })
+
       this.projectData = this.projectData.map(project => {
         let tech:string='';
         console.log('project:',project)
@@ -38,14 +54,14 @@ export class AdminPageComponent implements OnInit,AfterViewInit {
           }
         }
         return {...project,tech:tech}
-      })
-        console.log('final:',this.projectData);
-        this.dataSource = new MatTableDataSource(this.projectData);
-        this.dataSource.paginator = this.paginator;
-      }
-    })
+      });
+      console.log('final:',this.projectData);
+      this.dataSource = new MatTableDataSource(this.projectData);
+      this.dataSource.paginator = this.paginator;
+
+
   }
-} 
+}
 
 //   export interface PeriodicElement {
 //   startDate: string;

@@ -16,6 +16,7 @@ class Project {
         if(!id) {
             this.createdAt = new Date();
             this.updatedAt = new Date();
+            this.creationYear = new Date().getFullYear();
             return db.collection('projects').insertOne(this);
         } else {
             this.updatedAt = new Date();
@@ -52,6 +53,15 @@ class Project {
     static getProjectById(orgId, pId) {
         const db = database.getDb();
         return db.collection('projects').find({orgId: orgId, _id: new ObjectId(pId)}).project({ creator: 1, description: 1, name:1, team:1, technologies:1 }).toArray();
+    }
+
+    static updateProjectTeam(orgId, data) {
+        const db = database.getDb();
+        return db.collection('projects').updateMany({orgId: orgId}, {$set: {"team.$[i]": data} }, {arrayFilters: [{"i.email": data.email}] });
+    }
+    static removeUserFromProjectTeam(orgId, email) {
+        const db = database.getDb();
+        return db.collection('projects').updateMany({orgId: orgId}, {$pull: {"team": {"email": email} } });
     }
 }
 

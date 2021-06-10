@@ -77,7 +77,7 @@ export class KanbanComponent implements OnInit {
     const dialogRef = this.dialog.open(AddBacklogComponent, {
       width: '40%',
       minWidth: '300px',
-      data: { isEdit: true,taskDetail: item, developers: this.developers }
+      data: { isEdit: true,taskDetail: item, developers: this.developers, selectedList: item.developers }
     });
     dialogRef.afterClosed().subscribe(data => {
       console.log('Dialog result:', data);

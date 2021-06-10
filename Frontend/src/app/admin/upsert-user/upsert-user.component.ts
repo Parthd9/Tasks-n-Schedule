@@ -40,7 +40,7 @@ export class UpsertUserComponent implements OnInit {
     if(this.type == 'Add') {
       obs = this.adminService.addUser(this.form.value);
     } else {
-      obs = this.adminService.editUser({...this.form.value, id: this.data.userData._id});
+      obs = this.adminService.editUser({...this.form.value, id: this.data.userData._id, email: this.emaildata});
     }
     obs.subscribe(result => {
       if(result) {

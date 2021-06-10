@@ -28,9 +28,9 @@
 	      <li class="nav-item">
 	        <a class="nav-link " data-value="pricing">Pricing</a>
 	      </li>
-	      <li class="nav-item">
+	      <!-- <li class="nav-item">
 	        <a class="nav-link " data-value="contact">Contact</a>
-        </li>
+        </li> -->
         <li class="nav-item">
 	        <a class="nav-link " data-value="login" [routerLink]="['/login']">Login</a>
 	      </li>
@@ -40,148 +40,141 @@
 </nav>
 <!-- header -->
 <header class="header ">
-  <div class="overlay"></div>
-   <div class="container-fluid">
-   	  <div class="description ">
-  	<h1>
-  		Tasks-n-Schedule
+  <!-- <div class="overlay"></div> -->
+   <div>
+   	  <div class="row col-sm-12 col-md-12 col-lg-12 h-100 description text-center">
+  	<h1 class="col-sm-12 my-auto" style="padding-right: 0%;">
+  		<strong *ngIf="width>= 465" style="margin-bottom: 2%;">Tasks-n-Schedule</strong>
+      <strong *ngIf="width< 465" style="margin-bottom: 2%;">TnS</strong>
+      <br>
   		<p>Easy to work in Agile environment</p>
   		<!-- <button class="btn btn-outline-secondary btn-lg">See more</button> -->
   	</h1>
-  </div>
+     </div>
    </div>
 
 </header>
 
 <!-- about section -->
-<div class="about" id="about">
-	<div class="container">
-	  <h1 class="text-center">About Me</h1>
-		<div class="row">
-			<div class="col-lg-4 col-md-4 col-sm-12">
-
-			</div>
-			<div class="col-lg-8 col-md-8 col-sm-12 desc">
-
-				<h3>D.John</h3>
+<div class="about" id="about" style="margin-bottom: 5rem">
+	<div class="container-fluid">
+	  <h1 class="text-center">About Tasks-n-Schedule</h1>
+		<div>
+			<div class="col-lg-12 col-md-12 col-sm-12 desc">
 				<p>
-				   ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          TnS is a project management solution based on the agile approach that provides a detailed hierarchy and fine-grained user permissions for working in an agile environment.
+          It gives a visual depiction of each sprint task to help you keep track of the progress.TnS makes it easy for organisations by automatically creating a report in structured style containing sprint specifics and emailing it to concerned members.
+          Sprint tasks and sub - tasks are simple to manage with it.
 				</p>
 			</div>
 		</div>
 	</div>
 </div>
 
-
-<div id="features" class="container-fluid text-center">
-  <h2>FEATURES</h2>
-  <h4>What we offer</h4>
+<div id="features" style="background-color: white;margin-bottom: 5rem" class=" container-fluid text-center">
+  <h2>Features</h2>
+  <div style="border:4px solid #10828C;">
+  <h4 style="margin-top: 1%;">What we offer<hr></h4>
   <br>
   <div class="row slideanim">
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-off logo-small"></span>
-      <h4>POWER</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      <h4>In-depth hierarchy</h4>
+      <p>Hierarchy provided as Agile methodology works.</p>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-heart logo-small"></span>
-      <h4>LOVE</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      <h4>Role Based Access</h4>
+      <p>Different roles as per Agile environment.</p>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-lock logo-small"></span>
-      <h4>JOB DONE</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      <h4>Kanban Board</h4>
+      <p>Provides whole sprint tasks details.</p>
     </div>
   </div>
-  <br><br>
-  <div class="row slideanim">
+  <!-- <br><br> -->
+  <div class="row slideanim mt-3">
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-leaf logo-small"></span>
-      <h4>GREEN</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      <h4>Reports</h4>
+      <p>Auto generated agile sprint report.</p>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-certificate logo-small"></span>
-      <h4>CERTIFIED</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      <h4>Admin Tasks</h4>
+      <p>Separate admin role to manage organization users and their roles.</p>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-wrench logo-small"></span>
-      <h4 style="color:#303030;">HARD WORK</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+      <h4 style="color:#303030;">Visual Chart</h4>
+      <p>Visual chart data provides collective information of a sprint.</p>
     </div>
+  </div>
   </div>
 </div>
 
 
-<div class="container" id="faqs">
+<div class="container-fluid" style="margin-bottom: 5rem" id="faqs">
 
-  <h2>Frequently Asked Questions</h2>
+  <h2 class="text-center">Frequently Asked Questions</h2>
 
   <div class="accordion">
     <div class="accordion-item">
-      <a>What can JavaScript Do?</a>
+      <a>How to get started?</a>
       <div class="content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+        <p>One need to register the organization first by purchasing TnS license(valid for 365 days).</p>
       </div>
     </div>
     <div class="accordion-item">
-      <a>How JavaScript Can Modify HTML and CSS Values?</a>
+      <a>What will be admin email id of an registered organization?</a>
       <div class="content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+        <p>Admin email id will be the email id that is provided at time of registration.</p>
       </div>
     </div>
     <div class="accordion-item">
-      <a>What Is SVG?</a>
+      <a>What will be the process of other member registration of an organization?</a>
       <div class="content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+        <p>One can create/edit/remove organization's users data manually or uploading csv. </p>
       </div>
     </div>
     <div class="accordion-item">
-      <a>Is FAQ Section Matters In Website?</a>
+      <a>What is significance of taking domain at time of registration ?</a>
       <div class="content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+        <p>By specifying domain, one can get latest trending news in relavence to domain through notification panel and email.</p>
       </div>
     </div>
     <div class="accordion-item">
-      <a>How To Create a Light FAQ Element?</a>
+      <a>Where can one find organization, users and project data?</a>
       <div class="content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+        <p>One can see collective information through visualize charts of projects, users and user roles by login into admin account.</p>
       </div>
     </div>
   </div>
 
 </div>
 
+
 <div id="pricing" class="container-fluid">
   <div class="text-center">
-    <h2>Pricing</h2>
-    <h4>Choose a payment plan that works for you</h4>
+    <h2 style="margin-bottom: 5px;">Pricing</h2>
   </div>
-  <div class="row slideanim">
+  <div class="row slideanim" style="margin-bottom: 2%;">
     <div class="col-sm-4 col-xs-12"></div>
     <div class="col-sm-4 col-xs-12">
       <div class="panel panel-default text-center">
-        <div class="panel-heading">
-          <h1>Basic</h1>
+        <div class="panel-heading" >
+          <h1>Plan</h1>
         </div>
-        <div class="panel-body">
-          <p><strong>20</strong> Lorem</p>
-          <p><strong>15</strong> Ipsum</p>
-          <p><strong>5</strong> Dolor</p>
-          <p><strong>2</strong> Sit</p>
-          <p><strong>Endless</strong> Amet</p>
+        <div class="panel-body" style="margin-top: 6%">
+          <p><strong>100 </strong>Users per license</p>
+          <p><strong>Unlimited </strong>Projects</p>
+          <p><strong>Unlimited </strong>sprint report emails</p>
         </div>
         <div class="panel-footer">
-          <h3>$19</h3>
-          <h4>per month</h4>
-          <button class="btn btn-lg" [routerLink]="['/register']">Purchase</button>
+          <h3>&#8377; 5000</h3>
+          <h4>per year</h4>
+          <button style="margin-bottom: 30px;max-width: 150px;" class="btn btn-lg" [routerLink]="['/register']">Purchase</button>
         </div>
       </div>
     </div>
@@ -190,7 +183,7 @@
 </div>
 
 <!-- Contact form -->
-<div class="contact-form" id="contact">
+<!-- <div class="contact-form" id="contact">
 	<div class="container-fluid">
     <form>
       <div class="row">
@@ -214,13 +207,11 @@
       </div>
     </form>
 	</div>
-</div>
+</div> -->
 
 <footer class="footer text-center">
-  <div class="container">
+  <!-- <div class="container">
       <div class="row">
-
-          <!-- Footer Location-->
           <div class="col-lg-4 mb-5 mb-lg-0">
               <h4 class="text-uppercase mb-4">Location</h4>
               <p class="lead mb-0">
@@ -229,14 +220,12 @@
                   Clark, MO 65243
               </p>
           </div>
-          <!-- Footer Social Icons-->
           <div class="col-lg-4 mb-5 mb-lg-0">
               <h4 class="text-uppercase mb-4">Around the Web</h4>
               <a class="btn btn-outline-light btn-social mx-1" href="#!"><i style="font-size: 22px;" class="fa fa-facebook-official"></i></a>
               <a class="btn btn-outline-light btn-social mx-1" href="#!"><i style="font-size: 22px;" class="fa fa-google-plus"></i></a>
               <a class="btn btn-outline-light btn-social mx-1" href="#!"><i style="font-size: 22px;" class="fa fa-linkedin"></i></a>
           </div>
-          <!-- Footer About Text-->
           <div class="col-lg-4">
               <h4 class="text-uppercase mb-4">About Freelancer</h4>
               <p class="lead mb-0">
@@ -246,13 +235,13 @@
               </p>
           </div>
       </div>
-  </div>
+  </div> -->
   <a href="#myPage" title="To Top">
     <span class="topUp glyphicon glyphicon-chevron-up"></span>
   </a>
 </footer>
 <div class="copyright py-4 text-center text-white">
-  <div class="container"><small>Copyright © Your Website 2020</small></div>
+  <div class="container"><small>Copyright © 2021 by TnS. All Rights Reserved.</small></div>
 </div>
 </body>
 </html>

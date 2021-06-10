@@ -1,0 +1,3 @@
+FirstName,LastName,Email,Role,
+Jon,Doe,jon.doe@tns.com,Scrum Master,"*Role can be (Developer, Scrum Master, Assurance,  Admin.) case sensitive should be writen in given format."
+Mark,Green,mark.green@tns.com,Developer,"*Email must be unique, if duplicate entry found, it'll be discarded automatically."

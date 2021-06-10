@@ -14,10 +14,10 @@ class User {
 
     save() {
         const db= database.getDb();
-        this.dummy_password = '';
         this.isActive = true;
         this.createdAt = new Date();
         this.updatedAt = new Date();
+        this.creationYear = new Date().getFullYear();
 
         return db.collection('users')
             .insertOne(this);
@@ -50,6 +50,20 @@ class User {
     static removeUser(orgId, userId) {
         const db= database.getDb();
         return db.collection('users').deleteOne({_id: new ObjectId(userId), orgId: orgId});
+    }
+
+    static getOrgUsersCount(orgId) {
+        const db= database.getDb();
+        return db.collection('users').aggregate(
+            {$match: {orgId: orgId } }, 
+            {$group: {_id: null,count: {$sum : 1} }},
+            {$project: {count: 1}}
+        ).toArray();
+    }
+
+    static bulkInsert(finalData) {
+        const db= database.getDb();
+        return db.collection('users').insert(finalData);
     }
 }
 

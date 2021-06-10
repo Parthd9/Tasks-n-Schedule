@@ -20,6 +20,7 @@ export class AddBacklogComponent implements OnInit {
   filteredList = [];
   addBacklogForm: FormGroup;
   preservedData;
+  devList = [];
   isEdit=false;
   maxChars = 128;
   constructor(public dialogRef: MatDialogRef<AddBacklogComponent>,@Inject(MAT_DIALOG_DATA) public data: any,
@@ -43,14 +44,28 @@ export class AddBacklogComponent implements OnInit {
 
     ngOnInit(){
       if(this.preservedData) {
+        this.devList = this.preservedData['selectedList'];
+        if(this.devList.length > 0) {
+              this.filteredList = [...this.devList];
+
+              this.devlopersList = this.preservedData['developers'];
+              const arr3 = [].concat(
+                this.devlopersList.filter(obj1 => this.devList.every(obj2 => obj1.email !== obj2.email))
+                // this.devlist.filter(obj2 => this.developersList.every(obj1 => obj2.email !== obj1.email))
+            );
+            console.log(arr3);
+            this.filteredList = [...this.filteredList, ...arr3];
+        } else {
+          this.devList = [...this.preservedData['developers']];
+          this.filteredList = [...this.devList];
+        }
         this.addBacklogForm.patchValue({
           description: this.preservedData['taskDetail']['description'],
-          list: this.preservedData['developers'],
+          list: this.preservedData['selectedList'].length !== 0 ? this.devList : '',
           type: this.preservedData['taskDetail']['backlogType'],
           estTime: this.preservedData['taskDetail']['estimatedTime'],
         });
-        this.devlopersList = this.preservedData['developers'];
-        this.filteredList = [...this.devlopersList];
+
       }
     }
 

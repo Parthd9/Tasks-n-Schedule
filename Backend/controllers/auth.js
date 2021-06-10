@@ -7,6 +7,7 @@ const { validationResult } = require('express-validator');
 
 const Organization = require("../models/organization");
 const User = require("../models/user");
+const helpers = require("../utils/helper");
 
 
 exports.signup = (req, res, next) => {
@@ -107,23 +108,4 @@ exports.login = (req, res, next) => {
             }
         })
         .catch(err => console.log(err));
-};
-
-exports.registerUsersData = (req, res, next) => {
-  console.log(req.file);
-  fs.createReadStream('./files/'+req.file.originalname)
-  .pipe(csv())
-  .on('data', (row) => {
-    console.log(row);
-  })
-  .on('end', () => {
-    console.log('CSV file successfully processed');
-    removeFile('./files/'+req.file.originalname)
-  });
-  res.json('arrived');
-} 
-
-const removeFile = filePath => {
-  // filePath = './files';
-  fs.unlink(filePath, err => console.log(err));
 };

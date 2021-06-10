@@ -18,6 +18,7 @@ export class AppComponent implements DoCheck, OnInit{
       if (val instanceof NavigationEnd) {
         this.url = this.router.url;
         if(this.url === '/' || this.url === '/register' || this.url === '/payment' || this.url === '/login') {
+          this.flagHeader = false;
           if(this.url !== '/') {
             // this.authService.user.subscribe(user => {
             //   if(user) {
@@ -25,9 +26,11 @@ export class AppComponent implements DoCheck, OnInit{
             //     this.authService.logout();
             //   }
             // })
+            console.log('In /');
             this.flagFooter = true;
+          } else {
+            this.flagFooter = false;
           }
-          this.flagHeader = false;
         } else {
           this.flagHeader = true;
           this.flagFooter = true;

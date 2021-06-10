@@ -34,7 +34,7 @@ class Task {
         const db = database.getDb();
         return db.collection('tasks').find({orgId: orgId, projectId: projectId, 
             versionId: versionId, sprintId: sprintId})
-        .project({ creator: 1, description: 1, createdAt: 1, backlogType:1, estimatedTime: 1, status: 1}).toArray();
+        .project({ creator: 1, developers: 1,description: 1, createdAt: 1, backlogType:1, estimatedTime: 1, status: 1}).toArray();
     }
 
     static getDevelopers(orgId, projectId) {
@@ -97,6 +97,17 @@ class Task {
             {$project: {uniqueValues: 1}}
         ).toArray();
     }
+
+    static updateDeveloperTeam(orgId, data) {
+        const db = database.getDb();
+        return db.collection('tasks').updateMany({orgId: orgId}, {$set: {"developers.$[i]": data} }, {arrayFilters: [{"i.email": data.email}] });
+    }
+    static removeUserFromDevelopers(orgId, email) {
+        const db = database.getDb();
+        console.log('In model:',email);
+        return db.collection('tasks').updateMany({orgId: orgId, status: 'Backlog'}, {$pull: {"developers": {"email": email} } });
+    }
+
 }
 
 module.exports = Task;
