@@ -1,5 +1,5 @@
 const app = require("./app");
-const debug = require("debug")("node-angular");
+const debug = require("debug")("task-n-schedule");
 const http = require("http");
 
 const normalizePort = (val) => {
