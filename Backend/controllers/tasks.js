@@ -93,8 +93,8 @@ exports.addBacklog = async (req, res, next) => {
     // return Task.saveTaskStatus(req.user.orgId, sId, statusArr, 'Add');
     const data = {
       description: backlogDoc["description"],
-      backlogType: backlogDoc["type"],
-      estimatedTime: backlogDoc["estTime"],
+      backlogType: backlogDoc["backlogType"],
+      estimatedTime: backlogDoc["estimatedTime"],
       status: backlogDoc["status"],
     };
     await SubTask.saveSpentTime(
@@ -180,8 +180,8 @@ exports.editBacklog = async (req, res, next) => {
     await task.save(true, req.body.id);
     const data = {
       description: req.body.description,
-      backlogType: req.body.type,
-      estimatedTime: req.body.estTime,
+      backlogType: req.body.backlogType,
+      estimatedTime: req.body.estimatedTime,
       status: req.body.status,
     };
     await SubTask.saveSpentTime(

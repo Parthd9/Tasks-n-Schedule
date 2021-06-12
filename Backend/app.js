@@ -69,5 +69,4 @@ app.use((error, req, res, next) => {
 });
 
 db.mongoConnect(() => {
-  app.listen(3000);
 });

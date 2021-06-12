@@ -2,19 +2,13 @@
   <a class="navbar-brand" [routerLink]="role==='Admin' ? ['/admin'] : ['/project']">TnS</a>
   <div class="rightMenuMobile">
     <mat-icon *ngIf="showNotification" style="color: white;margin: auto;margin-right: 1%;cursor: pointer;" mat-raised-button
-    matBadge="8" matBadgePosition="before" matBadgeColor="accent" [matMenuTriggerFor]="menu" #menuTrigger>
+    matBadge="2" matBadgePosition="before" matBadgeColor="accent" [matMenuTriggerFor]="menu" #menuTrigger>
   notifications
     </mat-icon>
     <mat-menu style="max-height: 50px;margin: auto;" #menu="matMenu">
       <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
       <hr>
-      <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
-      <hr>
-      <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
-      <hr>
-      <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
-      <hr>
-      <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
+      <h2>*Demo of upcoming TnS version*</h2>
     </mat-menu>
     <button style="margin-left: 10%;" (click)="onToggle()" class="navbar-toggler" id="toggleButton" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -39,19 +33,13 @@
     <ul class="navbar-nav ml-auto navbar-right">
       <li *ngIf="!showNotification" [matMenuTriggerFor]="menu" #menuTrigger style="color: white;cursor: pointer;">
         <mat-icon mat-raised-button matTooltip="Notifications"
-        matBadge="8" matBadgePosition="before" matBadgeColor="accent">
+        matBadge="2" matBadgePosition="before" matBadgeColor="accent">
       notifications
         </mat-icon>
         <mat-menu style="max-height: 50px;" #menu="matMenu">
           <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
           <hr>
-          <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
-          <hr>
-          <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
-          <hr>
-          <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
-          <hr>
-          <span>Welcome to TnS. Glad to have you onboard with us.You are experiencing v1.0.0</span>
+          <h2>*Demo of upcoming TnS version*</h2>
         </mat-menu>
       </li>
       <li class="nav-item">

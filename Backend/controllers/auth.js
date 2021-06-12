@@ -46,7 +46,7 @@ exports.signup = async (req, res, next) => {
       service: "gmail",
       auth: {
         user: "tasknschedule@gmail.com",
-        pass: "",
+        pass: process.env.email,
       },
     });
 
@@ -100,7 +100,7 @@ exports.login = async (req, res, next) => {
     if (isPwdMatched) {
       const token = jwt.sign(
         { email: fetchedUser.email, role: fetchedUser.role },
-        "<SECRET-KEY>",
+        process.env.JWT_KEY,
         { expiresIn: "1h" }
       );
       return res.status(200).json({

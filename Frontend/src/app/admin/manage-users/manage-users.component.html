@@ -35,9 +35,9 @@
     </form>
   </div>
 
-  <div id="userData" class="example-container mat-elevation-z8 container-fluid mt-2">
+  <div id="userData"  class="example-container mat-elevation-z8 container-fluid mt-2">
     <table mat-table [dataSource]="dataSource">
-
+      <!-- [hidden]="!dataSource" -->
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>

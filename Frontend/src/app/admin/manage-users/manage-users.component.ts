@@ -32,20 +32,20 @@ export class ManageUsersComponent implements OnInit {
   dataSource;
   userRole;
   ngOnInit(): void {
-    document.getElementById('userData').style.display='none';
-    this.adminService.getUsers().subscribe(users => {
-      this.data = users['body']['users'];
-    })
+    document.getElementById('userData').style.display='none'
     this.authService.user.subscribe(user => {
       this.userRole = user['role'];
     });
   }
 
   onSearch() {
-    this.dataSource = new MatTableDataSource(this.data);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    document.getElementById('userData').style.display='block';
+    this.adminService.getUsers().subscribe(users => {
+      this.data = users['body']['users'];
+      this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      document.getElementById('userData').style.display='block';
+    });
   }
   onReset() {
     this.form.reset();

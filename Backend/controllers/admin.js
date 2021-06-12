@@ -51,7 +51,7 @@ exports.addUser = async (req, res, next) => {
       service: "gmail",
       auth: {
         user: "tasknschedule@gmail.com",
-        pass: "",
+        pass: process.env.email,
       },
     });
 
