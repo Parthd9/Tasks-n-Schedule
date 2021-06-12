@@ -24,7 +24,6 @@ export class SprintComponent implements OnInit {
     private authService: AuthService, private projectService: ProjectsService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    console.log("sprint:",this.currentRoute.snapshot.queryParams);
     this.authService.user.subscribe(user => {
       this.userRole = user['role'];
     });
@@ -40,7 +39,6 @@ export class SprintComponent implements OnInit {
           }
           return {...sprint, showMail: showMail};
         })
-        console.log('final data:',this.sprints);
       }
     });
     this.projectService.getMailList().subscribe(data => {
@@ -66,7 +64,6 @@ export class SprintComponent implements OnInit {
     const dialogRef = this.dialog.open(AddVersionComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
       if(data.event === 'success') {
         this.sprints.push(data.value);
         this._snackBar.openFromComponent(ShowMessageComponent, {
@@ -81,7 +78,6 @@ export class SprintComponent implements OnInit {
   }
 
   onViewBacklog(id) {
-    console.log("onViewBacklog called");
     this.router.navigate(['backlog'],{relativeTo:this.currentRoute, queryParams: {sprintId: id}, queryParamsHandling: "merge"});
   }
 
@@ -98,9 +94,8 @@ export class SprintComponent implements OnInit {
     const dialogRef = this.dialog.open(EmailComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
+      // console.log('Dialog result:', data);
       if(data.event === 'save') {
-        console.log('data email:',data);
         this._snackBar.openFromComponent(ShowMessageComponent, {
           duration: this.durationInSeconds * 1000,
           horizontalPosition: 'right',
@@ -119,7 +114,6 @@ export class SprintComponent implements OnInit {
       data: { isEdit: true,fromVersion: false,details: item, header: 'Edit Sprint'}
     });
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
       if(data.event === 'success') {
         const index = this.sprints.findIndex(s=> {
           return s._id === item._id;

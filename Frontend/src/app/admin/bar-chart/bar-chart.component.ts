@@ -23,11 +23,11 @@ export class BarChartComponent implements OnInit {
   ngOnInit(): void {
 
     for(let item of this.barChartData.yearWiseProjectCount) {
-      this.mbarChartLabels.push(item['_id']);
       this.barChartDetail[0]['data'].push(item['count']);
 
     }
     for(let item of this.barChartData.yearWiseUserCount) {
+      this.mbarChartLabels.push(item['_id']);
       this.barChartDetail[1]['data'].push(item['count']);
     }
   }
@@ -68,11 +68,11 @@ export class BarChartComponent implements OnInit {
 
     // events
     public chartClicked(e:any):void {
-      console.log(e);
+      // console.log(e);
     }
 
     public chartHovered(e:any):void {
-      console.log(e);
+      // console.log(e);
     }
 
     public randomize():void {

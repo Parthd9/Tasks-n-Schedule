@@ -44,7 +44,6 @@ export class AddVersionComponent implements OnInit {
     this.minDate.setDate(this.minDate.getDate() + 14);
 
     if(this.preservedData) {
-      console.log('desc:',this.preservedData['description']);
       this.sname = this.preservedData['name'];
       this.sdesc = this.preservedData['description'];
       if(!this.fromVersion) {
@@ -74,8 +73,6 @@ export class AddVersionComponent implements OnInit {
     }
     obsData.subscribe(result => {
       if(result['status'] == 201 || result['status'] == 202) {
-        console.log('success');
-        console.log(result['body']['data']);
         if(this.isEdit) {
           doc = { name:this.versionForm.value.title , description: this.versionForm.value.desc, completionDate: this.versionForm.value.selectedDate, _id: this.preservedData['_id']}
           this.dialogRef.close({event:'success',value:doc});

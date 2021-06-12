@@ -23,7 +23,6 @@ export class UpsertUserComponent implements OnInit {
   @ViewChild('upsertUserForm') form: NgForm;
   roles = ['Developer', 'Scrum Master', 'Assurance','Admin'];
   ngOnInit(): void {
-    console.log('userData:',this.data.userData);
     this.type = this.data.type;
     if(this.type === 'Update') {
       this.fnamedata = this.data.userData.firstName;
@@ -35,7 +34,6 @@ export class UpsertUserComponent implements OnInit {
 
   upsert() {
     let userDoc;
-    console.log(this.form.value);
     let obs;
     if(this.type == 'Add') {
       obs = this.adminService.addUser(this.form.value);

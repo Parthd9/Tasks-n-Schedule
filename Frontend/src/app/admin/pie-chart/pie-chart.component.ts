@@ -18,12 +18,22 @@ export class PieChartComponent implements OnInit {
   // public pieChartData3:number[] = [50, 50 ];
 
   public pieChartType:string = 'pie';
-
+  showNodata1 = false;
+  showNodata2 = false;
   constructor() { }
 
 
   ngOnInit(): void {
-    console.log('From pie:',this.pieChartData);
+    // console.log('From pie:',this.pieChartData);
+
+    if(this.pieChartData['userCount'].length == 0) {
+      this.showNodata1 = true;
+    }
+
+    if(this.pieChartData['techDataCount'].length == 0) {
+      this.showNodata2 = true;
+    }
+
     for(let item of this.pieChartData.userCount) {
       this.pieChartLabels1.push(item['_id']);
       this.pieChartData1.push(item['count']);

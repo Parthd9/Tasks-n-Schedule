@@ -29,7 +29,6 @@ export class SubtaskComponent implements OnInit {
       this.userRole = user['role'];
     });
     this.taskService.getSubtasks().subscribe(result => {
-      console.log(result);
       this.subtaskList = result['body']['subtasks'];
       this.taskDetails = result['body']['taskDetails'][0];
       this.status = result['body']['taskDetails'][0]['status'];
@@ -37,7 +36,7 @@ export class SubtaskComponent implements OnInit {
   }
 
   onComplete(data, item, ind) {
-    console.log('checkbox:',data);
+    // console.log('checkbox:',data);
     if(data===true) {
       const dialogRef = this.dialog.open(SubtaskcompletionComponent, {
         width: '30%',
@@ -46,7 +45,6 @@ export class SubtaskComponent implements OnInit {
         // data: { message: 'Please enter total time taken to complete the subtask.', subTaskCompletion: true }
       });
       dialogRef.afterClosed().subscribe(result => {
-        console.log('Dialog result:', result);
         if(result.event === 'save') {
           this.subtaskList[ind].isCompleted = true;
           this.status = result['status'];
@@ -65,11 +63,9 @@ export class SubtaskComponent implements OnInit {
     const dialogRef = this.dialog.open(AddSubtaskComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
       if(data.event === 'success') {
           this.status = data.value['taskStatus'];
           delete data.value['taskStatus'];
-          console.log('remaining:',data.value);
           this.subtaskList.push(data.value);
           this._snackBar.openFromComponent(ShowMessageComponent, {
             duration: this.durationInSeconds * 1000,
@@ -92,7 +88,7 @@ export class SubtaskComponent implements OnInit {
     const dialogRef = this.dialog.open(AddSubtaskComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
+      // console.log('Dialog result:', data);
       if(data.event === 'success') {
         const ind = this.subtaskList.findIndex(p =>{ return p._id===item._id});
         this.subtaskList[ind]['description'] = data.value;
@@ -114,10 +110,8 @@ export class SubtaskComponent implements OnInit {
       data: { message: 'Do you want to remove this subtask?' }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog result:', result);
       if(result.event === 'yes') {
         this.taskService.removeSubtask({id:item._id}).subscribe(result => {
-          console.log('result remove:',result);
           if(result['status'] === 200) {
             const ind = this.subtaskList.findIndex(p =>{ return p._id===item._id});
             this.subtaskList.splice(ind, 1);

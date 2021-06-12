@@ -20,6 +20,7 @@ export class PaymentComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.userData.subscribe(result => {
       this.userData = result;
+      // console.log(this.userData);
     });
 
     this.date = new Date();
@@ -31,7 +32,6 @@ export class PaymentComponent implements OnInit {
 
   onPay() {
    this.authService.registerUser(this.userData).subscribe(result => {
-    console.log(result);
     this.showMessage=true;
     setTimeout(() => {
       this.router.navigate(['/login']);

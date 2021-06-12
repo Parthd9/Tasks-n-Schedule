@@ -26,7 +26,7 @@ export class SubtaskcompletionComponent implements OnInit {
 
   onSubmit() {
     this.taskService.onSubtaskCompletion({id: this.subtaskId, completionTime: this.form.value.complete,taskDetails:this.taskDetails}).subscribe(result => {
-      console.log(result);
+      // console.log(result);
       if(result['status']===200) {
         this.dialogRef.close({event:'save',status: result['body']['status']});
       }

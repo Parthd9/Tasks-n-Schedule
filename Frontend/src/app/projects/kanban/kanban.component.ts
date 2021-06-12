@@ -31,7 +31,6 @@ export class KanbanComponent implements OnInit {
       this.userRole = user['role'];
     });
     this.taskService.getBacklogs().subscribe(result => {
-      console.log(result);
       this.tasks = result['body']['backlogs'];
       this.todo = this.tasks.filter(task => {
         return task['status'] === 'Backlog';
@@ -44,11 +43,10 @@ export class KanbanComponent implements OnInit {
       });
     });
 
-    console.log('todo:',this.todo);
-    console.log('inprogress:',this.inprogress);
-    console.log('completed:',this.completed);
+    // console.log('todo:',this.todo);
+    // console.log('inprogress:',this.inprogress);
+    // console.log('completed:',this.completed);
     this.taskService.getDevelopers().subscribe(result => {
-      console.log(result);
       this.developers = result['body']['developers'];
     });
   }
@@ -56,10 +54,9 @@ export class KanbanComponent implements OnInit {
     const dialogRef = this.dialog.open(AddBacklogComponent, {
       width: '40%',
       minWidth: '300px',
-      data: { name: 'TnS', developers: this.developers }
+      data: { name: 'TnS', developers: this.developers, header:'Add Backlog' }
     });
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
       if(data.event === 'success') {
         this.todo.push(data.value);
         this._snackBar.openFromComponent(ShowMessageComponent, {
@@ -77,10 +74,9 @@ export class KanbanComponent implements OnInit {
     const dialogRef = this.dialog.open(AddBacklogComponent, {
       width: '40%',
       minWidth: '300px',
-      data: { isEdit: true,taskDetail: item, developers: this.developers, selectedList: item.developers }
+      data: { isEdit: true,taskDetail: item, developers: this.developers, selectedList: item.developers, header: 'Edit Backlog' }
     });
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
       if(data.event === 'success') {
 
         if(data.status === 'Backlog') {
@@ -111,10 +107,8 @@ export class KanbanComponent implements OnInit {
       data: { message: 'Do you want to remove this backlog?' }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog result:', result);
       if(result.event === 'yes') {
         this.taskService.removeBacklog({id: item._id}).subscribe(result => {
-          console.log('result:',result);
           if(result['status'] == 200) {
             const ind = this.todo.findIndex(p =>{ return p._id===item._id});
             this.todo.splice(ind,1);
@@ -132,15 +126,12 @@ export class KanbanComponent implements OnInit {
   }
 
   onViewBackLog(id) {
-    console.log("onViewBacklog called");
     this.router.navigate(['subtask'],{relativeTo:this.currentRoute, queryParams: {taskId: id, status:'backlog'}, queryParamsHandling: "merge"});
   }
   onViewProgressTask(id) {
-    console.log("onViewProgressTaskcalled");
     this.router.navigate(['subtask'],{relativeTo:this.currentRoute, queryParams: {taskId: id, status:'inProgress'}, queryParamsHandling: "merge"});
   }
   onViewCompletedTask(id) {
-    console.log("onViewCompletedTask called");
     this.router.navigate(['subtask'],{relativeTo:this.currentRoute, queryParams: {taskId: id, status: 'completed'}, queryParamsHandling: "merge"});
   }
 }

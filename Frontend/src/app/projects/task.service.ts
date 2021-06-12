@@ -1,6 +1,9 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { environment } from "src/environments/environment";
+
+const BACKEND_URL = environment.apiUrl + "/api/tasks";
 
 @Injectable()
 export class TaskService {
@@ -13,12 +16,11 @@ export class TaskService {
     let sprintId = '';
 
     this.route.queryParams.subscribe(result => {
-      console.log('result query:',result);
       projectId = result['projectId'];
       versionId = result['versionId'];
       sprintId = result['sprintId'];
     });
-      return this.http.get('/tns/api/tasks/getBacklogs',
+      return this.http.get(BACKEND_URL+'/getTasks',
       {
         params: new HttpParams().set('projectId', projectId).set('versionId',versionId).set('sprintId',sprintId),
         observe: 'response'
@@ -37,7 +39,7 @@ export class TaskService {
       versionId = result['versionId'];
       sprintId = result['sprintId'];
     });
-    return this.http.post('/tns/api/tasks/add-backlog', backlogData,
+    return this.http.post(BACKEND_URL+'/add-task', backlogData,
     {
       params: new HttpParams().set('projectId', projectId).set('versionId',versionId).set('sprintId',sprintId),
       observe: 'response'
@@ -51,12 +53,11 @@ export class TaskService {
     let sprintId = '';
 
     this.route.queryParams.subscribe(result => {
-      console.log('result query:',result);
       projectId = result['projectId'];
       versionId = result['versionId'];
       sprintId = result['sprintId'];
     });
-    return this.http.put('/tns/api/tasks/edit-task', backlogData,
+    return this.http.put(BACKEND_URL+'/edit-task', backlogData,
     {
       params: new HttpParams().set('projectId', projectId).set('versionId',versionId).set('sprintId',sprintId),
       observe: 'response'
@@ -68,10 +69,9 @@ export class TaskService {
     let projectId = '';
 
     this.route.queryParams.subscribe(result => {
-      console.log('result query:',result);
       projectId = result['projectId'];
     });
-      return this.http.get('/tns/api/tasks/getDevelopers',
+      return this.http.get(BACKEND_URL+'/getDevelopers',
       {
         params: new HttpParams().set('projectId', projectId),
         observe: 'response'
@@ -86,13 +86,12 @@ export class TaskService {
       let taskId = '';
 
       this.route.queryParams.subscribe(result => {
-        console.log('result query:',result);
         projectId = result['projectId'];
         versionId = result['versionId'];
         sprintId = result['sprintId'];
         taskId = result['taskId'];
       });
-        return this.http.get('/tns/api/tasks/getSubtasks',
+        return this.http.get(BACKEND_URL+'/getSubtasks',
         {
           params: new HttpParams().set('projectId', projectId).set('versionId',versionId).set('sprintId',sprintId)
           .set('taskId',taskId),
@@ -108,13 +107,12 @@ export class TaskService {
         let taskId = '';
 
         this.route.queryParams.subscribe(result => {
-          console.log('result query:',result);
           projectId = result['projectId'];
           versionId = result['versionId'];
           sprintId = result['sprintId'];
           taskId = result['taskId'];
         });
-        return this.http.post('/tns/api/tasks/add-subtask', subtaskData,
+        return this.http.post(BACKEND_URL+'/add-subtask', subtaskData,
         {
           params: new HttpParams().set('projectId', projectId).set('versionId',versionId).set('sprintId',sprintId)
           .set('taskId',taskId),
@@ -124,7 +122,7 @@ export class TaskService {
       }
 
       editSubTask(subtask) {
-        return this.http.put('/tns/api/tasks/edit-subtask', subtask,
+        return this.http.put(BACKEND_URL+'/edit-subtask', subtask,
         {
           observe: 'response'
         }
@@ -138,7 +136,7 @@ export class TaskService {
           taskId = result['taskId'];
           sprintId = result['sprintId'];
         });
-        return this.http.put('/tns/api/tasks/remove-subtask', subtask,
+        return this.http.put(BACKEND_URL+'/remove-subtask', subtask,
         {
           params: new HttpParams().set('taskId', taskId).set('sprintId', sprintId),
           observe: 'response'
@@ -153,7 +151,7 @@ export class TaskService {
           taskId = result['taskId'];
           sprintId = result['sprintId'];
         });
-        return this.http.post('/tns/api/tasks/complete-subtask', subtask,
+        return this.http.post(BACKEND_URL+'/complete-subtask', subtask,
         {
           params: new HttpParams().set('taskId', taskId).set('sprintId', sprintId),
           observe: 'response'
@@ -166,7 +164,7 @@ export class TaskService {
         this.route.queryParams.subscribe(result => {
           sprintId = result['sprintId'];
         });
-        return this.http.put('/tns/api/tasks/remove-task', task,
+        return this.http.put(BACKEND_URL+'/remove-task', task,
         {
           params: new HttpParams().set('sprintId', sprintId),
           observe: 'response'

@@ -24,7 +24,6 @@ export class VersionComponent implements OnInit {
               private projectService: ProjectsService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.queryParams['projectId']);
     this.authService.user.subscribe(user => {
       this.userRole = user['role'];
     });
@@ -51,7 +50,7 @@ export class VersionComponent implements OnInit {
     const dialogRef = this.dialog.open(AddVersionComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
+      // console.log('Dialog result:', data);
       if(data.event === 'success') {
         this.versions.push(data.value);
         this._snackBar.openFromComponent(ShowMessageComponent, {
@@ -76,7 +75,7 @@ export class VersionComponent implements OnInit {
       data: { isEdit: true,fromVersion: true,details: item, header: 'Edit Version'}
     });
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
+      // console.log('Dialog result:', data);
       if(data.event === 'success') {
         const index = this.versions.findIndex(v=> {
           return v._id === item._id;

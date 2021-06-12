@@ -14,7 +14,6 @@ export class AdminResolverService implements Resolve<any> {
        let  usersCount = this.adminService.getAllUsersCount();
        let techDataCount = this.adminService.getTechDataCount();
        let yearWiseData = this.adminService.getYearWiseCount();
-      console.log('calling methods');
        let join = forkJoin(projectData,usersCount,techDataCount,yearWiseData).pipe(map((allResponses) => {
         return {
           A: allResponses[0],

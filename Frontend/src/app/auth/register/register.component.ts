@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
       this.preservedData=result;
     });
     if(this.preservedData) {
-      console.log('preserved:',this.preservedData);
+      // console.log('preserved:',this.preservedData);
       this.registerForm.patchValue({
         fName: this.preservedData.fName,
         lName: this.preservedData.lName,
@@ -54,21 +54,16 @@ export class RegisterComponent implements OnInit {
   }
 
   changeDomain(e) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
   }
 
   onSubmit() {
-    console.log(this.registerForm);
-    console.log(this.registerForm.value);
-    console.log(this.confirmPwd.nativeElement.value);
-    console.log(this.registerForm.get('password').value);
     if(this.registerForm.invalid)
     {
       return;
     }
     if(this.confirmPwd.nativeElement.value !== this.registerForm.get('password').value)
     {
-      console.log('not true');
       this.isPwdMatched = false;
        setTimeout(() => {
          this.isPwdMatched = true;

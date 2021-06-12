@@ -1,56 +1,149 @@
-
-<h1 mat-dialog-title>Add Backlog</h1>
+<h1 mat-dialog-title>{{ header }}</h1>
 <form [formGroup]="addBacklogForm" (ngSubmit)="onAddBacklog()">
-<div mat-dialog-content>
+  <div mat-dialog-content>
     <mat-form-field>
       <mat-label>Description</mat-label>
-      <textarea matInput name="description" formControlName="description"></textarea>
+      <textarea
+        matInput
+        name="description"
+        formControlName="description"
+      ></textarea>
     </mat-form-field>
-    <mat-error *ngIf="addBacklogForm.get('description').hasError('required') && addBacklogForm.get('description').touched">Please fill description field.</mat-error>
-    <mat-error *ngIf="addBacklogForm.get('description').hasError('minlength') && addBacklogForm.get('description').touched">Minimum 10 letters required for description.</mat-error>
-    <mat-error *ngIf="addBacklogForm.get('description').hasError('maxlength') && addBacklogForm.get('description').touched">Maximum 128 letters are allowed.</mat-error>
-    <span>Characters remaining: {{maxChars - addBacklogForm.get('description').value.length}}</span>
-    <br>
-    <br>
+    <mat-error
+      *ngIf="
+        addBacklogForm.get('description').hasError('required') &&
+        addBacklogForm.get('description').touched
+      "
+      >Please fill description field.</mat-error
+    >
+    <mat-error
+      *ngIf="
+        addBacklogForm.get('description').hasError('minlength') &&
+        addBacklogForm.get('description').touched
+      "
+      >Minimum 10 letters required for description.</mat-error
+    >
+    <mat-error
+      *ngIf="
+        addBacklogForm.get('description').hasError('maxlength') &&
+        addBacklogForm.get('description').touched
+      "
+      >Maximum 128 letters are allowed.</mat-error
+    >
+    <span
+      >Characters remaining:
+      {{ maxChars - addBacklogForm.get("description").value.length }}</span
+    >
+    <br />
+    <br />
     <mat-form-field appearance="fill">
       <mat-label>Developers</mat-label>
-      <mat-select name="list" formControlName="list" panelClass="example-long-panel" multiple>
-        <mat-select-filter [placeholder]="'Filter'" [array]="devlopersList"
-        displayMember="devloper" (filteredReturn)="filteredList=$event"
+      <mat-select
+        name="developers"
+        formControlName="developers"
+        panelClass="example-long-panel"
+        multiple
+      >
+        <mat-select-filter
+          [placeholder]="'Filter'"
+          [array]="devlopersList"
+          displayMember="devloper"
+          (filteredReturn)="filteredList = $event"
         ></mat-select-filter>
         <mat-select-trigger>
-          {{addBacklogForm.get('list').value ? addBacklogForm.get('list').value[0]['name'] : ''}}
-          <span *ngIf="addBacklogForm.get('list').value?.length > 1" class="example-additional-selection">
-            (+{{addBacklogForm.get('list').value.length - 1}} {{addBacklogForm.get('list').value?.length === 2 ? 'other' : 'others'}})
+          {{
+            addBacklogForm.get("developers").value
+              ? addBacklogForm.get("developers").value[0]["name"]
+              : ""
+          }}
+          <span
+            *ngIf="addBacklogForm.get('developers').value?.length > 1"
+            class="example-additional-selection"
+          >
+            (+{{ addBacklogForm.get("developers").value.length - 1 }}
+            {{
+              addBacklogForm.get("developers").value?.length === 2
+                ? "other"
+                : "others"
+            }})
           </span>
         </mat-select-trigger>
-        <mat-option *ngFor="let dev of filteredList" [value]="dev" [matTooltip]="dev.email" matTooltipPosition=right>{{dev.name}}</mat-option>
+        <mat-option
+          *ngFor="let dev of filteredList"
+          [value]="dev"
+          [matTooltip]="dev.email"
+          matTooltipPosition="right"
+          >{{ dev.name }}</mat-option
+        >
       </mat-select>
     </mat-form-field>
-    <mat-error *ngIf="addBacklogForm.get('list').hasError('required') && addBacklogForm.get('list').touched">Please select devlopers.</mat-error>
-    <br>
-    <br>
+    <mat-error
+      *ngIf="
+        addBacklogForm.get('developers').hasError('required') &&
+        addBacklogForm.get('developers').touched
+      "
+      >Please select devlopers.</mat-error
+    >
+    <br />
+    <br />
     <mat-form-field appearance="fill">
       <mat-label>Select Backlog Type</mat-label>
-      <mat-select formControlName="type" name="type">
+      <mat-select formControlName="backlogType" name="backlogType">
         <mat-option *ngFor="let item of backlogTypes" [value]="item">
-          {{item}}
+          {{ item }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-error *ngIf="addBacklogForm.get('type').touched && addBacklogForm.get('type').hasError('required')">Please select backlog type.</mat-error>
-    <br>
-    <br>
+    <mat-error
+      *ngIf="
+        addBacklogForm.get('backlogType').touched &&
+        addBacklogForm.get('backlogType').hasError('required')
+      "
+      >Please select backlog type.</mat-error
+    >
+    <br />
+    <br />
     <mat-form-field appearance="fill">
       <mat-label>Estimated Time</mat-label>
-      <input formControlName="estTime" type="number" matInput name="estTime">
+      <input
+        formControlName="estimatedTime"
+        type="number"
+        matInput
+        name="estimatedTime"
+      />
     </mat-form-field>
-    <mat-error *ngIf="addBacklogForm.get('estTime').touched && addBacklogForm.get('estTime').hasError('required')">Please enter estimated time.</mat-error>
-    <mat-error *ngIf="addBacklogForm.get('estTime').touched && addBacklogForm.get('estTime').hasError('min')">Please enter valid estimated time.</mat-error>
-    <mat-error *ngIf="addBacklogForm.get('estTime').touched && addBacklogForm.get('estTime').hasError('pattern')">Please enter valid value in number(decimal places not allowed).</mat-error>
-</div>
-<div mat-dialog-actions>
-  <button type="submit" mat-raised-button color="primary" [disabled]="addBacklogForm.invalid">Save</button>
-  <button type="button" mat-button (click)="onNoClick()">Cancel</button>
-</div>
+    <mat-error
+      *ngIf="
+        addBacklogForm.get('estimatedTime').touched &&
+        addBacklogForm.get('estimatedTime').hasError('required')
+      "
+      >Please enter estimated time.</mat-error
+    >
+    <mat-error
+      *ngIf="
+        addBacklogForm.get('estimatedTime').touched &&
+        addBacklogForm.get('estimatedTime').hasError('min')
+      "
+      >Please enter valid estimated time.</mat-error
+    >
+    <mat-error
+      *ngIf="
+        addBacklogForm.get('estimatedTime').touched &&
+        addBacklogForm.get('estimatedTime').hasError('pattern')
+      "
+      >Please enter valid value in number(decimal places not
+      allowed).</mat-error
+    >
+  </div>
+  <div mat-dialog-actions>
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="addBacklogForm.invalid"
+    >
+      Save
+    </button>
+    <button type="button" mat-button (click)="onNoClick()">Cancel</button>
+  </div>
 </form>

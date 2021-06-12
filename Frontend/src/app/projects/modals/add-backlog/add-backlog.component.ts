@@ -23,11 +23,12 @@ export class AddBacklogComponent implements OnInit {
   devList = [];
   isEdit=false;
   maxChars = 128;
+  header;
   constructor(public dialogRef: MatDialogRef<AddBacklogComponent>,@Inject(MAT_DIALOG_DATA) public data: any,
             private taskService: TaskService) {
+      this.header = data.header;
       this.isEdit = data.isEdit;
       if(!data.isEdit) {
-        console.log('data:',data['developers']);
         this.devlopersList = data['developers'];
         this.filteredList = [...this.devlopersList];
       } else {
@@ -36,9 +37,9 @@ export class AddBacklogComponent implements OnInit {
 
       this.addBacklogForm = new FormGroup({
         'description': new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(128)]),
-        'list': new FormControl('', Validators.required),
-        'type': new FormControl('', Validators.required),
-        'estTime': new FormControl('', [Validators.required, Validators.min(1),Validators.pattern('[0-9]+')])
+        'developers': new FormControl('', Validators.required),
+        'backlogType': new FormControl('', Validators.required),
+        'estimatedTime': new FormControl('', [Validators.required, Validators.min(1),Validators.pattern('[0-9]+')])
       });
     }
 
@@ -53,7 +54,7 @@ export class AddBacklogComponent implements OnInit {
                 this.devlopersList.filter(obj1 => this.devList.every(obj2 => obj1.email !== obj2.email))
                 // this.devlist.filter(obj2 => this.developersList.every(obj1 => obj2.email !== obj1.email))
             );
-            console.log(arr3);
+            // console.log(arr3);
             this.filteredList = [...this.filteredList, ...arr3];
         } else {
           this.devList = [...this.preservedData['developers']];
@@ -61,9 +62,9 @@ export class AddBacklogComponent implements OnInit {
         }
         this.addBacklogForm.patchValue({
           description: this.preservedData['taskDetail']['description'],
-          list: this.preservedData['selectedList'].length !== 0 ? this.devList : '',
-          type: this.preservedData['taskDetail']['backlogType'],
-          estTime: this.preservedData['taskDetail']['estimatedTime'],
+          developers: this.preservedData['selectedList'].length !== 0 ? this.devList : '',
+          backlogType: this.preservedData['taskDetail']['backlogType'],
+          estimatedTime: this.preservedData['taskDetail']['estimatedTime'],
         });
 
       }
@@ -74,7 +75,6 @@ export class AddBacklogComponent implements OnInit {
   }
   onAddBacklog() {
     // this.addBacklogForm.get('list').value.length;
-    console.log(this.addBacklogForm.value);
     let obs;
     if(this.isEdit) {
       let data = {...this.addBacklogForm.value, status: this.preservedData['taskDetail']['status'], id: this.preservedData['taskDetail']['_id']};
@@ -83,10 +83,9 @@ export class AddBacklogComponent implements OnInit {
       obs = this.taskService.addBacklog(this.addBacklogForm.value)
     }
     obs.subscribe(result => {
-      console.log(result);
       if(result['status'] === 201 || result['status'] === 202) {
-        //
-        console.log(result['body']['backlog']);
+        
+        // console.log(result['body']['backlog']);
         if(this.isEdit) {
           this.dialogRef.close({event:'success', status: this.preservedData['taskDetail']['status'], value: this.addBacklogForm.value});
         } else {

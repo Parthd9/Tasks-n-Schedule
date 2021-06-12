@@ -28,12 +28,7 @@ export class AdminPageComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log('subscribing data');
     this.route.data.subscribe((data: Data) => {
-      console.log('data:',data);
-      console.log(data['responses']['A']['body']['projectData']);
-      console.log(data['responses']['B']['body']['userCount']);
-      console.log(data['responses']['C']['body']['techDataCount']);
       this.projectData = data['responses']['A']['body']['projectData'];
       this.userCount = data['responses']['B']['body']['userCount'];
       this.techDataCount = data['responses']['C']['body']['techDataCount'];
@@ -46,7 +41,7 @@ export class AdminPageComponent implements OnInit,AfterViewInit {
 
       this.projectData = this.projectData.map(project => {
         let tech:string='';
-        console.log('project:',project)
+        // console.log('project:',project)
         for(let i = 0; i< project['technologies'].length;i++) {
           tech = tech+project['technologies'][i];
           if(i < project['technologies'].length-1) {

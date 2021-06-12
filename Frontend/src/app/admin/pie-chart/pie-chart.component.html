@@ -1,39 +1,47 @@
 <!-- <h4 style="text-align:center">Pie Chart For Browser usage of &nbsp; Eduforbetterment.com
 </h4> -->
 <div class="container-fluid">
-<div style="display: block" >
-<div class="row">
+  <div style="display: block">
+    <div class="row">
+      <div class="col-sm-6">
+        <canvas
+          baseChart
+          *ngIf="!showNodata1; else noRecord_data1"
+          [data]="pieChartData1"
+          [labels]="pieChartLabels1"
+          [chartType]="pieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"
+        >
+        </canvas>
+        <ng-template #noRecord_data1>
+          <div class="noRecords row h-100" style="min-height: 300px">
+            <div class="col-sm-12 my-auto text-center">
+              No Employee-Data found.
+            </div>
+          </div>
+        </ng-template>
+      </div>
 
-<div class="col-sm-6">
-<canvas baseChart
-        [data]="pieChartData1"
-        [labels]="pieChartLabels1"
-        [chartType]="pieChartType"
-        (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)">
-</canvas>
-</div>
-
-<div class="col-sm-6">
-<canvas baseChart
-        [data]="pieChartData2"
-        [labels]="pieChartLabels2"
-        [chartType]="pieChartType"
-        (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)">
-</canvas>
-</div>
-
-<!-- <div class="col-sm-4">
-<canvas baseChart
-        [data]="pieChartData3"
-        [labels]="pieChartLabels3"
-        [chartType]="pieChartType"
-        (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)">
-</canvas>
-</div> -->
-
-</div>
-</div>
+      <div class="col-sm-6">
+        <canvas
+          baseChart
+          *ngIf="!showNodata2; else noRecord_data2"
+          [data]="pieChartData2"
+          [labels]="pieChartLabels2"
+          [chartType]="pieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"
+        >
+        </canvas>
+        <ng-template #noRecord_data2>
+          <div class="noRecords row h-100">
+            <div class="col-sm-12 my-auto text-center">
+              No Technology-Data found.
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
 </div>

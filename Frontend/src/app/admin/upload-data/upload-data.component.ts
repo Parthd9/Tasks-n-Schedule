@@ -29,10 +29,10 @@ export class UploadDataComponent implements OnInit {
         fileEntry.file((file: File) => {
 
           // Here you can access the real file
-          console.log(files[0].relativePath, file);
+          // console.log(files[0].relativePath, file);
           this.file = file;
-          console.log(this.file);
-          console.log('file type:',file.type);
+          // console.log(this.file);
+          // console.log('file type:',file.type);
           if(file.type !== 'application/vnd.ms-excel') {
             console.log('Invalid file format');
           } else {

@@ -4,7 +4,11 @@ import { Router } from "@angular/router";
 import jwtDecode from "jwt-decode";
 import { BehaviorSubject } from "rxjs";
 import {tap } from "rxjs/operators";
+import { environment } from "src/environments/environment";
 import { User } from "./user.model";
+
+const BACKEND_URL = environment.apiUrl + "/auth";
+
 @Injectable()
 export class AuthService {
     constructor(private http: HttpClient, private router: Router) {}
@@ -13,13 +17,13 @@ export class AuthService {
     private tokenExpirationTimer: any;
 
     registerUser(userData) {
-        return this.http.post('/tns/auth/signup',userData);
+        return this.http.post(BACKEND_URL+ '/signup',userData);
     }
 
     loginUser(loginData) {
-      return this.http.post<{token: string}>('/tns/auth/login', loginData).pipe(tap(tokenData => {
-        console.log('tokendata:',tokenData);
-        this.handleAuthentication(tokenData);
+      return this.http.post<{token: string}>(BACKEND_URL+ '/login', loginData, {observe: 'response'}).pipe(tap(tokenData => {
+        // console.log('tokendata:',tokenData);
+        this.handleAuthentication(tokenData['body']);
       }));
     }
 
@@ -27,7 +31,6 @@ export class AuthService {
         this.user.next(null);
         localStorage.removeItem('userData');
         if(this.tokenExpirationTimer) {
-            console.log(this.tokenExpirationTimer);
             clearTimeout(this.tokenExpirationTimer);
         }
         this.tokenExpirationTimer = null;
@@ -44,14 +47,12 @@ export class AuthService {
             return;
         }
 
-        console.log(userData);
         const loadedUser = new User(userData._token,new Date(userData._tokenExpirationDate),userData.role);
-        console.log(loadedUser);
 
         if(loadedUser.token) {
             this.user.next(loadedUser);
             const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
-            console.log('expirationDuration:',expirationDuration);
+            // console.log('expirationDuration:',expirationDuration);
             this.autoLogout(expirationDuration);
         }
 
@@ -68,10 +69,8 @@ export class AuthService {
         const email = decoded.email;
         const role = decoded.role;
         // console.log(decoded);
-        console.log("email:",email+" ,role:",role);
         const expirationDate = new Date(new Date().getTime() + (decoded.exp - decoded.iat)*1000);
         const user = new User(tokenData.token, expirationDate, role);
-        console.log('exp date:',expirationDate);
         this.user.next(user);
         localStorage.setItem('userData',JSON.stringify(user));
         this.autoLogout((decoded.exp - decoded.iat)*1000);

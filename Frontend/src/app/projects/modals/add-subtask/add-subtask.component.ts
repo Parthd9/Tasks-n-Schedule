@@ -36,14 +36,9 @@ export class AddSubtaskComponent implements OnInit {
     }
     obs.subscribe(result => {
       if(result['status'] == 201) {
-        console.log('success');
-        console.log(result['body']['subtask']);
         this.dialogRef.close({isEdit: this.isEdit,event:'success',value:result['body']['subtask']});
       }
       if(result['status'] == 202) {
-        console.log('success');
-        console.log(result['body']['subtask']);
-        console.log('desc:',this.subtaskForm.value.description);
         this.dialogRef.close({isEdit: this.isEdit,event:'success',value:this.subtaskForm.value.description});
       }
     },

@@ -1,68 +1,172 @@
 <form [formGroup]="addProjectForm" (ngSubmit)="onSubmit()">
-  <div *ngIf="showMsg" class="alert alert-danger">Please enter data in valid format.</div>
-<h2 mat-dialog-title>{{header}}</h2>
+  <div *ngIf="showMsg" class="alert alert-danger">
+    Please enter data in valid format.
+  </div>
+  <h2 mat-dialog-title>{{ header }}</h2>
 
-<div mat-dialog-content>
+  <div mat-dialog-content>
     <mat-form-field>
       <mat-label>Project Name</mat-label>
-        <input matInput formControlName="title">
+      <input matInput formControlName="name" />
     </mat-form-field>
-    <mat-error *ngIf="addProjectForm.get('title').hasError('required') && addProjectForm.get('title').touched">Please enter project name.</mat-error>
-    <mat-error *ngIf="addProjectForm.get('title').hasError('minlength') && addProjectForm.get('title').touched">Minimum 3 letters required.</mat-error>
-    <mat-error *ngIf="addProjectForm.get('title').hasError('maxlength') && addProjectForm.get('title').touched">Maximum 28 letters are allowed.</mat-error>
-<br>
+    <mat-error
+      *ngIf="
+        addProjectForm.get('name').hasError('required') &&
+        addProjectForm.get('name').touched
+      "
+      >Please enter project name.</mat-error
+    >
+    <mat-error
+      *ngIf="
+        addProjectForm.get('name').hasError('minlength') &&
+        addProjectForm.get('name').touched
+      "
+      >Minimum 3 letters required.</mat-error
+    >
+    <mat-error
+      *ngIf="
+        addProjectForm.get('name').hasError('maxlength') &&
+        addProjectForm.get('name').touched
+      "
+      >Maximum 28 letters are allowed.</mat-error
+    >
+    <br />
 
     <mat-form-field>
       <mat-label>Description</mat-label>
-        <textarea matInput name="description" formControlName="description"></textarea>
+      <textarea
+        matInput
+        name="description"
+        formControlName="description"
+      ></textarea>
     </mat-form-field>
-    <mat-error *ngIf="addProjectForm.get('description').hasError('required') && addProjectForm.get('description').touched">Please fill description field.</mat-error>
-    <mat-error *ngIf="addProjectForm.get('description').hasError('minlength') && addProjectForm.get('description').touched">Minimum 20 letters required for description.</mat-error>
-    <mat-error *ngIf="addProjectForm.get('description').hasError('maxlength') && addProjectForm.get('description').touched">Maximum 200 letters are allowed.</mat-error>
-    <span>Characters remaining: {{maxChars-addProjectForm.get('description').value.length}}</span>
-    <br>
-    <br>
+    <mat-error
+      *ngIf="
+        addProjectForm.get('description').hasError('required') &&
+        addProjectForm.get('description').touched
+      "
+      >Please fill description field.</mat-error
+    >
+    <mat-error
+      *ngIf="
+        addProjectForm.get('description').hasError('minlength') &&
+        addProjectForm.get('description').touched
+      "
+      >Minimum 20 letters required for description.</mat-error
+    >
+    <mat-error
+      *ngIf="
+        addProjectForm.get('description').hasError('maxlength') &&
+        addProjectForm.get('description').touched
+      "
+      >Maximum 200 letters are allowed.</mat-error
+    >
+    <span
+      >Characters remaining:
+      {{ maxChars - addProjectForm.get("description").value.length }}</span
+    >
+    <br />
+    <br />
 
     <div>
-    <mat-form-field appearance="fill" >
-      <mat-label>Developers</mat-label>
-      <mat-select name="list" formControlName="list" panelClass="example-long-panel" multiple>
-        <mat-select-filter [placeholder]="'Filter'" [array]="developersList"
-        displayMember="name" (filteredReturn)="filteredList=$event"
-        ></mat-select-filter>
-        <mat-select-trigger>
-          {{addProjectForm.get('list').value ? addProjectForm.get('list').value[0]['name'] : ''}}
-          <span *ngIf="addProjectForm.get('list').value?.length > 1" class="example-additional-selection">
-            (+{{addProjectForm.get('list').value.length - 1}} {{addProjectForm.get('list').value?.length === 2 ? 'other' : 'others'}})
-          </span>
-        </mat-select-trigger>
-        <mat-option *ngFor="let dev of filteredList" [value]="dev" [matTooltip]="dev.email" matTooltipPosition=right>{{dev.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-error *ngIf="addProjectForm.get('list').hasError('required') && addProjectForm.get('list').touched">Please select devlopers.</mat-error>
-    <mat-error *ngIf="addProjectForm.get('list').hasError('minlength') && addProjectForm.get('list').touched">Please select at least 3 devlopers.</mat-error>
-    <br><br>
+      <mat-form-field appearance="fill">
+        <mat-label>Developers</mat-label>
+        <mat-select
+          name="team"
+          formControlName="team"
+          panelClass="example-long-panel"
+          multiple
+        >
+          <mat-select-filter
+            [placeholder]="'Filter'"
+            [array]="developersList"
+            displayMember="name"
+            (filteredReturn)="filteredList = $event"
+          ></mat-select-filter>
+          <mat-select-trigger>
+            {{
+              addProjectForm.get("team").value
+                ? addProjectForm.get("team").value[0]["name"]
+                : ""
+            }}
+            <span
+              *ngIf="addProjectForm.get('team').value?.length > 1"
+              class="example-additional-selection"
+            >
+              (+{{ addProjectForm.get("team").value.length - 1 }}
+              {{
+                addProjectForm.get("team").value?.length === 2
+                  ? "other"
+                  : "others"
+              }})
+            </span>
+          </mat-select-trigger>
+          <mat-option
+            *ngFor="let dev of filteredList"
+            [value]="dev"
+            [matTooltip]="dev.email"
+            matTooltipPosition="right"
+            >{{ dev.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="
+          addProjectForm.get('team').hasError('required') &&
+          addProjectForm.get('team').touched
+        "
+        >Please select devlopers.</mat-error
+      >
+      <mat-error
+        *ngIf="
+          addProjectForm.get('team').hasError('minlength') &&
+          addProjectForm.get('team').touched
+        "
+        >Please select at least 3 devlopers.</mat-error
+      >
+      <br /><br />
+    </div>
+
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Technologies</mat-label>
+        <mat-select name="technologies" formControlName="technologies" multiple>
+          <mat-select-trigger>
+            {{
+              addProjectForm.get("technologies").value
+                ? addProjectForm.get("technologies").value[0]
+                : ""
+            }}
+            <span
+              *ngIf="addProjectForm.get('technologies').value?.length > 1"
+              class="example-additional-selection"
+            >
+              (+{{ addProjectForm.get("technologies").value.length - 1 }}
+              {{
+                addProjectForm.get("technologies").value?.length === 2
+                  ? "other"
+                  : "others"
+              }})
+            </span>
+          </mat-select-trigger>
+          <mat-option
+            *ngFor="let technology of technologies"
+            [value]="technology"
+            >{{ technology }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
 
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>Technologies</mat-label>
-      <mat-select name="technologies" formControlName="technologies" multiple>
-        <mat-select-trigger>
-          {{addProjectForm.get('technologies').value ? addProjectForm.get('technologies').value[0] : ''}}
-          <span *ngIf="addProjectForm.get('technologies').value?.length > 1" class="example-additional-selection">
-            (+{{addProjectForm.get('technologies').value.length - 1}} {{addProjectForm.get('technologies').value?.length === 2 ? 'other' : 'others'}})
-          </span>
-        </mat-select-trigger>
-        <mat-option *ngFor="let technology of technologies" [value]="technology">{{technology}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-</div>
-
-<mat-dialog-actions>
-    <button mat-raised-button color="primary" [disabled]="addProjectForm.invalid">Save</button>
-    <button type = "button" mat-raised-button (click)="close()">Close</button>
-</mat-dialog-actions>
+  <mat-dialog-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="addProjectForm.invalid"
+    >
+      Save
+    </button>
+    <button type="button" mat-raised-button (click)="close()">Close</button>
+  </mat-dialog-actions>
 </form>

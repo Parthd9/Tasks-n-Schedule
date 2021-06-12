@@ -19,14 +19,11 @@ export class ProjectComponent implements OnInit {
   projects = [] ;
   userRole = '';
   developers;
-  durationInSeconds = 5;
+  durationInSeconds = 4;
 
   ngOnInit(): void {
     this.route.data.subscribe((data: Data) => {
-      console.log(data['responses']['A']['developers']);
-      console.log(data['responses']['B']['projects']);
-      // this.developers = data['developers']['developers'];
-      // console.log('dev:',this.developers);
+
       this.developers = data['responses']['A']['developers'];
       this.projects = data['responses']['B']['projects']
     })
@@ -55,7 +52,7 @@ openDialog() {
   const dialogRef = this.dialog.open(AddProjectDialogComponent,dialogConfig);
 
   dialogRef.afterClosed().subscribe(data => {
-    console.log('Dialog result:', data);
+    // console.log('Dialog result:', data);
     if(data.event === 'success') {
       this.projects.push(data.value);
       this._snackBar.openFromComponent(ShowMessageComponent, {
@@ -84,7 +81,6 @@ onEditProject(project) {
   const dialogRef = this.dialog.open(AddProjectDialogComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
       if(data.event === 'success') {
         const index = this.projects.findIndex(p=> {
           return p._id === project._id;

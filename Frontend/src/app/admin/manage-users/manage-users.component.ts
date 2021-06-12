@@ -62,10 +62,9 @@ export class ManageUsersComponent implements OnInit {
     const dialogRef = this.dialog.open(UpsertUserComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
+      // console.log('Dialog result:', data);
       if(data.event==='success') {
         this.data.push(data.value);
-        console.log(data);
         this.dataSource = new MatTableDataSource(this.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -91,20 +90,15 @@ export class ManageUsersComponent implements OnInit {
     const dialogRef = this.dialog.open(UpsertUserComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Dialog result:', data);
       if(data.event==='success') {
         const elem = this.data.find(p => p._id === element._id);
         const index = this.data.findIndex(p => p._id === element._id);
         let val = {...elem};
-        console.log('val before:',val);
         val.firstName = data.value.fname;
         val.lastName = data.value.lname;
         val.email = data.value.email;
         val.role = data.value.role;
         this.data[index] = val;
-        console.log(this.data);
-        console.log('ind:',ind);
-        console.log('val:',val)
         this.dataSource = new MatTableDataSource(this.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -126,15 +120,11 @@ export class ManageUsersComponent implements OnInit {
       data: { message: 'Do you want to delete this user?' }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog result:', result);
       if(result.event==='yes') {
         this.adminService.removeUser({id: element._id, email: element.email}).subscribe(result => {
-          console.log(result);
           if(result['status'] == 200) {
-            console.log('before splicing:',this.data);
             const index = this.data.findIndex(p => p._id === element._id);
             this.data.splice(index,1);
-            console.log('after splicing:',this.data);
             this.dataSource = new MatTableDataSource(this.data);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;

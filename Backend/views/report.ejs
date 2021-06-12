@@ -1,266 +1,132 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <style>
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
-        }
-        
-        td, th {
-          border: 1px solid #dddddd;
-          text-align: left;
-          padding: 8px;
-        }
-        </style>
-</head>
-<body>
-  <!-- <div id="pageHeader"></div> -->
-<h1>Sprint Report: <%= reportData.sprintName %></h1>
-<h3>From <%= reportData.sprintStartDate%> To <%= reportData.sprintCompletionDate%></h3>
-<hr>
-<h3>Team</h3>
-<table>
-    <tr>
-      <th>Role</th>
-      <th>Name</th>
-    </tr>
-    <tr>
-      <td>Product Owner</td>
-      <td><%= reportData.productOwner%></td>
-    </tr>
-    <tr>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div id="pageHeader"></div> -->
+    <h1>Sprint Report: <%= reportData.sprintName %></h1>
+    <h3>
+      From <%= reportData.sprintStartDate%> To <%=
+      reportData.sprintCompletionDate%>
+    </h3>
+    <hr />
+    <h3>Team</h3>
+    <table>
+      <tr>
+        <th>Role</th>
+        <th>Name</th>
+      </tr>
+      <tr>
+        <td>Product Owner</td>
+        <td><%= reportData.productOwner%></td>
+      </tr>
+      <tr>
         <td>Development Team</td>
         <td><%= reportData.DevelopmentTeam%></td>
-    </tr>
-    <tr>
-      <td>Assurance Team</td>
-      <td><%= reportData.AssuranceTeam%></td>
-  </tr>
-    <tr>
+      </tr>
+      <tr>
+        <td>Assurance Team</td>
+        <td><%= reportData.AssuranceTeam%></td>
+      </tr>
+      <tr>
         <td>Scrum Master</td>
         <td><%= reportData.scrumMaster%></td>
-    </tr>
-  </table>
-<h3>Sprint Overview</h3>
-<table>
-    <tr>
+      </tr>
+    </table>
+    <h3>Sprint Overview</h3>
+    <table>
+      <tr>
         <th colspan="2">Planned</th>
         <th colspan="2">Completed</th>
-    </tr>
-    <tr>
+      </tr>
+      <tr>
         <td>Items</td>
         <td>Estimated Time</td>
         <td>Items completed</td>
         <td>Total time taken</td>
-    </tr>
-    <tr>
-       <td><%=reportData.totalItems %></td>
-       <td><%=reportData.totalEstTime %> hrs</td>
-       <td><%=reportData.totalCompleted %></td>
-       <td><%=reportData.totalSpentTime %> hrs</td>
-    </tr>
-
-</table>
-<h3>Sprint Backlogs</h3>
-<table>
-    <tr>
+      </tr>
+      <tr>
+        <td><%=reportData.totalItems %></td>
+        <td><%=reportData.totalEstTime %> hrs</td>
+        <td><%=reportData.totalCompleted %></td>
+        <td><%=reportData.totalSpentTime %> hrs</td>
+      </tr>
+    </table>
+    <h3>Sprint Backlogs</h3>
+    <table>
+      <tr>
         <th>Type</th>
         <th>Description</th>
         <th>Status</th>
         <th>Estimate(in hrs)</th>
         <th>Spent(in hrs)</th>
-    </tr>
-    <div >
-      <% for (let task of reportData.spentTimeData) { %>
-    <tr>
-        <td><%= task.taskDetails.backlogType %></td>
-        <td><%= task.taskDetails.description %></td>
-        <td><%= task.taskDetails.status %></td>
-        <td><%= task.taskDetails.estimatedTime %></td>
-        <td><%= task.spentTime %></td>
-    </tr>
-    <% } %>
-    </div>
-    <!-- <tr>
-        <td>72457</td>
-        <td>User Story</td>
-        <td>Add auth process</td>
-        <td>Completed</td>
-        <td>7 hrs</td>
-        <td>4 hrs</td>
-    </tr>
-    <tr>
-        <td>72458</td>
-        <td>Bug</td>
-        <td>Responsive issue</td>
-        <td>Completed</td>
-        <td>2 hrs</td>
-        <td>1.5 hrs</td>
-    </tr>
-    <tr>
-        <td>72459</td>
-        <td>User Story</td>
-        <td>Add admin module</td>
-        <td>In progress</td>
-        <td>10 hrs</td>
-        <td>15 hrs</td>
-    </tr>
-    <tr>
-        <td>72461</td>
-        <td>User Story</td>
-        <td>Add Project Module design</td>
-        <td>Completed</td>
-        <td>13 hrs</td>
-        <td>10 hrs</td>
-    </tr>
-    <tr>
-        <td>72462</td>
-        <td>User Story</td>
-        <td>Cleanup</td>
-        <td>Completed</td>
-        <td>3 hrs</td>
-        <td>3 hrs</td>
-    </tr>
-    <tr>
-      <td>72462</td>
-      <td>User Story</td>
-      <td>Cleanup</td>
-      <td>Completed</td>
-      <td>3 hrs</td>
-      <td>3 hrs</td>
-  </tr>
-  <tr>
-    <td>72462</td>
-    <td>User Story</td>
-    <td>Cleanup</td>
-    <td>Completed</td>
-    <td>3 hrs</td>
-    <td>3 hrs</td>
-</tr>
-<tr>
-  <td>72462</td>
-  <td>User Story</td>
-  <td>Cleanup</td>
-  <td>Completed</td>
-  <td>3 hrs</td>
-  <td>3 hrs</td>
-</tr>
-<tr>
-  <td>72462</td>
-  <td>User Story</td>
-  <td>Cleanup</td>
-  <td>Completed</td>
-  <td>3 hrs</td>
-  <td>3 hrs</td>
-</tr>
-<tr>
-  <td>72462</td>
-  <td>User Story</td>
-  <td>Cleanup</td>
-  <td>Completed</td>
-  <td>3 hrs</td>
-  <td>3 hrs</td>
-</tr>
-<tr>
-  <td>72462</td>
-  <td>User Story</td>
-  <td>Cleanup</td>
-  <td>Completed</td>
-  <td>3 hrs</td>
-  <td>3 hrs</td>
-</tr>
-<tr>
-  <td>72462</td>
-  <td>User Story</td>
-  <td>Cleanup</td>
-  <td>Completed</td>
-  <td>3 hrs</td>
-  <td>3 hrs</td>
-</tr>
-<tr>
-  <td>72462</td>
-  <td>User Story</td>
-  <td>Cleanup</td>
-  <td>Completed</td>
-  <td>3 hrs</td>
-  <td>3 hrs</td>
-</tr>
-<tr>
-  <td>72462</td>
-  <td>User Story</td>
-  <td>Cleanup</td>
-  <td>Completed</td>
-  <td>3 hrs</td>
-  <td>3 hrs</td>
-</tr>
-<tr>
-  <td>72462</td>
-  <td>User Story</td>
-  <td>Cleanup</td>
-  <td>Completed</td>
-  <td>3 hrs</td>
-  <td>3 hrs</td>
-</tr>
-<tr>
-  <td>72462</td>
-  <td>User Story</td>
-  <td>Cleanup</td>
-  <td>Completed</td>
-  <td>3 hrs</td>
-  <td>3 hrs</td>
-</tr>
-<tr>
-  <td>72462</td>
-  <td>User Story</td>
-  <td>Cleanup</td>
-  <td>Completed</td>
-  <td>3 hrs</td>
-  <td>3 hrs</td>
-</tr>
-<tr>
-  <td>72462</td>
-  <td>User Story</td>
-  <td>Cleanup</td>
-  <td>Completed</td>
-  <td>3 hrs</td>
-  <td>3 hrs</td>
-</tr> -->
-</table>
-<h3>Sprint Burndown(Sample - Functionality to be added in upcoming TnS version)</h3>
-<hr>
-<canvas style="display: none;" id="myChart"></canvas>
-<img src="" id="coolImage" alt="img">
-<!-- <div id="pageFooter"></div> -->
-</body>
-<script type="text/javascript">
-    var xValues = [2,4,6,8,10,12,14,16,18,20];
-    
-   var myLineChart= new Chart("myChart", {
+      </tr>
+      <div>
+        <% for (let task of reportData.spentTimeData) { %>
+        <tr>
+          <td><%= task.taskDetails.backlogType %></td>
+          <td><%= task.taskDetails.description %></td>
+          <td><%= task.taskDetails.status %></td>
+          <td><%= task.taskDetails.estimatedTime %></td>
+          <td><%= task.spentTime %></td>
+        </tr>
+        <% } %>
+      </div>
+    </table>
+    <h3>
+      Sprint Burndown(Sample - Functionality to be added in upcoming TnS
+      version)
+    </h3>
+    <hr />
+    <canvas style="display: none" id="myChart"></canvas>
+    <img src="" id="coolImage" alt="img" />
+    <!-- <div id="pageFooter"></div> -->
+  </body>
+  <script type="text/javascript">
+    var xValues = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+
+    var myLineChart = new Chart("myChart", {
       type: "line",
 
       data: {
         labels: xValues,
-        datasets: [{ 
-          data: [10,9,8,7,6,5,4,3,2,1],
-          borderColor: "red",
-          fill: false
-        }, { 
-          data: [10,8,8,7,7,7,6,6,3,2],
-          borderColor: "green",
-          fill: false
-        }, 
-        ]
+        datasets: [
+          {
+            data: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+            borderColor: "red",
+            fill: false,
+          },
+          {
+            data: [10, 8, 8, 7, 7, 7, 6, 6, 3, 2],
+            borderColor: "green",
+            fill: false,
+          },
+        ],
       },
       options: {
-        legend: {display: false},
+        legend: { display: false },
         animation: {
-          duration: 0
-        }
-      }
+          duration: 0,
+        },
+      },
     });
-    document.getElementById('coolImage').setAttribute('src', myLineChart.toBase64Image());
-    </script>
-</html> 
+    document
+      .getElementById("coolImage")
+      .setAttribute("src", myLineChart.toBase64Image());
+  </script>
+</html>

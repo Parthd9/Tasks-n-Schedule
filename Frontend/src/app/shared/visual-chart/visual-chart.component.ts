@@ -137,7 +137,7 @@ export class VisualChartComponent implements OnInit {
       return;
     }
     this.show=false;
-    console.log(this.form.value);
+    // console.log(this.form.value);
     setTimeout(() => {
       this.show = true;
     },2000)

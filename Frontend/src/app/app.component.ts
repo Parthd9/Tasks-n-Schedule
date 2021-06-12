@@ -26,7 +26,6 @@ export class AppComponent implements DoCheck, OnInit{
             //     this.authService.logout();
             //   }
             // })
-            console.log('In /');
             this.flagFooter = true;
           } else {
             this.flagFooter = false;
@@ -35,7 +34,6 @@ export class AppComponent implements DoCheck, OnInit{
           this.flagHeader = true;
           this.flagFooter = true;
         }
-        console.log('calling route:',this.router.url);
       } else {
         // this.route = "Home";
         console.log('In else');

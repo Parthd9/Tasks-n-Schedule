@@ -1,17 +1,21 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const { body } = require('express-validator');
-const authController = require('../controllers/auth');
-const authValidator = require('../validators/auth-validator');
-const isAuth = require('../middleware/is-auth');
+const { body } = require("express-validator");
+const authController = require("../controllers/auth");
+const authValidator = require("../validators/auth-validator");
+const isAuth = require("../middleware/is-auth");
 
-router.post('/signup', authValidator.signupValidation(),authController.signup);
-router.post('/login', [
-    body('email').isEmail().withMessage('Please enter a valid email address.'),
+router.post("/signup", authValidator.signupValidation(), authController.signup);
+router.post(
+  "/login",
+  [
+    body("email").isEmail().withMessage("Please enter a valid email address."),
     // .normalizeEmail(),
-    body('password', 'Password has to be valid.').trim().isLength({min: 6})
-],authController.login);
+    body("password", "Password has to be valid.").trim().isLength({ min: 6 }),
+  ],
+  authController.login
+);
 // router.post('/register-users', isAuth,authController.registerUsersData);
 
 module.exports = router;
