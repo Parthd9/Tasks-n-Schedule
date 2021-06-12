@@ -68,5 +68,6 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-db.mongoConnect(() => {
-});
+db.mongoConnect(() => {});
+
+module.exports = app;

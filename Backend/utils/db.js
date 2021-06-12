@@ -5,7 +5,9 @@ let _db;
 
 const mongoConnect = (callback) => {
   MongoClient.connect(
-    "mongodb+srv://admin_tns:<PASSWORD>@cluster0.3s6jw.mongodb.net/task-n-schedule?retryWrites=true&w=majority",
+    "mongodb+srv://admin_tns:" +
+      process.env.MONGO_ATLAS_PW +
+      "@cluster0.3s6jw.mongodb.net/task-n-schedule?retryWrites=true&w=majority",
     { useUnifiedTopology: true }
   )
     .then((client) => {
