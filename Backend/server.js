@@ -1,5 +1,4 @@
 const app = require("./app");
-const debug = require("debug")("task-n-schedule");
 const http = require("http");
 
 const normalizePort = (val) => {
@@ -40,7 +39,6 @@ const onError = (error) => {
 const onListening = () => {
   const addr = server.address();
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + port;
-  debug("Listening on " + bind);
 };
 
 const port = normalizePort(process.env.PORT || "3000");
